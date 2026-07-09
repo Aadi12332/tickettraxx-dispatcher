@@ -1,4 +1,4 @@
-import { RefreshCcw, SearchIcon } from "lucide-react";
+import { RefreshCcw } from "lucide-react";
 import PageHeader from "../../components/common/PageHeader";
 import { useState, useMemo, useEffect } from "react";
 import AssignLoadCard from "../../components/assign_loads/AssignLoadCard";
@@ -6,6 +6,8 @@ import DispatchAssignmentGrid from "../../components/assign_loads/DispatchAssign
 import CancelRerouteDrawer from "../../components/assign_loads/CancelRerouteDrawer";
 import DispatchDetailsModal from "../../components/assign_loads/DispatchDetailsModal";
 import DispatchAssignmentGridModal from "../../components/assign_loads/DispatchAssignmentGridModal";
+import UpscaleImg from "../../assets/icons/expand.svg";
+import searchIcon from "../../assets/icons/searchIcon.svg";
 import EditDispatchModal from "../../components/assign_loads/modal/EditDispatchModal";
 import LiveShipmentTrackingModal from "../../components/dashboard/modal/LiveShipmentTrackingModal";
 import LoadUpdateSuccessModal from "../../components/common/modal/LoadUpdateSuccessModal";
@@ -130,10 +132,7 @@ const AssignLoadsPage = () => {
       shrink-0
     "
           >
-            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 13.5H10.8333C11.5406 13.5 12.2189 13.219 12.719 12.719C13.219 12.2189 13.5 11.5406 13.5 10.8333V9.16667M8 13.5H5.16667C4.45942 13.5 3.78115 13.219 3.28105 12.719C2.78095 12.2189 2.5 11.5406 2.5 10.8333V8M8 13.5V10C8 9.46957 7.78929 8.96086 7.41421 8.58579C7.03914 8.21071 6.53043 8 6 8H2.5M2.5 8V5.16667C2.5 4.45942 2.78095 3.78115 3.28105 3.28105C3.78115 2.78095 4.45942 2.5 5.16667 2.5H6.83333M9.16667 2.5H12.8333C13.0173 2.5 13.184 2.57467 13.3047 2.69533M13.3047 2.69533C13.4297 2.82033 13.5 2.98987 13.5 3.16667V6.83333M13.3047 2.69533L12.8333 3.16667L9.16667 6.83333" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+            <img src={UpscaleImg} className="size-[18px]" />
           </button>
 
           {/* Date Filter */}
@@ -204,7 +203,7 @@ const AssignLoadsPage = () => {
           cursor-pointer
         "
               >
-                <SearchIcon className="w-4 h-4" />
+                <img src={searchIcon} alt="search" className="size-5" />
               </button>
             </div>
           </div>
@@ -237,10 +236,7 @@ const AssignLoadsPage = () => {
         cursor-pointer
       "
             >
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 13.5H10.8333C11.5406 13.5 12.2189 13.219 12.719 12.719C13.219 12.2189 13.5 11.5406 13.5 10.8333V9.16667M8 13.5H5.16667C4.45942 13.5 3.78115 13.219 3.28105 12.719C2.78095 12.2189 2.5 11.5406 2.5 10.8333V8M8 13.5V10C8 9.46957 7.78929 8.96086 7.41421 8.58579C7.03914 8.21071 6.53043 8 6 8H2.5M2.5 8V5.16667C2.5 4.45942 2.78095 3.78115 3.28105 3.28105C3.78115 2.78095 4.45942 2.5 5.16667 2.5H6.83333M9.16667 2.5H12.8333C13.0173 2.5 13.184 2.57467 13.3047 2.69533M13.3047 2.69533C13.4297 2.82033 13.5 2.98987 13.5 3.16667V6.83333M13.3047 2.69533L12.8333 3.16667L9.16667 6.83333" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+              <img src={UpscaleImg} className="size-[18px]" />
             </button>
           </div>
         </div>
