@@ -1,6 +1,6 @@
 import { Modal } from "@mui/material";
 import AssignLoadCard from "../assign_loads/AssignLoadCard";
-import collapsed from "../../assets/Icons/collapsed.svg";
+import collapsed from "../../assets/icons/collapsed.svg";
 import { useAppSelector } from "../../store";
 import { useMemo } from "react";
 import { selectLoadCards, type AssignLoadCardData } from "../../store/dispatchSlice";

@@ -1,5 +1,5 @@
 import { Modal } from "@mui/material";
-import collapsed from "../../assets/Icons/collapsed.svg";
+import collapsed from "../../assets/icons/collapsed.svg";
 import DispatchAssignmentGrid from "./DispatchAssignmentGrid";
 
 interface Props {
