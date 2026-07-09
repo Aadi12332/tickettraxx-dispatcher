@@ -11,7 +11,7 @@ import CalendarModal from "../../components/common/modal/CalendorModal";
 import CommonButton from "../../components/common/CommonButton";
 
 const columns = [
-  { label: "#", key: "id" },
+  { label: "#", key: "id", width: "70px" },
   { label: "Customer", key: "customer" },
   { label: "Type", key: "type" },
   { label: "Pickup/Deliver", key: "pickupDeliver" },

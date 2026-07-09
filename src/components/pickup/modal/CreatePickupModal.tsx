@@ -5,7 +5,7 @@ import CommonTextInput from "../../common/CommonTextInput";
 import CommonButton from "../../common/CommonButton";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import { thirdPartyCustomerOptions } from "../../../utils/data";
+import { thirdPartyCustomerOptions, pickupCustomerOptions, pickupCreateOptions } from "../../../utils/data";
 
 function MapClickHandler({ onMapClick }: { onMapClick: (e: any) => void }) {
   useMapEvents({
@@ -154,12 +154,31 @@ const CreatePickupModal = ({
                 ]}
               />
 
-              <CommonTextInput
-                label={`${formData.type || "Location"} Location`}
+              {/* <CommonTextInput
+                label={`${formData.type || "Location"}`}
                 value={formData.location}
                 placeholder="Enter"
                 onChange={handleChange("location")}
-              />
+              /> */}
+
+              {formData.type === "Pickup" ? (
+  <CommonSelectInput
+    label="Pickup"
+    value={formData.location}
+    placeholder="Select one..."
+    onChange={handleChange("location")}
+    options={pickupCreateOptions}
+    addNewLabel="Add New"
+    onAddNew={() => {}}
+  />
+) : (
+  <CommonTextInput
+    label={`${formData.type || "Location"}`}
+    value={formData.location}
+    placeholder="Enter"
+    onChange={handleChange("location")}
+  />
+)}
 
               {formData.type && (
                 <>
@@ -187,19 +206,22 @@ const CreatePickupModal = ({
                         </MapContainer>
                       </div>
 
-                      <input
+                      {/* <input
                         value={formData.location}
                         readOnly
                         className="w-full h-[44px] px-4 outline-none text-sm"
-                      />
+                      /> */}
                     </div>
                   </div>
-                  <CommonTextInput
-                    label="Customer's Name"
-                    value={formData.customer}
-                    placeholder="Enter"
-                    onChange={handleChange("customer")}
-                  />
+                  <CommonSelectInput
+  label="Customer's Name"
+  value={formData.customer}
+  placeholder="Select one..."
+  onChange={handleChange("customer")}
+  options={pickupCustomerOptions}
+  addNewLabel="Add New"
+  onAddNew={() => {}}
+/>
 
                   <CommonTextInput
                     label="Contractor Rate"

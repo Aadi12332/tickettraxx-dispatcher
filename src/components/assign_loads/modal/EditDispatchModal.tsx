@@ -139,7 +139,7 @@ const EditDispatchModal = ({
   return (
     <Modal open={open} onClose={handleClose}>
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-[9999]">
-        <div className="w-full max-w-[600px] bg-white rounded-[8px] shadow-sm h-[90dvh] flex flex-col overflow-hidden">
+        <div className="w-full max-w-[600px] bg-white rounded-[8px] shadow-sm max-h-[90dvh] flex flex-col overflow-hidden">
           <div className="shrink-0 px-3 py-3 xl:px-4 xl:py-3 flex items-start justify-between">
             <div>
               <h2 className="text-lg xl:text-xl font-normal text-black">

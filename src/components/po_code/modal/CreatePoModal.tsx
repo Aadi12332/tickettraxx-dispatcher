@@ -3,14 +3,44 @@ import { X, Plus } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import CommonTextInput from "../../common/CommonTextInput";
 import CommonSelectInput from "../../common/CommonSelectInput";
-import { customerOptions } from "../../fsc/modal/CreateFscModal";
-import { materialOptions } from "../../contractor/AddJobModal";
+
 import {
   deliveryOptions,
   pickupOptions,
+  poCustomerOptions,
   thirdPartyCustomerOptions2,
 } from "../../../utils/data";
 
+const materialOptions = [
+  {
+    label: "Silica Sand",
+    value: "Silica Sand",
+  },
+  {
+    label: "Crushed Granite",
+    value: "Crushed Granite",
+  },
+  {
+    label: "Quartz Sand",
+    value: "Quartz Sand",
+  },
+  {
+    label: "Limestone Gravel",
+    value: "Limestone Gravel",
+  },
+  {
+    label: "Pea Gravel",
+    value: "Pea Gravel",
+  },
+  {
+    label: "Crushed Stone",
+    value: "Crushed Stone",
+  },
+  {
+    label: "River Sand",
+    value: "River Sand",
+  },
+];
 interface CreatePOCodeModalProps {
   open: boolean;
   onClose: () => void;
@@ -123,7 +153,7 @@ const CreatePOCodeModal = ({
                 value={formData.customer}
                 placeholder="Select one..."
                 onChange={handleChange("customer")}
-                options={customerOptions}
+                options={poCustomerOptions}
               />
 
               <CommonSelectInput
@@ -132,6 +162,7 @@ const CreatePOCodeModal = ({
                 placeholder="Select one..."
                 onChange={handleChange("thirdPartyCustomer")}
                 options={thirdPartyCustomerOptions2}
+                addNewLabel="Add New"
               />
 
               <CommonTextInput
@@ -156,6 +187,7 @@ const CreatePOCodeModal = ({
                 placeholder="Select one..."
                 onChange={handleChange("pickup")}
                 options={pickupOptions}
+                addNewLabel="Add New"
               />
 
               <CommonSelectInput
@@ -165,6 +197,7 @@ const CreatePOCodeModal = ({
                 onChange={handleChange("deliver")}
                 options={deliveryOptions}
                 addNewLabel="Add New"
+                addNewMode="modal"  
                 onAddNew={onOpenPickupModal}
               />
             </div>

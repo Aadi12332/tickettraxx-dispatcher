@@ -53,10 +53,11 @@ export const statementColumns = [
   },
   {
     label: "Ticket Status",
+    width: "120px",
     key: "ticketStatus",
     render: (item: any) => (
       <span
-        className={`px-1 py-1 rounded-[4px] text-white text-[10px] font-medium ${
+        className={`px-1 py-2 rounded-[4px] text-white text-[14px] font-medium ${
           item.ticketStatus === "Approved" ? "bg-[#22C55E]" : "bg-[#EAB308]"
         }`}
       >
@@ -66,10 +67,11 @@ export const statementColumns = [
   },
   {
     label: "Invoice Status",
+    width: "120px",
     key: "invoiceStatus",
     render: (item: any) => (
       <span
-        className={`px-1 py-1 rounded-[4px] text-white text-[10px] font-medium ${
+        className={`px-1 py-2 rounded-[4px] text-white text-[14px] font-medium ${
           item.invoiceStatus === "Approved" ? "bg-[#22C55E]" : "bg-[#EAB308]"
         }`}
       >
@@ -79,10 +81,11 @@ export const statementColumns = [
   },
   {
     label: "Settlement Status",
+    width: "150px",
     key: "settlementStatus",
     render: (item: any) => (
       <span
-        className={`px-1 py-1 rounded-[4px] text-white text-[10px] font-medium ${
+        className={`px-1 py-2 rounded-[4px] text-white text-[14px] font-medium ${
           item.settlementStatus === "Approved" ? "bg-[#22C55E]" : "bg-[#EAB308]"
         }`}
       >
@@ -302,12 +305,16 @@ const TicketsTab = () => {
               ]}
             />
           </div>
-          <Table
+          <div className="overflow-x-auto">
+            <div className="min-w-[1800px]">
+              <Table
             columns={statementColumns}
             data={contractorStatementData}
             onEdit={(item) => console.log("Edit Material:", item)}
             onDelete={(item) => console.log("Delete Material:", item)}
           />
+            </div>
+          </div>
         </div>
       </div>
       <CalendarModal

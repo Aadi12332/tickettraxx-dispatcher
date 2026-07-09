@@ -18,6 +18,21 @@ export const poCodeOptions = [
   { label: "1516171819", value: "1516171819" },
 ];
 
+export const pickupCustomerOptions = [
+  { label: "Kevin Mark", value: "Kevin Mark" },
+  { label: "Desirae Geidt", value: "Desirae Geidt" },
+  { label: "Cooper Septimus", value: "Cooper Septimus" },
+  { label: "Marley George", value: "Marley George" },
+  { label: "Kadin Westervelt", value: "Kadin Westervelt" },
+  { label: "Ruben Botosh", value: "Ruben Botosh" },
+  { label: "Dulce Lipshutz", value: "Dulce Lipshutz" },
+  { label: "Talan Carder", value: "Talan Carder" },
+  { label: "Zaire Donin", value: "Zaire Donin" },
+  { label: "James Stanton", value: "James Stanton" },
+  { label: "Leo Lubin", value: "Leo Lubin" },
+  { label: "Gustavo Siphron", value: "Gustavo Siphron" },
+];
+
 export const truckOptions = [
   { label: "Single", value: "single" },
   { label: "Mulitple", value: "mulitple" },
@@ -162,6 +177,53 @@ export const deliveryOptions = [
   {
     label: "159 Eastwood Ave, Eastwood, TX 75028",
     value: "159 Eastwood Ave, Eastwood, TX 75028",
+  },
+];
+
+export const pickupCreateOptions = [
+  {
+    label: "Hanson Lake",
+    value: "Hanson Lake",
+  },
+  {
+    label: "789 Riverview Drive, Riverview, FL 33569",
+    value: "789 Riverview Drive, Riverview, FL 33569",
+  },
+  {
+    label: "321 Oakridge Blvd, Oakridge, OR 97463",
+    value: "321 Oakridge Blvd, Oakridge, OR 97463",
+  },
+  {
+    label: "654 Pine Valley Rd, Pine Valley, CA 91962",
+    value: "654 Pine Valley Rd, Pine Valley, CA 91962",
+  },
+  {
+    label: "987 Cedar Grove Ave, Cedar Grove, NJ 07009",
+    value: "987 Cedar Grove Ave, Cedar Grove, NJ 07009",
+  },
+  {
+    label: "246 Lakewood Circle, Lakewood, WA 98499",
+    value: "246 Lakewood Circle, Lakewood, WA 98499",
+  },
+  {
+    label: "Talan Carder",
+    value: "Talan Carder",
+  },
+  {
+    label: "Zaire Donin",
+    value: "Zaire Donin",
+  },
+  {
+    label: "James Stanton",
+    value: "James Stanton",
+  },
+  {
+    label: "Leo Lubin",
+    value: "Leo Lubin",
+  },
+  {
+    label: "Gustavo Siphron",
+    value: "Gustavo Siphron",
   },
 ];
 

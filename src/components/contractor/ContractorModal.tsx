@@ -32,7 +32,6 @@ const stateOptions = [
 }));
 
 const cityOptions = [
-  { label: "Add New", value: "add_new" },
   { label: "Granite City", value: "Granite City" },
   { label: "Slate Town", value: "Slate Town" },
   { label: "Quartz Valley", value: "Quartz Valley" },
@@ -91,7 +90,7 @@ const ContractorModal = ({
   isEdit = false,
 }: ContractorModalProps) => {
   const [form, setForm] = useState(initialForm);
-
+const [cityOptionsState, setCityOptionsState] = useState(cityOptions);
   const handleClose = () => {
     setForm(initialForm);
     onClose();
@@ -184,18 +183,31 @@ const ContractorModal = ({
                 options={stateOptions}
               />
 
-              <CommonSelectInput
-                label="City"
-                value={form.city}
-                onChange={(value) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    city: value,
-                  }))
-                }
-                placeholder="Select one..."
-                options={cityOptions}
-              />
+<CommonSelectInput
+  label="City"
+  value={form.city}
+  options={cityOptionsState}
+  onChange={(value) =>
+    setForm((prev) => ({
+      ...prev,
+      city: value,
+    }))
+  }
+  addNewLabel="+ Add New City"
+  onAddNew={(cityName) => {
+    const newCity = {
+      label: cityName,
+      value: cityName,
+    };
+
+    setCityOptionsState((prev) => [...prev, newCity]);
+
+    setForm((prev) => ({
+      ...prev,
+      city: cityName,
+    }));
+  }}
+/>
 
               <div className="md:col-span-2">
                 <CommonSelectInput

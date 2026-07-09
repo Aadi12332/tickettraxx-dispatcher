@@ -242,21 +242,21 @@ const AssignLoadsPage = () => {
         </div>
       </PageHeader>
       <style>{`
-  .cards-scroll::-webkit-scrollbar {
-    height: 6px;
-  }
-  .cards-scroll::-webkit-scrollbar-track {
-    background: #D9D9D9;
-    border-radius: 99px;
-  }
-  .cards-scroll::-webkit-scrollbar-thumb {
-    background: #1D3461;
-    border-radius: 99px;
-  }
-  .cards-scroll::-webkit-scrollbar-thumb:hover {
-    background: #1D3461;
-  }
-`}</style>
+        .cards-scroll::-webkit-scrollbar {
+          height: 6px;
+        }
+        .cards-scroll::-webkit-scrollbar-track {
+          background: #D9D9D9;
+          border-radius: 99px;
+        }
+        .cards-scroll::-webkit-scrollbar-thumb {
+          background: #1D3461;
+          border-radius: 99px;
+        }
+        .cards-scroll::-webkit-scrollbar-thumb:hover {
+          background: #1D3461;
+        }
+      `}</style>
 
       <div className="relative w-full mt-3">
         {/* Cards Layer */}
@@ -281,8 +281,8 @@ const AssignLoadsPage = () => {
           </div>
         </div>
 
-        <div className="pt-[154px] relative z-1">
-          <div className="bg-white rounded-[12px] border border-(--border-gray-2) min-h-[500px] p-1 w-full overflow-visible">
+        <div className="pt-[154px] relative z-1 w-full overflow-auto">
+          <div className="min-h-[500px] min-w-[1400px]">
             <DispatchAssignmentGrid
               onOpenCancelDrawer={() => setOpenCancelDrawer(true)}
               onRowClicked={() => setIsLiveTrackingModalOpen(true)}

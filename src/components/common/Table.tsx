@@ -16,6 +16,8 @@ interface Column {
   render?: (item: any) => React.ReactNode;
   textColor?: string;
   sortable?: boolean;
+    width?: string; 
+  minWidth?: string;
 }
 
 interface TableProps {
@@ -77,7 +79,7 @@ const Table = ({
           <thead>
             <tr className="bg-[#F9FAFB] border border-[#E8E8E8]">
               {isCheckbox && (
-                <th className="xl:w-[34px] px-1 py-3 text-center">
+                <th className="xl:w-[45px] py-3 text-left">
                   <Checkbox size="small" />
                 </th>
               )}
@@ -85,30 +87,34 @@ const Table = ({
               {columns.map((column) => (
                 <th
                   key={column.key}
+                    style={{
+    width: column.width,
+    minWidth: column.minWidth,
+  }}
                   className={`
-          py-3 text-xs xl:text-sm font-medium text-[#1F2937]
-          ${
-            column.key === "actions"
-              ? "text-left px-2"
-              : column.key === "materials"
-                ? "text-left px-2"
-                : "text-center px-1"
-          }
-        `}
+                    py-3 text-xs xl:text-sm font-medium text-[#1F2937]
+                    ${
+                      column.key === "actions"
+                        ? "text-left px-2"
+                        : column.key === "materials"
+                          ? "text-left px-2"
+                          : "text-left px-1"
+                    }
+                  `}
                 >
                   <div
                     className={`flex items-center gap-2 min-w-0
-            ${
-              column.key === "actions" || column.key === "materials"
-                ? "justify-start"
-                : "justify-center"
-            }
-            ${
-              column.key !== "actions" && column.sortable !== false
-                ? "cursor-pointer"
-                : ""
-            }
-          `}
+                      ${
+                        column.key === "actions" || column.key === "materials"
+                          ? "justify-start"
+                          : "justify-start"
+                      }
+                      ${
+                        column.key !== "actions" && column.sortable !== false
+                          ? "cursor-pointer"
+                          : ""
+                      }
+                    `}
                     onClick={() =>
                       column.key !== "actions" &&
                       column.sortable !== false &&
@@ -142,7 +148,7 @@ const Table = ({
                 }`}
               >
                 {isCheckbox && (
-                  <td className="xl:w-[34px] xl:px-2 py-3 text-center">
+                  <td className="xl:w-[45px] py-3 text-left">
                     <Checkbox size="small" />
                   </td>
                 )}
@@ -150,17 +156,21 @@ const Table = ({
                 {columns.map((column) => (
                   <td
                     key={column.key}
+                      style={{
+    width: column.width,
+    minWidth: column.minWidth,
+  }}
                     className={`
-    px-1 py-3 text-[11px] sm:text-xs xl:text-sm
-    ${column.textColor ?? "text-[#707070]"}
-    ${
-      column.key === "actions"
-        ? "text-left"
-        : column.key === "materials"
-          ? "text-left"
-          : "text-center"
-    }
-  `}
+                      px-1 py-3 text-[11px] sm:text-xs xl:text-sm
+                      ${column.textColor ?? "text-[#707070]"}
+                      ${
+                        column.key === "actions"
+                          ? "text-left"
+                          : column.key === "materials"
+                            ? "text-left"
+                            : "text-left"
+                      }
+                    `}
                   >
                     {column.key === "status" ? (
                       <StatusToggle

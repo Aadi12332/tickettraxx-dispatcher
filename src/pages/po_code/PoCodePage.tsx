@@ -89,10 +89,19 @@ const columns = [
   { label: "Deliver", key: "deliver" },
   { label: "Material", key: "material" },
   { label: "Customer", key: "customer" },
-  { label: "Third Party Customer", key: "thirdPartyCustomer" },
-  { label: "Rate", key: "rate" },
+  {
+    label: "Third Party Customer",
+    key: "thirdPartyCustomer",
+    width: "200px", 
+  },
+  {
+    label: "Rate",
+    key: "rate",
+    width: "90px",
+  },
   { label: "Details", key: "actions" },
 ];
+
 const POCode = () => {
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);

@@ -2,6 +2,7 @@ import { Search, Menu, LogOut } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import Bell from "../../assets/icons/NotificationBell.svg";
 import { useNavigate } from "react-router-dom";
+import NotificationDrawer from "./NotificationDrawer";
 
 interface HeaderProps {
   setIsMobileOpen?: (open: boolean) => void;
@@ -11,6 +12,15 @@ const Header = ({ setIsMobileOpen }: HeaderProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      title: "Load was canceled by the driver",
+      description:
+        "Driver Ahmad Ekstrom Bothman has canceled CELINA's load associated with Job ID #12790.",
+    },
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -68,10 +78,15 @@ const Header = ({ setIsMobileOpen }: HeaderProps) => {
             <Mail size={20} className="lg:w-6 lg:h-6" strokeWidth={1.5} />
           </button> */}
 
-          <button className="text-black hover:text-gray-800 transition-colors cursor-pointer sm:-ml-2">
+          <button onClick={() => setNotifOpen((v) => !v)} className="text-black hover:text-gray-800 transition-colors cursor-pointer sm:-ml-2">
             <img src={Bell} alt="Bell" className="size-8 lg:size-10" />
           </button>
         </div>
+
+        <NotificationDrawer
+              open={notifOpen}
+              onClose={() => setNotifOpen(false)}
+            />
 
         {/* User Profile */}
         <div 

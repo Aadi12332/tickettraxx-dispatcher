@@ -39,7 +39,7 @@ const CommonPhoneInput = ({
       </label>
 
       <div className="flex gap-1">
-        <FormControl sx={{ width: 100 }}>
+        <FormControl sx={{ width: 80 }}>
           <Select
             value={countryCode}
             onChange={(e) => onCountryChange?.(e.target.value)}
@@ -52,7 +52,7 @@ const CommonPhoneInput = ({
             )}
             sx={{
               height: 40,
-              width:70,
+              width:60,
               borderRadius: "8px",
               fontSize: 12,
               paddingX:0,
@@ -61,6 +61,9 @@ const CommonPhoneInput = ({
                 borderColor: "#E5E7EB",
                 borderWidth: "0.85px",
                 padding:"0px"
+              },
+              "& .MuiSelect-select.MuiSelect-outlined": {
+                padding:"0px 10px"
               },
             }}
             
@@ -75,7 +78,7 @@ const CommonPhoneInput = ({
 
         <TextField
           fullWidth
-          value={phone}
+          value={phone.replace(/^\+\d+\s*/, "")}
           placeholder={placeholder}
           onChange={(e) => handlePhoneChange(e.target.value)}
           sx={{

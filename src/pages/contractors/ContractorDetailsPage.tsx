@@ -20,6 +20,9 @@ import {
   SquarePen,
   FolderOpen,
   MoreVertical,
+  Mic,
+  MicOff,
+  X,
 } from "lucide-react";
 import CommonButton from "../../components/common/CommonButton";
 import placeholderUser from "../../assets/images/placeholderUser.svg";
@@ -145,22 +148,19 @@ const ContractorDetailsPage = () => {
   const [showAddJobModal, setShowAddJobModal] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [showConfirmTooltip, setShowConfirmTooltip] = useState(false);
-  // const [_, setJobForm] = useState({
-  //   jobName: "",
-  //   material: "",
-  //   weight: "",
-  //   truckId: "",
-  // });
 
-  // const handleJobFormChange = (field: string, value: string) => {
-  //   setJobForm((prev) => ({ ...prev, [field]: value }));
-  // };
+  const [openCallModal, setOpenCallModal] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
-  // const handleAddJob = () => {
-  //   // TODO: wire up to API
-  //   setShowAddJobModal(false);
-  //   setJobForm({ jobName: "", material: "", weight: "", truckId: "" });
-  // };
+  const handleSendMail = () => {
+    const subject = encodeURIComponent("Hello John Mason");
+    const body = encodeURIComponent("Hi John,");
+
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${contractor.email}&su=${subject}&body=${body}`,
+      "_blank",
+    );
+  };
 
   return (
     <div className="space-y-2 pb-10 px-0">
@@ -205,11 +205,19 @@ const ContractorDetailsPage = () => {
           </div>
 
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-3 w-full sm:w-auto sm:ml-auto">
-            <button className="gap-2 bg-[#233B73] hover:bg-[#1c305d] text-white text-sm font-medium h-9 sm:h-10 xl:w-[186px] rounded-[5px] px-2 transition-colors flex justify-center items-center">
-              <Phone size={14} /> Call
+            <button
+              onClick={() => setOpenCallModal(true)}
+              className="gap-2 bg-[#233B73] hover:bg-[#1c305d] text-white text-sm font-medium h-9 sm:h-10 xl:w-[186px] rounded-[5px] px-2 transition-colors flex justify-center items-center"
+            >
+              <Phone size={14} />
+              Call
             </button>
-            <button className="flex justify-center items-center gap-2 bg-[#233B73] hover:bg-[#1c305d] text-white text-sm font-medium h-9 sm:h-10 px-2 xl:w-[180px] rounded-[5px] transition-colors">
-              <MessageCircleIcon size={15} /> Message
+            <button
+              onClick={handleSendMail}
+              className="flex justify-center items-center gap-2 bg-[#233B73] hover:bg-[#1c305d] text-white text-sm font-medium h-9 sm:h-10 px-2 xl:w-[180px] rounded-[5px] transition-colors"
+            >
+              <MessageCircleIcon size={15} />
+              Message
             </button>
             <div className="relative">
               <button
@@ -222,13 +230,15 @@ const ContractorDetailsPage = () => {
               </button>
 
               {showConfirmTooltip && (
-                <div className="absolute top-[calc(100%+12px)] right-0 w-[340px] bg-white rounded-lg shadow-xl border border-gray-100 p-4 z-50">
+                <div className="absolute top-[calc(100%+12px)] right-0 w-[400px] bg-white rounded-lg shadow-xl border border-gray-100 p-4 z-50">
                   <h3 className="text-[15px] font-semibold text-center text-black mb-2">
-                    Are you sure want to {isActive ? "deactivate" : "activate"} the account
+                    Are you sure want to {isActive ? "deactivate" : "activate"}{" "}
+                    the account
                   </h3>
                   <p className="text-[11px] text-center text-black leading-relaxed mb-4">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s
                   </p>
                   <div className="flex gap-3">
                     <button
@@ -236,13 +246,13 @@ const ContractorDetailsPage = () => {
                         setIsActive(!isActive);
                         setShowConfirmTooltip(false);
                       }}
-                      className="flex-1 bg-[#E30000] hover:bg-[#c20000] text-white py-2 rounded-md font-medium transition-colors cursor-pointer"
+                      className="flex-1 bg-[#03C95A] hover:bg-[#008f35] text-white py-2 rounded-md font-medium transition-colors cursor-pointer"
                     >
                       Yes
                     </button>
                     <button
                       onClick={() => setShowConfirmTooltip(false)}
-                      className="flex-1 bg-[#00A93F] hover:bg-[#008f35] text-white py-2 rounded-md font-medium transition-colors cursor-pointer"
+                      className="flex-1 bg-[#E30000] hover:bg-[#c20000] text-white py-2 rounded-md font-medium transition-colors cursor-pointer"
                     >
                       No
                     </button>
@@ -496,6 +506,70 @@ const ContractorDetailsPage = () => {
         onClose={() => setOpenEditContractorModal(false)}
         isEdit
       />
+
+      {openCallModal && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/50 z-[9998]"
+            onClick={() => setOpenCallModal(false)}
+          />
+
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+            <div className="w-full max-w-[600px] rounded-xl bg-[#162341] overflow-hidden">
+              {/* Header */}
+              <div className="flex items-center justify-between p-5">
+                <h2 className="text-[#87C8E8] text-[20px] font-semibold">
+                  TICKET<span className="text-[#fff]">TRAXX</span>
+                </h2>
+
+                <button
+                  className="cursor-pointer"
+                  onClick={() => setOpenCallModal(false)}
+                >
+                  <X size={28} className="text-white" />
+                </button>
+              </div>
+
+              {/* Body */}
+              <div className="flex flex-col items-center pt-10 pb-5 px-5">
+                <img
+                  src={placeholderUser}
+                  alt="placeholderUser"
+                  className="w-[100px] h-[100px] rounded-full border-4 border-white object-cover"
+                />
+
+                <h2 className="mt-5 text-white text-[24px] font-bold">
+                  John Mason
+                </h2>
+
+                <p className="text-white text-[16px] mt-2">+1 458 7877 879</p>
+
+                <p className="text-white text-[16px] mt-2">Voice Call</p>
+
+                {/* Mute */}
+                <button
+                  onClick={() => setIsMuted((prev) => !prev)}
+                  className="mt-10 w-[48px] h-[48px] cursor-pointer rounded-full bg-[#455271] flex items-center justify-center"
+                >
+                  {isMuted ? (
+                    <MicOff size={22} color="white" />
+                  ) : (
+                    <Mic size={22} color="white" />
+                  )}
+                </button>
+
+                {/* End Call */}
+                <button
+                  onClick={() => setOpenCallModal(false)}
+                  className="mt-10 w-full h-[54px] cursor-pointer rounded-full bg-[#FF140A] flex items-center justify-center hover:bg-red-700 transition"
+                >
+                  <Phone size={24} color="white" className="rotate-[135deg]" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
