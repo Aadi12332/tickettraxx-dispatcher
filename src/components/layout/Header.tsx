@@ -13,14 +13,6 @@ const Header = ({ setIsMobileOpen }: HeaderProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [notifOpen, setNotifOpen] = useState(false);
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      title: "Load was canceled by the driver",
-      description:
-        "Driver Ahmad Ekstrom Bothman has canceled CELINA's load associated with Job ID #12790.",
-    },
-  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
