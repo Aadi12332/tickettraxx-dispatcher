@@ -1,0 +1,273 @@
+import { Checkbox } from "@mui/material";
+import { ArrowUpDown, CircleCheck, Eye } from "lucide-react";
+import delete_orange from "../../assets/icons/delete_orange.svg";
+import Edit from "../../assets/icons/editfilled.svg";
+// import view from "../../assets/icons/EyeClosed.svg";
+import { ActionButton } from "../dispatch/DispatchMobileCard";
+import CommonPagination from "./CommonPagination";
+import StatusToggle from "./StatusToggle";
+import { useState } from "react";
+import LoadUpdateSuccessModal from "./modal/LoadUpdateSuccessModal";
+import CommonConfirmModal from "./modal/CommonConfirmModal";
+
+interface Column {
+  label: string;
+  key: string;
+  render?: (item: any) => React.ReactNode;
+  textColor?: string;
+  sortable?: boolean;
+}
+
+interface TableProps {
+  data: any[];
+  columns: Column[];
+  onEdit?: (item: any) => void;
+  onDelete?: (item: any) => void;
+  onStatusToggle?: (item: any) => void;
+  onRowClick?: (item: any) => void;
+  isCheckbox?: boolean;
+}
+
+const Table = ({
+  data,
+  onEdit,
+  onDelete,
+  columns,
+  onStatusToggle,
+  onRowClick,
+  isCheckbox = true,
+}: TableProps) => {
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: "asc" | "desc";
+  } | null>(null);
+
+  const [deleteItem, setDeleteItem] = useState<any>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const handleSort = (key: string) => {
+    let direction: "asc" | "desc" = "asc";
+
+    if (sortConfig?.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+
+    setSortConfig({ key, direction });
+  };
+  const sortedData = [...data].sort((a, b) => {
+    if (!sortConfig) return 0;
+
+    const aValue = a[sortConfig.key];
+    const bValue = b[sortConfig.key];
+
+    if (aValue < bValue) {
+      return sortConfig.direction === "asc" ? -1 : 1;
+    }
+    if (aValue > bValue) {
+      return sortConfig.direction === "asc" ? 1 : -1;
+    }
+
+    return 0;
+  });
+
+  return (
+    <div className="w-full bg-white p-1 xl:p-2">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[900px] sm:min-w-full lg:table-fixed border-collapse font-archivo">
+          <thead>
+            <tr className="bg-[#F9FAFB] border border-[#E8E8E8]">
+              {isCheckbox && (
+                <th className="xl:w-[34px] px-1 py-3 text-center">
+                  <Checkbox size="small" />
+                </th>
+              )}
+
+              {columns.map((column) => (
+                <th
+                  key={column.key}
+                  className={`
+          py-3 text-xs xl:text-sm font-medium text-[#1F2937]
+          ${
+            column.key === "actions"
+              ? "text-left px-2"
+              : column.key === "materials"
+                ? "text-left px-2"
+                : "text-center px-1"
+          }
+        `}
+                >
+                  <div
+                    className={`flex items-center gap-2 min-w-0
+            ${
+              column.key === "actions" || column.key === "materials"
+                ? "justify-start"
+                : "justify-center"
+            }
+            ${
+              column.key !== "actions" && column.sortable !== false
+                ? "cursor-pointer"
+                : ""
+            }
+          `}
+                    onClick={() =>
+                      column.key !== "actions" &&
+                      column.sortable !== false &&
+                      handleSort(column.key)
+                    }
+                  >
+                    <span className="truncate whitespace-nowrap">
+                      {column.label}
+                    </span>
+
+                    {column.key !== "actions" && column.sortable !== false && (
+                      <ArrowUpDown
+                        size={14}
+                        color="#707070"
+                        className="shrink-0"
+                      />
+                    )}
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+
+          <tbody className=" border-x border-[#E8E8E8]">
+            {sortedData.map((item) => (
+              <tr
+                key={item.id}
+                onClick={() => onRowClick?.(item)}
+                className={`border-b border-[#E5E7EB] bg-white hover:border-gray-300 ${
+                  onRowClick ? "cursor-pointer" : ""
+                }`}
+              >
+                {isCheckbox && (
+                  <td className="xl:w-[34px] xl:px-2 py-3 text-center">
+                    <Checkbox size="small" />
+                  </td>
+                )}
+
+                {columns.map((column) => (
+                  <td
+                    key={column.key}
+                    className={`
+    px-1 py-3 text-[11px] sm:text-xs xl:text-sm
+    ${column.textColor ?? "text-[#707070]"}
+    ${
+      column.key === "actions"
+        ? "text-left"
+        : column.key === "materials"
+          ? "text-left"
+          : "text-center"
+    }
+  `}
+                  >
+                    {column.key === "status" ? (
+                      <StatusToggle
+                        active={item.status === "Active"}
+                        onToggle={(e) => {
+                          e.stopPropagation();
+                          onStatusToggle?.(item);
+                        }}
+                      />
+                    ) : column.key === "actions" ? (
+                      <div className="flex lg:flex-wrap items-center gap-1.5">
+                        <ActionButton
+                          icon={<img src={Edit} alt="edit" />}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onEdit?.(item);
+                          }}
+                        />
+
+                        <ActionButton
+                          icon={<img src={delete_orange} alt="delete" />}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDeleteItem(item);
+                            setShowDeleteModal(true);
+                          }}
+                        />
+                      </div>
+                    ) : column.key === "ticketAction" ? (
+                      <div className="flex flex-wrap items-center justify-center gap-[0.4vw]">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // onView?.(item);
+                          }}
+                          className="p-0.5  border border-[#E8E8E8] rounded-sm flex items-center justify-center  hover:bg-gray-100 transition-colors cursor-pointer"
+                        >
+                          <Eye strokeWidth={2.5} size={16} color="#707070" />
+                        </button>
+
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // onApprove?.(item);
+                          }}
+                          className="p-0.5  border border-[#E8E8E8] rounded-sm flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer"
+                        >
+                          <CircleCheck
+                            strokeWidth={2.5}
+                            size={16}
+                            color="#707070"
+                          />
+                        </button>
+                      </div>
+                    ) : column.render ? (
+                      column.render(item)
+                    ) : (
+                      <div
+                        className={
+                          column.key === "actions"
+                            ? ""
+                            : "overflow-hidden whitespace-nowrap text-ellipsis"
+                        }
+                      >
+                        {item[column.key]}
+                      </div>
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <CommonPagination
+        currentPage={1}
+        totalPages={15}
+        totalItems={16}
+        pageSize={10}
+        onPageChange={() => {}}
+      />
+      <CommonConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setDeleteItem(null);
+        }}
+        title="Are you sure you want to delete?"
+        description="This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={() => {
+          onDelete?.(deleteItem);
+          setShowDeleteModal(false);
+          setDeleteItem(null);
+          setShowSuccessModal(true);
+        }}
+      />
+
+      <LoadUpdateSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title="Deleted Successfully."
+      />
+    </div>
+  );
+};
+
+export default Table;

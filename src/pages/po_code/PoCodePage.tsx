@@ -1,0 +1,196 @@
+import { useState } from "react";
+import { Search, PlusCircle, RefreshCcw } from "lucide-react";
+
+import PageHeader from "../../components/common/PageHeader";
+import CreatePOCodeModal from "../../components/po_code/modal/CreatePoModal";
+import Table from "../../components/common/Table";
+import CommonButton from "../../components/common/CommonButton";
+import LoadUpdateSuccessModal from "../../components/common/modal/LoadUpdateSuccessModal";
+import CreatePickupModal from "../../components/pickup/modal/CreatePickupModal";
+import ExportButton from "../../components/common/ExportButton";
+
+const poCodeData = [
+  {
+    code: "55121100025",
+    date: "22/04/2025",
+    pickup: "115 Ambrose Street Bells, TX 75414",
+    deliver: "LMC-Plano-4950",
+    material: "Granite Dust",
+    customer: "AMRIZE",
+    thirdPartyCustomer: "GILCO CIVIL",
+    rate: "$14.00",
+  },
+  {
+    code: "55121100026",
+    date: "22/04/2025",
+    pickup: "Lake Bridgeport, TX 76426",
+    deliver: "Tom Harpool WTP Expansion PH2",
+    material: "Limestone",
+    customer: "HEIDELBERG MATERIALS",
+    thirdPartyCustomer: "MCCARTHY VAUGHN PARTNERSHIP",
+    rate: "$14.00",
+  },
+  {
+    code: "55121100027",
+    date: "22/04/2025",
+    pickup: "Ravenna - Resolve Aggregate Yard",
+    deliver: "LMC-Plano-4950",
+    material: "River Gravel",
+    customer: "RAVENNA-1",
+    thirdPartyCustomer: "RPM xConstruction, LLC",
+    rate: "$14.00",
+  },
+  {
+    code: "55121100028",
+    date: "22/04/2025",
+    pickup: "Ravenna - Resolve Aggregate Yard",
+    deliver: "LMC-Plano-4950",
+    material: "Clay Soil",
+    customer: "RAVENNA-2",
+    thirdPartyCustomer: "RPM xConstruction, LLC",
+    rate: "$14.00",
+  },
+  {
+    code: "55121100029",
+    date: "22/04/2025",
+    pickup: "54501 North Bridgeport Quarry",
+    deliver: "365340 - Tiseo Paving CO JOB",
+    material: "Pea Gravel",
+    customer: "MARTIN MARETTA",
+    thirdPartyCustomer: "----",
+    rate: "$14.00",
+  },
+  {
+    code: "55121100030",
+    date: "22/04/2025",
+    pickup: "54501 North Bridgeport Quarry",
+    deliver: "365340 - Tiseo Paving CO JOB",
+    material: "Pea Gravel",
+    customer: "MARTIN MARETTA",
+    thirdPartyCustomer: "RPM xConstruction, LLC",
+    rate: "$14.30",
+  },
+  {
+    code: "55121100032",
+    date: "22/04/2025",
+    pickup: "54501 North Bridgeport Quarry",
+    deliver: "365340 - Tiseo Paving CO JOB",
+    material: "Pea Gravel",
+    customer: "MARTIN MARETTA",
+    thirdPartyCustomer: "----",
+    rate: "$15.00",
+  },
+];
+
+const columns = [
+  { label: "Code", key: "code" },
+  { label: "Date", key: "date" },
+  { label: "Pickup", key: "pickup" },
+  { label: "Deliver", key: "deliver" },
+  { label: "Material", key: "material" },
+  { label: "Customer", key: "customer" },
+  { label: "Third Party Customer", key: "thirdPartyCustomer" },
+  { label: "Rate", key: "rate" },
+  { label: "Details", key: "actions" },
+];
+const POCode = () => {
+  const [openModal, setOpenModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [openPickupModal, setOpenPickupModal] = useState(false);
+
+  const handleOpenPickupModal = () => {
+    setOpenModal(false);
+    setOpenPickupModal(true);
+  };
+
+  const handleClosePickupModal = () => {
+    setOpenPickupModal(false);
+  };
+
+  const handleUpdate = () => {
+    setShowSuccessModal(true);
+
+    setTimeout(() => {
+      setShowSuccessModal(false);
+    }, 3000);
+  };
+  return (
+    <div className="space-y-6">
+      <PageHeader
+        title="PO Code"
+        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      >
+        {" "}
+        <div className="flex flex-wrap items-center gap-[0.6vw] ml-auto">
+          <div className="relative">
+            {" "}
+            <Search
+              size={16}
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#98A2B3]"
+            />
+            <input
+              placeholder="Search"
+              className="max-w-xs 2xl:max-w-none 2xl:w-[230px] h-[36px] border border-[#E4E7EC] rounded-[5px] bg-white pl-12 pr-4 outline-none text-xs 2xl:text-sm"
+            />
+          </div>
+
+          {/* Create Button */}
+          <CommonButton
+            onClick={() => setOpenModal(true)}
+            variant="primary"
+            size="xs"
+            icon={<PlusCircle size={18} />}
+          >
+            Create PO Code
+          </CommonButton>
+
+          {/* Export */}
+          <ExportButton
+            onClick={() => {
+              console.log("Export started...");
+            }}
+          />
+
+          {/* Refresh */}
+          <CommonButton
+            size="xs"
+            variant="secondary"
+            iconOnly
+            icon={<RefreshCcw size={14} />}
+            onClick={handleUpdate}
+          />
+        </div>
+      </PageHeader>
+
+      <Table
+        columns={columns}
+        data={poCodeData}
+        onEdit={() => setEditModal(true)}
+        onDelete={(item) => console.log(item)}
+      />
+
+      <CreatePOCodeModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        onOpenPickupModal={handleOpenPickupModal}
+      />
+      <CreatePOCodeModal
+        open={editModal}
+        onClose={() => setEditModal(false)}
+        isEdit
+        onOpenPickupModal={handleOpenPickupModal}
+      />
+      <CreatePickupModal
+        open={openPickupModal}
+        onClose={handleClosePickupModal}
+      />
+      <LoadUpdateSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+      />
+    </div>
+  );
+};
+
+export default POCode;

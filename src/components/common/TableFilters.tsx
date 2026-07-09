@@ -1,0 +1,115 @@
+import { Search, Calendar1, SlidersHorizontal } from "lucide-react";
+import CommonFilterDropdown from "./CommonFilterDropdown";
+
+interface TableFiltersProps {
+  period?: string;
+  onPeriodChange?: (value: string) => void;
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
+  dateRange?: string;
+  onDateClick?: () => void;
+  entries?: number;
+  onEntriesChange?: (value: number) => void;
+  statusFilter?: string;
+  onStatusFilterChange?: (value: string) => void;
+  isSettingFilter?: boolean;
+}
+const TableFilters = ({
+  period = "",
+  onPeriodChange,
+  searchValue = "",
+  onSearchChange,
+  dateRange = "",
+  onDateClick,
+  entries,
+  onEntriesChange,
+  statusFilter = "",
+  onStatusFilterChange,
+  isSettingFilter = false,
+}: TableFiltersProps) => {
+  return (
+    <div className="p-3 lg:p-4 border-b border-(--border-gray-2) bg-white">
+      <div className="flex flex-wrap gap-4 lg:items-center justify-between">
+        {/* Left Section */}
+        <div className="flex flex-wrap gap-4">
+          {/* Period */}
+          {period && (
+            <CommonFilterDropdown
+              value={period}
+              onChange={(value) => onPeriodChange?.(value)}
+              // icon={<Funnel size={18} />}
+              options={[
+                { label: "All", value: "All" },
+                { label: "This Week", value: "this_week" },
+                { label: "This Month", value: "this_month" },
+                { label: "This Year", value: "this_year" },
+              ]}
+            />
+          )}
+
+          {/* Search */}
+          <div className="relative">
+            <Search
+              size={18}
+              className="absolute left-3 top-2.5 text-text-gray"
+            />
+
+            <input
+              value={searchValue}
+              onChange={(e) => onSearchChange?.(e.target.value)}
+              placeholder="Search"
+              className="h-[36px] w-full lg:w-[330px] border border-(--border-gray-2) rounded-[4px] pl-11 pr-4 outline-none"
+            />
+          </div>
+
+          {/* Date */}
+          {onDateClick && (
+            <button
+              onClick={onDateClick}
+              className="h-[36px] px-4 border border-(--border-gray-2) rounded-[4px] flex items-center gap-3 cursor-pointer"
+            >
+              <Calendar1 size={18} />
+              {dateRange && <span>{dateRange}</span>}
+            </button>
+          )}
+        </div>
+
+        {/* Right Section */}
+        {entries !== undefined && (
+          <div className="flex items-center gap-3">
+            <span>Show</span>
+
+            <select
+              value={entries}
+              onChange={(e) => onEntriesChange?.(Number(e.target.value))}
+              className="h-[38px] px-4 border border-(--border-gray-2) rounded-[8px] outline-none"
+            >
+              <option value={10}>10</option>
+              <option value={3}>3</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+            </select>
+
+            <span>entries</span>
+          </div>
+        )}
+        {isSettingFilter && (
+          <CommonFilterDropdown
+            value={statusFilter}
+            onChange={(value) => onStatusFilterChange?.(value)}
+            icon={<SlidersHorizontal size={18} />}
+            options={[
+              { label: "Default", value: "" },
+              { label: "Active", value: "active" },
+              { label: "Close", value: "close" },
+              { label: "We Call", value: "we_call" },
+            ]}
+            size="auto"
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default TableFilters;

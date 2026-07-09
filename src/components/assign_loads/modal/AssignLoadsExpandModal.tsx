@@ -1,0 +1,178 @@
+import { Modal } from "@mui/material";
+import { X, Plus } from "lucide-react";
+import { useState, useMemo } from "react";
+import DispatchAssignmentGrid from "../DispatchAssignmentGrid";
+import CancelRerouteDrawer from "../CancelRerouteDrawer";
+import EditDispatchModal from "./EditDispatchModal";
+import AssignLoadCard from "../AssignLoadCard";
+import CommonButton from "../../common/CommonButton";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { setRowData, selectLoadCards, type AssignLoadCardData } from "../../../store/dispatchSlice";
+
+interface Props {
+  open: boolean;
+  onClose: () => void;
+  loadCards?: any[];
+  isCanceled?: boolean;
+}
+
+const AssignLoadsExpandModal = ({
+  open,
+  onClose,
+  isCanceled,
+}: Props) => {
+  const [openCancelDrawer, setOpenCancelDrawer] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [buttonStatus] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const selectedDay = useAppSelector((state) => state.dispatch.selectedDay);
+  const loadCardsFromRedux = useAppSelector(selectLoadCards);
+  const rowData = useAppSelector((state) => state.dispatch.rowData);
+  const originalRowData = useAppSelector((state) => state.dispatch.originalRowData);
+
+  const currentLoadCards = useMemo(() => {
+    const offset = selectedDay.charCodeAt(selectedDay.length - 1) % 5;
+
+    return loadCardsFromRedux.map((card: AssignLoadCardData) => ({
+      ...card,
+      driverName: `${card.driverName}`,
+      loads: card.loads + offset * 5,
+    }));
+  }, [loadCardsFromRedux, selectedDay]);
+
+  const handleSetRowData = (newData: any) => {
+    if (typeof newData === "function") {
+      dispatch(setRowData(newData(rowData)));
+    } else {
+      dispatch(setRowData(newData));
+    }
+  };
+  return (
+    <>
+      <Modal
+        open={open}
+        onClose={onClose}
+        sx={{
+          zIndex: 1200,
+        }}
+      >
+        {/* <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-3 z-999">
+          <div className="w-full h-[95vh] bg-white rounded-[14px] flex flex-col overflow-hidden"> */}
+        <div className="fixed inset-0 bg-[#F4F5F8] flex items-start justify-center z-50">
+          <div className="w-dvw h-dvh bg-[#F4F5F8] flex flex-col">
+            {/* Header */}
+            <div className="md:h-[60px] shrink-0 border-b border-[#E5E7EB] px-3 py-1 flex flex-wrap items-center justify-between">
+              <div className="flex items-center gap-3">
+                <h2 className="md:text-xl text-base font-medium text-[#2F2F2F]">
+                  Dispatch Details for 
+                  <span className="font-bold ml-1">2026-06-03</span>
+                </h2>
+              </div>
+
+              <div className="flex items-center gap-4 ml-auto">
+                {!isCanceled && (
+                  <CommonButton
+                    variant="secondary"
+                    icon={<Plus size={18} className="text-green-500" />}
+                    onClick={() => setOpenModal(true)}
+                    size="md"
+                  >
+                    Add Batch
+                  </CommonButton>
+                )}
+                <CommonButton
+                  iconOnly
+                  icon={<X size={26} />}
+                  onClick={onClose}
+                  variant="secondary"
+                  className="border-none px-0"
+                />
+              </div>
+            </div>
+
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto overflow-x-hidden">
+              {/* Cards */}
+              <div
+                className="px-3 pt-4 pb-2 overflow-x-auto"
+                style={{
+                  scrollbarWidth: "thin",
+                  scrollbarColor: "#1D3461 #D9D9D9",
+                }}
+              >
+                <div className="flex gap-5 min-w-max pb-2">
+                  {currentLoadCards.map((card: AssignLoadCardData, index: number) => (
+                    <AssignLoadCard
+                      key={index}
+                      {...card}
+                      expandOnHover={true}
+                      onCancelReroute={() => setOpenCancelDrawer(true)}
+                      onEditDispatch={() => setShowEditModal(true)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Search / Actions */}
+              {/* <div className="px-6 pb-4 flex items-center gap-3">
+                <input
+                  type="date"
+                  className="h-[40px] px-4 border border-[#E5E7EB] rounded-lg outline-none"
+                />
+
+                <button className="w-[40px] h-[40px] rounded-lg bg-sky-blue text-white flex items-center justify-center cursor-pointer">
+                  <Search size={16} />
+                </button>
+                <CommonButton
+                  onClick={() => setButtonStatus(!buttonStatus)}
+                  variant={`${buttonStatus ? "primary" : "secondary"}`}
+                >
+                  {`${buttonStatus ? "Resume" : "Will Call"}`}
+                </CommonButton>
+                <button className="w-[40px] h-[40px] rounded-lg border border-[#E5E7EB] flex items-center justify-center cursor-pointer">
+                  <RefreshCcw size={16} />
+                </button>
+              </div> */}
+
+              {/* Grid */}
+              <div className="px-3 pb-6 mt-1">
+                <div className="border border-[#E5E7EB] rounded-xl min-h-[600px]">
+                  <DispatchAssignmentGrid
+                    selectedDay={selectedDay}
+                    buttonStatus={buttonStatus}
+                    rowData={rowData}
+                    setRowData={handleSetRowData}
+                    originalRowData={originalRowData}
+                    onOpenCancelDrawer={() => setOpenCancelDrawer(true)}
+                    onRowClicked={() => {}}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
+      <CancelRerouteDrawer
+        open={openCancelDrawer}
+        onClose={() => setOpenCancelDrawer(false)}
+      />
+
+      <EditDispatchModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        isEdit={false}
+      />
+
+      <EditDispatchModal
+        open={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        isEdit={true}
+      />
+    </>
+  );
+};
+
+export default AssignLoadsExpandModal;
