@@ -68,6 +68,18 @@ const driversData = [
 const DriverSection = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+
+  const filteredDrivers = driversData.filter((driver) => {
+  const value = search.toLowerCase();
+
+  return (
+    driver.name.toLowerCase().includes(value) ||
+    driver.jobs.toString().includes(value) ||
+    driver.truckId.toLowerCase().includes(value) ||
+    driver.payment.toLowerCase().includes(value) ||
+    driver.paymentSub.toLowerCase().includes(value)
+  );
+});
   
   return (
     <div className="border border-[#E5E7EB]">
@@ -99,7 +111,7 @@ const DriverSection = () => {
         </div>
       </div>
 
-      <Table data={driversData} columns={driverColumns} isCheckbox={false} />
+      <Table data={filteredDrivers} columns={driverColumns} isCheckbox={false} />
     </div>
   );
 };

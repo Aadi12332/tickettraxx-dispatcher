@@ -141,7 +141,18 @@ const TABS = [
 const ContractorDetailsPage = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
+const [jobSearch, setJobSearch] = useState("");
+const filteredPastJobs = pastJobsData.filter((job) => {
+  const value = jobSearch.toLowerCase();
 
+  return (
+    job.date.toLowerCase().includes(value) ||
+    job.route.toLowerCase().includes(value) ||
+    job.material.toLowerCase().includes(value) ||
+    job.weight.toLowerCase().includes(value) ||
+    job.truckId.toLowerCase().includes(value)
+  );
+});
   const [openEditContractorModal, setOpenEditContractorModal] = useState(false);
 
   // Add Job modal state
@@ -435,17 +446,19 @@ const ContractorDetailsPage = () => {
                     size={14}
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9CA3AF]"
                   />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="w-full sm:w-56 pl-9 pr-4 h-9 text-sm border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#233B73] bg-white"
-                  />
+                 <input
+  type="text"
+  placeholder="Search"
+  value={jobSearch}
+  onChange={(e) => setJobSearch(e.target.value)}
+  className="w-full sm:w-56 pl-9 pr-4 h-9 text-sm border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#233B73] bg-white"
+/>
                 </div>
               </div>
 
               {/* Job cards grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-3 sm:px-4 pb-4">
-                {pastJobsData.map((job) => (
+                {filteredPastJobs.map((job) => (
                   <div
                     key={job.id}
                     className="border border-[#E5E7EB] rounded-lg p-4 bg-white hover:shadow-sm transition-shadow"
@@ -482,6 +495,11 @@ const ContractorDetailsPage = () => {
                   </div>
                 ))}
               </div>
+                {filteredPastJobs.length === 0 && (
+  <p className="w-[98%] mx-auto mb-5 h-20 border border-[#E5E7EB] rounded-lg flex items-center justify-center text-[#6B7280]">
+    No jobs found
+  </p>
+)}
 
               <div className="flex justify-center pb-5">
                 <CommonButton size="sm">View All</CommonButton>

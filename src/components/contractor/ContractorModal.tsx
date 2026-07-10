@@ -80,7 +80,7 @@ const initialForm = {
   unit: "",
   trucks: "",
   autoRenewal: true,
-truckCount: "",
+  truckCount: "",
   contractFile: null as File | null,
   coiFile: null as File | null,
 };
@@ -90,7 +90,7 @@ const ContractorModal = ({
   isEdit = false,
 }: ContractorModalProps) => {
   const [form, setForm] = useState(initialForm);
-const [cityOptionsState, setCityOptionsState] = useState(cityOptions);
+  const [cityOptionsState, setCityOptionsState] = useState(cityOptions);
   const handleClose = () => {
     setForm(initialForm);
     onClose();
@@ -183,31 +183,31 @@ const [cityOptionsState, setCityOptionsState] = useState(cityOptions);
                 options={stateOptions}
               />
 
-<CommonSelectInput
-  label="City"
-  value={form.city}
-  options={cityOptionsState}
-  onChange={(value) =>
-    setForm((prev) => ({
-      ...prev,
-      city: value,
-    }))
-  }
-  addNewLabel="+ Add New City"
-  onAddNew={(cityName) => {
-    const newCity = {
-      label: cityName,
-      value: cityName,
-    };
+              <CommonSelectInput
+                label="City"
+                value={form.city}
+                options={cityOptionsState}
+                onChange={(value) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    city: value,
+                  }))
+                }
+                addNewLabel="+ Add New City"
+                onAddNew={(cityName) => {
+                  const newCity = {
+                    label: cityName,
+                    value: cityName,
+                  };
 
-    setCityOptionsState((prev) => [...prev, newCity]);
+                  setCityOptionsState((prev) => [...prev, newCity]);
 
-    setForm((prev) => ({
-      ...prev,
-      city: cityName,
-    }));
-  }}
-/>
+                  setForm((prev) => ({
+                    ...prev,
+                    city: cityName,
+                  }));
+                }}
+              />
 
               <div className="md:col-span-2">
                 <CommonSelectInput
@@ -443,18 +443,18 @@ const [cityOptionsState, setCityOptionsState] = useState(cityOptions);
               />
 
               {form.trucks === "multiple" && (
-  <CommonTextInput
-    label="Enter Truck Number"
-    value={form.truckCount}
-    onChange={(value) =>
-      setForm((prev) => ({
-        ...prev,
-        truckCount: value,
-      }))
-    }
-    placeholder="e.g., 3"
-  />
-)}
+                <CommonTextInput
+                  label="Enter Truck Number"
+                  value={form.truckCount}
+                  onChange={(value) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      truckCount: value,
+                    }))
+                  }
+                  placeholder="e.g., 3"
+                />
+              )}
 
               {/* Auto Renewal */}
               <div className="md:col-span-2 flex items-center justify-between mt-2 mb-4">

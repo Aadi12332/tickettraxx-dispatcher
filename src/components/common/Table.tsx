@@ -249,7 +249,7 @@ const Table = ({
                         className={
                           column.key === "actions"
                             ? ""
-                            : "overflow-hidden whitespace-nowrap text-ellipsis"
+                            : "overflow-hidden"
                         }
                       >
                         {item[column.key]}
