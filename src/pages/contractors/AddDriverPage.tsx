@@ -6,6 +6,7 @@ import CommonFileUpload from "../../components/common/CommonFileUpload";
 import CommonButton from "../../components/common/CommonButton";
 import ToastModal from "../../components/common/modal/ToastModal";
 import { useState } from "react";
+import LightSelect from "./LightSelect";
 const LightInput = ({ label, type = "text", ...props }: any) => (
   <div className="relative w-full h-[65px] border border-[#E5E7EB] rounded-[5px] bg-white px-4 pt-2 ">
     <label className="block text-xs font-medium text-[#6B7280]">{label}</label>
@@ -17,24 +18,93 @@ const LightInput = ({ label, type = "text", ...props }: any) => (
   </div>
 );
 
-const LightSelect = ({ label, options }: any) => (
-  <div className="relative w-full h-[65px] border border-[#E5E7EB] rounded-[5px] bg-white px-4 pt-2 ">
-    <label className="block text-xs font-medium text-[#6B7280]">{label}</label>
-    <div className="flex items-center justify-between mt-1">
-      <select className="w-full bg-transparent text-sm text-[#1B2D6B] font-medium outline-none appearance-none cursor-pointer">
-        <option value="" disabled selected>
-          Select one
-        </option>
-        {options.map((opt: string) => (
-          <option key={opt} value={opt}>
-            {opt}
-          </option>
-        ))}
-      </select>
-      <ChevronDown size={16} className="text-[#6B7280] pointer-events-none" />
-    </div>
-  </div>
-);
+export const stateOptions = [
+  { label: "New York", value: "New York" },
+  { label: "California", value: "California" },
+  { label: "Texas", value: "Texas" },
+  { label: "Florida", value: "Florida" },
+  { label: "Illinois", value: "Illinois" },
+  { label: "Ohio", value: "Ohio" },
+  { label: "Michigan", value: "Michigan" },
+  { label: "Oregon", value: "Oregon" },
+  { label: "New Jersey", value: "New Jersey" },
+  { label: "Colorado", value: "Colorado" },
+  { label: "Wisconsin", value: "Wisconsin" },
+  { label: "Arkansas", value: "Arkansas" },
+  { label: "Kentucky", value: "Kentucky" },
+  { label: "Nevada", value: "Nevada" },
+  { label: "Virginia", value: "Virginia" },
+  { label: "South Carolina", value: "South Carolina" },
+  { label: "Maryland", value: "Maryland" },
+  { label: "Arizona", value: "Arizona" },
+  { label: "Pennsylvania", value: "Pennsylvania" },
+  { label: "Washington", value: "Washington" },
+];
+
+export const cityOptions = [
+  { label: "Brooklyn Heights", value: "Brooklyn Heights" },
+  { label: "Astoria", value: "Astoria" },
+  { label: "Greenwich Village", value: "Greenwich Village" },
+  { label: "Upper West Side", value: "Upper West Side" },
+  { label: "Harlem", value: "Harlem" },
+  { label: "SoHo", value: "SoHo" },
+  { label: "Battery Park City", value: "Battery Park City" },
+  { label: "East Village", value: "East Village" },
+  { label: "Chelsea", value: "Chelsea" },
+  { label: "Williamsburg", value: "Williamsburg" },
+  { label: "Morningside Heights", value: "Morningside Heights" },
+  { label: "DUMBO", value: "DUMBO" },
+  { label: "Little Italy", value: "Little Italy" },
+  { label: "Flatiron District", value: "Flatiron District" },
+  { label: "NoMad", value: "NoMad" },
+  { label: "Hell's Kitchen", value: "Hell's Kitchen" },
+  { label: "Long Island City", value: "Long Island City" },
+  { label: "Tribeca", value: "Tribeca" },
+  { label: "Midtown", value: "Midtown" },
+  { label: "Financial District", value: "Financial District" },
+];
+
+export const parkingLocationOptions = [
+  { label: "Granite Ridge", value: "Granite Ridge" },
+  { label: "Marble Falls", value: "Marble Falls" },
+  { label: "Slate Harbor", value: "Slate Harbor" },
+  { label: "Quartz Springs", value: "Quartz Springs" },
+  { label: "Shale Valley", value: "Shale Valley" },
+  { label: "Gravel Ridge", value: "Gravel Ridge" },
+  { label: "Stone Harbor", value: "Stone Harbor" },
+  { label: "Cobblestone Creek", value: "Cobblestone Creek" },
+  { label: "Gemstone Ridge", value: "Gemstone Ridge" },
+  { label: "Rockfield Springs", value: "Rockfield Springs" },
+  { label: "Sandstone Valley", value: "Sandstone Valley" },
+  { label: "Flintwood Springs", value: "Flintwood Springs" },
+  { label: "Basalt Valley", value: "Basalt Valley" },
+  { label: "Riverstone Bay", value: "Riverstone Bay" },
+  { label: "Rocktop Springs", value: "Rocktop Springs" },
+  { label: "Stonewood Heights", value: "Stonewood Heights" },
+  { label: "Eaststone Valley", value: "Eaststone Valley" },
+  { label: "Canyon Point", value: "Canyon Point" },
+  { label: "Blue Rock Yard", value: "Blue Rock Yard" },
+  { label: "Ironwood Depot", value: "Ironwood Depot" },
+];
+
+// const LightSelect = ({ label, options }: any) => (
+//   <div className="relative w-full h-[65px] border border-[#E5E7EB] rounded-[5px] bg-white px-4 pt-2 ">
+//     <label className="block text-xs font-medium text-[#6B7280]">{label}</label>
+//     <div className="flex items-center justify-between mt-1">
+//       <select className="w-full bg-transparent max-h-[200px] text-sm text-[#1B2D6B] font-medium outline-none appearance-none cursor-pointer">
+//         <option value="" disabled selected>
+//           Select one
+//         </option>
+//         {options.map((opt: string) => (
+//           <option key={opt} value={opt}>
+//             {opt}
+//           </option>
+//         ))}
+//       </select>
+//       <ChevronDown size={16} className="text-[#6B7280] pointer-events-none" />
+//     </div>
+//   </div>
+// );
 
 const DocumentUpload = ({
   title,
@@ -82,6 +152,9 @@ const DocumentUpload = ({
 const AddDriverPage = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [parking, setParking] = useState("");
 
   return (
     <div className="pb-10">
@@ -108,18 +181,27 @@ const AddDriverPage = () => {
       {/* Form Fields Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <LightInput label="Name" />
-        <LightSelect
-          label="State"
-          options={["Texas", "California", "New York", "Florida"]}
-        />
-        <LightSelect
-          label="City"
-          options={["Dallas", "Houston", "Austin", "Miami"]}
-        />
-        <LightSelect
-          label="Parking Location"
-          options={["Terminal A", "Terminal B", "HQ"]}
-        />
+
+<LightSelect
+  label="State"
+  value={state}
+  options={stateOptions}
+  onChange={setState}
+/>
+
+<LightSelect
+  label="City"
+  value={city}
+  options={cityOptions}
+  onChange={setCity}
+/>
+
+<LightSelect
+  label="Parking Location"
+  value={parking}
+  options={parkingLocationOptions}
+  onChange={setParking}
+/>
 
         <LightInput label="Address" />
         <LightInput label="Email" type="email" />

@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Table from "../common/Table";
 export const amountPaidData = [
   {
@@ -82,6 +82,18 @@ export const amountPaidColumns = [
 
 const AmountPaidTab = () => {
   const [search, setSearch] = useState("");
+
+const filteredData = useMemo(() => {
+  const value = search.toLowerCase().trim();
+
+  if (!value) return amountPaidData;
+
+  return amountPaidData.filter((item) =>
+    Object.values(item).some((field) =>
+      String(field).toLowerCase().includes(value)
+    )
+  );
+}, [search]);
   return (
     <div className="border border-[#E5E7EB]">
       <div className="flex items-center justify-between gap-3 p-2 sm:p-4">
@@ -109,7 +121,7 @@ const AmountPaidTab = () => {
         </div>
       </div>
 
-      <Table data={amountPaidData} columns={amountPaidColumns} isCheckbox={false} />
+      <Table data={filteredData} columns={amountPaidColumns} isCheckbox={false} />
     </div>
   );
 };

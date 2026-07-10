@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Table from "../common/Table";
 import CommonButton from "../common/CommonButton";
@@ -102,7 +102,19 @@ export const truckDetailsColumns = [
   },
 ];
 const TruckDetailsTab = () => {
-  const [search, setSearch] = useState("");
+const [search, setSearch] = useState("");
+
+const filteredData = useMemo(() => {
+  const value = search.toLowerCase().trim();
+
+  if (!value) return truckDetailsData;
+
+  return truckDetailsData.filter((item) =>
+    Object.values(item).some((field) =>
+      String(field).toLowerCase().includes(value)
+    )
+  );
+}, [search]);
   const navigate = useNavigate();
   return (
     <div className="border border-[#E5E7EB]">
@@ -136,7 +148,7 @@ const TruckDetailsTab = () => {
       </div>
 
       <Table
-        data={truckDetailsData}
+        data={filteredData}
         columns={truckDetailsColumns}
         isCheckbox={false}
       />
