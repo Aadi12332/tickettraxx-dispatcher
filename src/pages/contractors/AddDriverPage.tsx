@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ChevronDown, MoveLeft } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 import placeholderIcon from "../../assets/icons/placeholderImg.svg";
 import backgroundImg from "../../assets/images/Rectangle.jpg";
 import CommonFileUpload from "../../components/common/CommonFileUpload";
