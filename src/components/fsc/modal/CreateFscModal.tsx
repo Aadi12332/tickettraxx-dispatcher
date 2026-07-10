@@ -21,6 +21,7 @@ interface CreateFscModalProps {
 }
 
 export const customerOptions = [
+  { label: "All Customers", value: "All" },
   { label: "MM-Martini Marietta", value: "MM-Martini Marietta" },
   { label: "MM-Maplewood Mart", value: "MM-Maplewood Mart" },
   { label: "RR-Riverview Retailers", value: "RR-Riverview Retailers" },

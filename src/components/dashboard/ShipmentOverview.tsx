@@ -30,7 +30,7 @@ export default function ShipmentOverview() {
             value={selectedCustomer}
             onChange={setSelectedCustomer}
             options={customerOptions}
-            size="90px"
+            size="140px"
           />
 
           <CommonButton

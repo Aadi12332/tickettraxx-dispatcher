@@ -116,8 +116,8 @@ const Dashboard = () => {
       </div>
 
       <DashboardQuickView />
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-[0.5vw] 2xl:gap-4">
-        <div className="xl:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-3">
+        <div className="">
           <RevenueChart />
         </div>
 
@@ -127,7 +127,7 @@ const Dashboard = () => {
         {/* Header */}
 
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
-          <div className="flex items-center gap-1 sm:gap-4">
+          <div className="flex items-center gap-3">
             <SectionTitle
               title="Live Shipment Tracking"
               // className="text-sm md:text-[18px]"
@@ -149,7 +149,7 @@ const Dashboard = () => {
         </div>
 
         {/* Content */}
-  <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-2 xl:gap-4">
+  <div className="grid grid-cols-1 lg:grid-cols-[5fr_2fr] gap-3">
   <div className="min-h-[250px] xl:h-full">
     <ShipmentMap />
   </div>

@@ -328,7 +328,7 @@ const ContractorDetailsPage = () => {
             <span className="text-sm text-[#6B7280] w-14 flex-shrink-0">
               Address
             </span>
-            <span className="text-sm text-[#374151] font-medium whitespace-pre-line leading-snug md:text-center flex-1">
+            <span className="text-sm text-[#374151] font-medium ml-10 leading-snug md:text-start flex-1">
               {contractor.address}
             </span>
           </div>

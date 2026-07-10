@@ -30,7 +30,7 @@ const DriverTrackingCard = ({ data }: DriverTrackingCardProps) => {
           <img
             src={data.avatar}
             alt={data.name}
-            className="xl:w-[86px] xl:h-[86px] object-cover rounded-full border-6 border-white"
+            className="xl:w-[58px] xl:h-[58px] object-cover rounded-full border-6 border-white"
           />
         </div>
 
@@ -38,12 +38,12 @@ const DriverTrackingCard = ({ data }: DriverTrackingCardProps) => {
           {data.name}
         </h3>
 
-        <span className="mt-2 px-4 py-1 rounded-md bg-pink-100 text-pink-500 text-xs xl:text-sm">
+        <span className="px-4 py-1 rounded-md bg-pink-100 text-pink-500 text-xs xl:text-sm">
           Truck ID: {data.truckId}
         </span>
       </div>
 
-      <div className="xl:mt-10 mt-4 space-y-5">
+      <div className="xl:mt-7 mt-4 space-y-1">
         <InfoRow
           icon={<Mail className="xl:size-5 size-4"/>}
           label="Subcontractor"
@@ -65,16 +65,16 @@ const DriverTrackingCard = ({ data }: DriverTrackingCardProps) => {
         />
       </div>
 
-      <div className="border-t border-gray-200 mt-8 pt-6 flex items-center justify-between">
+      <div className="border-t border-gray-200 mt-4 pt-4 flex items-center justify-between">
         <div className="flex gap-4">
-          <ActionIcon icon={<Mail className="xl:size-4 size-3" />} active />
-          <ActionIcon icon={<PhoneCall className="xl:size-4 size-3" />} />
-          <ActionIcon icon={<MessageSquareText className="xl:size-4 size-3" />} />
+          <ActionIcon icon={<Mail className="cursor-pointer size-3" />} active />
+          <ActionIcon icon={<PhoneCall className="cursor-pointer size-3" />} />
+          <ActionIcon icon={<MessageSquareText className="cursor-pointer size-3" />} />
         </div>
 
         <div className="flex items-center gap-2">
           <Star size={20} fill="#FFC107" color="#FFC107" />
-          <span className="text-sm xl:text-lg font-archivo text-gray-500">
+          <span className="text-sm font-archivo text-gray-500">
             {data.rating}
           </span>
         </div>
@@ -89,7 +89,7 @@ const InfoRow = ({ icon, label, value }: any) => (
   <div className="flex items-start gap-2    ">
     <div className="text-gray-500 mt-1  ">{icon}</div>
 
-    <div className="text-sm xl:text-base">
+    <div className="text-sm">
       <span className="font-semibold">{label}: </span>
       {value}
     </div>
@@ -99,7 +99,7 @@ const InfoRow = ({ icon, label, value }: any) => (
 const ActionIcon = ({ icon, active }: any) => (
   <button
     className={`
-      w-9 h-9 rounded-full flex items-center justify-center
+      w-7 h-7 rounded-full flex items-center justify-center
       ${active ? "bg-[#FAE7E7] text-orange" : "text-green bg-[#dcf5e3]"}
     `}
   >

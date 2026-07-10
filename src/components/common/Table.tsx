@@ -200,7 +200,7 @@ const Table = ({
                         />
                       </div>
                     ) : column.key === "ticketAction" ? (
-                      <div className="flex flex-wrap items-center justify-center gap-[0.4vw]">
+                      <div className="flex flex-wrap items-center justify-start gap-[0.4vw]">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -208,7 +208,7 @@ const Table = ({
                           }}
                           className="p-0.5  border border-[#E8E8E8] rounded-sm flex items-center justify-center  hover:bg-gray-100 transition-colors cursor-pointer"
                         >
-                          <Eye strokeWidth={2.5} size={16} color="#707070" />
+                          <Eye strokeWidth={2.5} size={19} fill="#707070" color="#fff" />
                         </button>
 
                         <button
@@ -216,12 +216,12 @@ const Table = ({
                             e.stopPropagation();
                             // onApprove?.(item);
                           }}
-                          className="p-0.5  border border-[#E8E8E8] rounded-sm flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer"
+                          className="p-1 border border-[#E8E8E8] rounded-sm flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer"
                         >
                           <CircleCheck
                             strokeWidth={2.5}
-                            size={16}
-                            color="#707070"
+                            size={14}
+                            fill="#707070" color="#fff"
                           />
                         </button>
                       </div>

@@ -57,7 +57,7 @@ export const statementColumns = [
     key: "ticketStatus",
     render: (item: any) => (
       <span
-        className={`px-1 py-2 rounded-[4px] text-white text-[14px] font-medium ${
+        className={`px-3 py-2 rounded-[4px] text-white text-[14px] font-medium ${
           item.ticketStatus === "Approved" ? "bg-[#22C55E]" : "bg-[#EAB308]"
         }`}
       >
@@ -71,7 +71,7 @@ export const statementColumns = [
     key: "invoiceStatus",
     render: (item: any) => (
       <span
-        className={`px-1 py-2 rounded-[4px] text-white text-[14px] font-medium ${
+        className={`px-3 py-2 rounded-[4px] text-white text-[14px] font-medium ${
           item.invoiceStatus === "Approved" ? "bg-[#22C55E]" : "bg-[#EAB308]"
         }`}
       >
@@ -85,7 +85,7 @@ export const statementColumns = [
     key: "settlementStatus",
     render: (item: any) => (
       <span
-        className={`px-1 py-2 rounded-[4px] text-white text-[14px] font-medium ${
+        className={`px-3 py-2 rounded-[4px] text-white text-[14px] font-medium ${
           item.settlementStatus === "Approved" ? "bg-[#22C55E]" : "bg-[#EAB308]"
         }`}
       >
