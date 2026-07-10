@@ -16,7 +16,7 @@ const AllDriversModal = ({ open, onClose, drivers }: Props) => {
 
   return (
     <div className="fixed inset-0 z-9999 bg-black/50 flex items-center justify-center p-6">
-      <div className="bg-white rounded-xl w-full max-w-[1400px] p-6">
+      <div className="bg-white rounded-xl w-full max-w-[1100px] p-6">
         {/* Header */}
 
         <div className="flex items-center justify-between mb-6">
