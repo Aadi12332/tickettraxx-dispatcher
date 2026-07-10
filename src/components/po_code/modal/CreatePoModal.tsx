@@ -76,15 +76,15 @@ const CreatePOCodeModal = ({
   isEdit = false,
   onOpenPickupModal,
 }: CreatePOCodeModalProps) => {
-  const [formData, setFormData] = useState(
-    isEdit ? editFormData : initialFormData
-  );
+const [formData, setFormData] = useState(
+  isEdit ? editFormData : initialFormData
+);
 
-  useEffect(() => {
-    if (!open) return;
+useEffect(() => {
+  if (!open) return;
 
-    setFormData(isEdit ? editFormData : initialFormData);
-  }, [open, isEdit]);
+  setFormData(isEdit ? editFormData : initialFormData);
+}, [open, isEdit]);
 
   const handleChange =
     (field: keyof typeof formData) => (value: string) => {

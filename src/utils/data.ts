@@ -35,7 +35,7 @@ export const pickupCustomerOptions = [
 
 export const truckOptions = [
   { label: "Single", value: "single" },
-  { label: "Mulitple", value: "mulitple" },
+  { label: "Multiple", value: "multiple" },
 ];
 
 export const pickupOptions = [

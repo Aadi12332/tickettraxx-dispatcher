@@ -30,11 +30,11 @@ const AllDriversModal = ({ open, onClose, drivers }: Props) => {
         {/* Content */}
 
         <div className="relative h-[400px]">
-          <ShipmentMap />
+            <ShipmentMap />
 
           {/* Driver markers */}
 
-          <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 pointer-events-none z-10">
             {drivers.map((driver) => (
               <button
                 key={driver.id}

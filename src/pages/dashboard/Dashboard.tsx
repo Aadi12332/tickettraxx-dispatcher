@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Calendar1, Map} from "lucide-react";
+import { Calendar1, Map } from "lucide-react";
+import type { Dayjs } from "dayjs";
+import type { LatLngTuple } from "leaflet";
 import DashboardStatCard from "../../components/dashboard/DashboardStatCard";
 import DashboardQuickView from "../../components/dashboard/DashboardQuickView";
 import RevenueChart from "../../components/dashboard/RevenueChart";
 import ShipmentOverview from "../../components/dashboard/ShipmentOverview";
 import ShipmentMap from "../../components/dashboard/ShipmentMap";
 import DriverTrackingCard from "../../components/dashboard/DrivingTrackingCard";
-import driver from "../../assets/images/placeholderUser.svg";
 import truck_fast_outline from "../../assets/icons/truck_fast_outline.svg";
 import truck from "../../assets/icons/heroicons_truck.svg";
 import box from "../../assets/icons/solar_box.svg";
@@ -59,23 +60,96 @@ const dashboardStats = [
     chartBars: [23, 33, 13, 28, 38, 10, 44],
   },
 ];
-const driverData = {
-  name: "Darlee Robertson",
-  truckId: "TRK-4582",
-  avatar: driver,
 
-  subcontractor: "Ramesh Kapoor",
-  status: "In Transit",
-  eta: "2h 15m",
-  location: "Sunnyvale Park",
-
-  rating: 4.2,
+type DriverCardData = {
+  name: string;
+  truckId: string;
+  avatar: string;
+  subcontractor: string;
+  status: string;
+  eta: string;
+  location: string;
+  rating: number;
 };
+
+type TrackingItem = {
+  id: number;
+  label: string;
+  value: string;
+  card: DriverCardData;
+  map: {
+    start: LatLngTuple;
+    end: LatLngTuple;
+    route: LatLngTuple[];
+  };
+};
+
+const trackingData: TrackingItem[] = [
+  {
+    id: 1,
+    label: "Darlee Robertson",
+    value: "Darlee Robertson",
+    card: {
+      name: "Darlee Robertson",
+      truckId: "TRK-102",
+      avatar: "https://i.pravatar.cc/150?img=1",
+      subcontractor: "ABC Logistics",
+      status: "In Transit",
+      eta: "25 mins",
+      location: "Dallas, TX",
+      rating: 4.8,
+    },
+    map: {
+      start: [34.0522, -118.2437] as LatLngTuple,
+      end: [34.0528, -118.2851] as LatLngTuple,
+      route: [
+        [34.0522, -118.2437],
+        [34.0489, -118.2568],
+        [34.0407, -118.2468],
+        [34.0347, -118.269],
+        [34.0528, -118.2851],
+      ] as LatLngTuple[],
+    },
+  },
+  {
+    id: 2,
+    label: "Kevin Mark",
+    value: "Kevin Mark",
+    card: {
+      name: "Kevin Mark",
+      truckId: "TRK-205",
+      avatar: "https://i.pravatar.cc/150?img=2",
+      subcontractor: "Prime Transport",
+      status: "Loading",
+      eta: "10 mins",
+      location: "Houston, TX",
+      rating: 4.6,
+    },
+    map: {
+      start: [29.7604, -95.3698] as LatLngTuple,
+      end: [29.746, -95.39] as LatLngTuple,
+      route: [
+        [29.7604, -95.3698],
+        [29.756, -95.375],
+        [29.752, -95.381],
+        [29.746, -95.39],
+      ] as LatLngTuple[],
+    },
+  },
+];
+
 const Dashboard = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<
+    [Dayjs | null, Dayjs | null]
+  >([null, null]);
   const [selectedStat, setSelectedStat] = useState<string | null>(null);
   const [isLiveTrackingModalOpen, setIsLiveTrackingModalOpen] = useState(false);
   const [isNextModalOpen, setIsNextModalOpen] = useState(false);
+  const [selectedDriver, setSelectedDriver] = useState(trackingData[0].value);
+
+  const currentDriver =
+    trackingData.find((d) => d.value === selectedDriver) ?? trackingData[0];
 
   const handleNextModalOpen = () => {
     setIsNextModalOpen(true);
@@ -85,6 +159,20 @@ const Dashboard = () => {
   const handleNextModalClose = () => {
     setIsNextModalOpen(false);
     setSelectedStat("trucks-transit");
+  };
+
+  const formatDateRange = () => {
+    const [start, end] = selectedDate;
+
+    if (!start && !end) return "Select Date Range";
+
+    if (start && !end) return start.format("DD/MM/YYYY");
+
+    if (start && end) {
+      return `${start.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`;
+    }
+
+    return "Select Date Range";
   };
 
   return (
@@ -100,7 +188,7 @@ const Dashboard = () => {
           className="bg-white border border-(--border-gray-2) rounded-[5px] px-2 xl:px-4 py-1 xl:py-2 flex items-center gap-3 cursor-pointer w-fit ml-auto"
         >
           <Calendar1 size={16} />
-          <span className="text-sm font-normal">15/05/2025 - 21/05/2025</span>
+          <span className="text-sm font-normal">{formatDateRange()}</span>
         </button>
       </div>
 
@@ -115,7 +203,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <DashboardQuickView />
+      <DashboardQuickView selectedDate={selectedDate} />
       <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-3">
         <div className="">
           <RevenueChart />
@@ -141,23 +229,26 @@ const Dashboard = () => {
           </div>
 
           <CommonFilterDropdown
-            value={"Darlee Robertson"}
-            onChange={() => {}}
-            options={[{ label: "Darlee Robertson", value: "Darlee Robertson" }]}
+            value={selectedDriver}
+            onChange={setSelectedDriver}
+            options={trackingData.map((d) => ({
+              label: d.label,
+              value: d.value,
+            }))}
             size="auto"
           />
         </div>
 
         {/* Content */}
-  <div className="grid grid-cols-1 lg:grid-cols-[5fr_2fr] gap-3">
-  <div className="min-h-[250px] xl:h-full">
-    <ShipmentMap />
-  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[5fr_2fr] gap-3">
+          <div className="min-h-[250px] xl:h-full">
+            <ShipmentMap data={currentDriver.map} />
+          </div>
 
-  <div>
-    <DriverTrackingCard data={driverData} />
-  </div>
-</div>
+          <div>
+            <DriverTrackingCard data={currentDriver.card} />
+          </div>
+        </div>
 
         {/* Footer Stats */}
 
@@ -190,6 +281,7 @@ const Dashboard = () => {
       <CalendarModal
         isOpen={isCalendarOpen}
         onClose={() => setIsCalendarOpen(false)}
+        onApply={setSelectedDate}
       />
 
       <LoadsDetailsModal

@@ -66,10 +66,12 @@ const TableFilters = ({
           {onDateClick && (
             <button
               onClick={onDateClick}
-              className="h-[36px] px-4 border border-(--border-gray-2) rounded-[4px] flex items-center gap-3 cursor-pointer"
+              className="bg-white border border-(--border-gray-2) rounded-[5px] px-2 xl:px-4 py-1 xl:py-2 flex items-center gap-3 cursor-pointer w-fit"
             >
-              <Calendar1 size={18} />
-              {dateRange && <span>{dateRange}</span>}
+              <Calendar1 size={16} />
+              <span className="text-sm font-normal">
+                {dateRange || "Select Date Range"}
+              </span>
             </button>
           )}
         </div>

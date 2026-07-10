@@ -1,23 +1,6 @@
-import {
-  MapContainer,
-  Marker,
-  Polyline,
-  TileLayer,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
 
 import L, { type LatLngTuple } from "leaflet";
-
-const start: LatLngTuple = [34.0522, -118.2437];
-const end: LatLngTuple = [34.0528, -118.2851];
-
-const route: LatLngTuple[] = [
-  [34.0522, -118.2437],
-  [34.0489, -118.2568],
-  [34.0407, -118.2468],
-  [34.0347, -118.269],
-  [34.0528, -118.2851],
-];
 
 const startIcon = L.divIcon({
   html: `
@@ -57,29 +40,46 @@ const endIcon = new L.DivIcon({
   `,
   className: "",
 });
+interface ShipmentMapProps {
+  data?: {
+    start: LatLngTuple;
+    end: LatLngTuple;
+    route?: LatLngTuple[];
+  };
+}
 
-const ShipmentMap = () => {
+const defaultData = {
+  start: [34.0522, -118.2437] as LatLngTuple,
+  end: [34.0528, -118.2851] as LatLngTuple,
+  // route: [
+  //   [34.0522, -118.2437],
+  //   [34.0489, -118.2568],
+  //   [34.0407, -118.2468],
+  //   [34.0347, -118.269],
+  //   [34.0528, -118.2851],
+  // ] as LatLngTuple[],
+};
+
+const ShipmentMap = ({ data = defaultData }: ShipmentMapProps) => {
+  const { start, end, route } = data;
+
   return (
-    <div className="relative z-0 overflow-hidden rounded-xl border border-border-gray h-full">
-      <MapContainer center={start} zoom={15} className="h-full w-full">
-        <TileLayer
-          // url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-          // url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
-          attribution="&copy; OpenStreetMap"
-        />
+    <MapContainer
+      key={`${start[0]}-${start[1]}`}
+      center={start}
+      zoom={15}
+      className="h-full w-full z-[1]"
+    >
+      <TileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}" />
 
-        <Marker position={start as any} icon={startIcon}>
-          <Popup>Current Location</Popup>
-        </Marker>
-
-        <Marker position={end as any} icon={endIcon}>
-          <Popup>Job #13</Popup>
-        </Marker>
-
-        <Polyline positions={route as any} color="#007AFF" weight={3} />
-      </MapContainer>
-    </div>
+      {route && route.length > 1 && (
+        <>
+          <Marker position={start} icon={startIcon} />
+          <Marker position={end} icon={endIcon} />
+          <Polyline positions={route} color="#007AFF" weight={3} />
+        </>
+      )}
+    </MapContainer>
   );
 };
 

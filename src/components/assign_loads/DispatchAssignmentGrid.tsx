@@ -534,7 +534,7 @@ const DispatchAssignmentGrid = ({
         className="ag-theme-alpine"
         style={
           {
-            height: "643px",
+            height: "calc(100vh - 65px)",
             width: "100%",
             "--ag-background-color": "#ffffff",
             "--ag-header-background-color": "#ffffff",

@@ -51,7 +51,28 @@ const AssignLoadsPage = () => {
   const [buttonStatus] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
+  const weekDays = [
+    "SUN 4/3",
+    "MON 4/4",
+    "TUE 4/5",
+    "WED 4/6",
+    "THUR 4/7",
+    "FRI 4/8",
+    "SAT 4/9",
+  ];
 
+  const weekDayMap = [
+    "SUN 4/3",
+    "MON 4/4",
+    "TUE 4/5",
+    "WED 4/6",
+    "THUR 4/7",
+    "FRI 4/8",
+    "SAT 4/9",
+  ];
   const handleShowToast = (title: string) => {
     setToastTitle(title);
     setShowToast(true);
@@ -59,9 +80,6 @@ const AssignLoadsPage = () => {
     setTimeout(() => {
       setShowToast(false);
     }, 2000);
-  };
-  const SetSelectedDay = (day: string) => {
-    dispatch(setSelectedDay(day));
   };
 
   const handleSetRowData = (newData: any) => {
@@ -138,39 +156,38 @@ const AssignLoadsPage = () => {
           {/* Date Filter */}
           <div
             className="
-      flex
-      flex-wrap sm:flex-nowrap
-      items-center
-      rounded-lg
-      border border-(--border-gray-2)
-      bg-white
-      px-1 sm:py-0 p-2
-     min-w-0
-      overflow-hidden
-    "
+              flex
+              flex-wrap sm:flex-nowrap
+              items-center
+              rounded-lg
+              border border-(--border-gray-2)
+              bg-white
+              px-1 sm:py-0 p-2
+            min-w-0
+              overflow-hidden
+            "
           >
             {/* Week Days */}
             <div className="flex md:flex-1 max-w-lg min-w-0 overflow-x-auto scrollbar-hide ">
-              <div className="flex items-center gap-[0.2vw] w-max">
-                {weekDays.map((day) => (
+              <div className="flex items-center gap-[0.2vw] w-max text-xs">
+                {weekDays.map((day, index) => (
                   <button
                     key={day}
-                    onClick={() => SetSelectedDay(day)}
-                    className={`
-              h-8
-              px-[0.3vw]
-              whitespace-nowrap
-              rounded
-              text-xs xl:ext-sm
-              font-medium
-              transition-all
-              cursor-pointer
-              ${
-                selectedDay === day
-                  ? "bg-sky-blue-two text-white"
-                  : "text-[#2F2F2F]"
-              }
-            `}
+                    onClick={() => {
+                      dispatch(setSelectedDay(day));
+
+                      const date = new Date(selectedDate);
+                      const currentDay = date.getDay();
+                      const diff = index - currentDay;
+
+                      date.setDate(date.getDate() + diff);
+                      setSelectedDate(date.toISOString().split("T")[0]);
+                    }}
+                    className={
+                      selectedDay === day
+                        ? "bg-sky-blue-two text-white px-1 py-0.5 rounded-lg cursor-progress"
+                        : "text-[#2F2F2F]"
+                    }
                   >
                     {day}
                   </button>
@@ -182,14 +199,24 @@ const AssignLoadsPage = () => {
             <div className="flex items-center gap-[0.2vw] ml-auto sm:ml-2 shrink-0 ">
               <input
                 type="date"
+                value={selectedDate}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSelectedDate(value);
+
+                  if (!value) return;
+
+                  const index = new Date(value).getDay();
+                  dispatch(setSelectedDay(weekDayMap[index]));
+                }}
                 className="
-          h-8
-          w-[120px] sm:w-[110px] xl:w-[170px] 2xl:w-[190px]
-          px-2
-          border border-(--border-gray-2)
-          rounded
-          outline-none
-        "
+                  h-8
+                  w-[120px] sm:w-[110px] xl:w-[170px] 2xl:w-[190px]
+                  px-2
+                  border border-(--border-gray-2)
+                  rounded
+                  outline-none
+                "
               />
 
               <button

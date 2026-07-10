@@ -1,6 +1,8 @@
 import { SlidersHorizontal } from "lucide-react";
 import SectionTitle from "../common/SectionTitle";
 import { useState } from "react";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 import AllDriversModal from "./modal/AllDriversModal";
 import LiveShipmentTrackingModal from "./modal/LiveShipmentTrackingModal";
 import avatar1 from "../../assets/images/placeholderUser.svg";
@@ -16,6 +18,11 @@ interface Driver {
   onTime: string;
   revenue: string;
   rating: number;
+  date: string;
+}
+
+interface DashboardQuickViewProps {
+  selectedDate?: [Dayjs | null, Dayjs | null];
 }
 
 export const driversData = [
@@ -30,7 +37,7 @@ export const driversData = [
     location: "Pune, Maharashtra",
     rating: 4.2,
     left: "8%",
-    top: "18%",
+    top: "12%",
   },
   {
     id: 2,
@@ -42,8 +49,8 @@ export const driversData = [
     eta: "1h 05m",
     location: "Los Angeles",
     rating: 4.7,
-    left: "35%",
-    top: "10%",
+    left: "22%",
+    top: "26%",
   },
   {
     id: 3,
@@ -55,8 +62,8 @@ export const driversData = [
     eta: "Completed",
     location: "Nagpur, Maharashtra",
     rating: 4.5,
-    left: "55%",
-    top: "28%",
+    left: "38%",
+    top: "10%",
   },
   {
     id: 4,
@@ -68,8 +75,8 @@ export const driversData = [
     eta: "45m",
     location: "Dallas, Texas",
     rating: 4.8,
-    left: "72%",
-    top: "22%",
+    left: "44%",
+    top: "52%",
   },
   {
     id: 5,
@@ -81,8 +88,8 @@ export const driversData = [
     eta: "N/A",
     location: "Houston, Texas",
     rating: 4.1,
-    left: "18%",
-    top: "42%",
+    left: "16%",
+    top: "78%",
   },
   {
     id: 6,
@@ -94,8 +101,8 @@ export const driversData = [
     eta: "3h 10m",
     location: "Chicago, Illinois",
     rating: 4.6,
-    left: "48%",
-    top: "55%",
+    left: "56%",
+    top: "40%",
   },
   {
     id: 7,
@@ -107,8 +114,73 @@ export const driversData = [
     eta: "1h 30m",
     location: "Phoenix, Arizona",
     rating: 4.4,
-    left: "82%",
-    top: "38%",
+    left: "64%",
+    top: "12%",
+  },
+  {
+    id: 8,
+    name: "Olivia Brown",
+    truckId: "TRK-3021",
+    avatar: avatar1,
+    subcontractor: "Andrew Clark",
+    status: "In Transit",
+    eta: "55m",
+    location: "Seattle",
+    rating: 4.5,
+    left: "80%",
+    top: "32%",
+  },
+  {
+    id: 9,
+    name: "James Wilson",
+    truckId: "TRK-7788",
+    avatar: avatar1,
+    subcontractor: "Ryan Scott",
+    status: "Loading",
+    eta: "2h",
+    location: "Denver",
+    rating: 4.3,
+    left: "88%",
+    top: "14%",
+  },
+  {
+    id: 10,
+    name: "Emma Thomas",
+    truckId: "TRK-8421",
+    avatar: avatar1,
+    subcontractor: "Jacob White",
+    status: "Delivered",
+    eta: "Completed",
+    location: "Miami",
+    rating: 4.9,
+    left: "64%",
+    top: "76%",
+  },
+  {
+    id: 11,
+    name: "Daniel Harris",
+    truckId: "TRK-9911",
+    avatar: avatar1,
+    subcontractor: "Kevin Lewis",
+    status: "In Transit",
+    eta: "3h",
+    location: "Austin",
+    rating: 4.4,
+    left: "90%",
+    top: "60%",
+  },
+  {
+    id: 12,
+    name: "Mia Walker",
+    truckId: "TRK-6674",
+    avatar: avatar1,
+    subcontractor: "Thomas Hall",
+    status: "Idle",
+    eta: "N/A",
+    location: "San Diego",
+    rating: 4.1,
+    left: "2%",
+    top: "74%",
   },
 ];
 const drivers: Driver[] = [
@@ -121,6 +193,7 @@ const drivers: Driver[] = [
     onTime: "96%",
     revenue: "$4,50,000",
     rating: 4.7,
+    date: "2026-07-05",
   },
   {
     id: 2,
@@ -131,6 +204,7 @@ const drivers: Driver[] = [
     onTime: "91%",
     revenue: "$3,15,000",
     rating: 4.5,
+    date: "2026-07-08",
   },
   {
     id: 3,
@@ -141,6 +215,7 @@ const drivers: Driver[] = [
     onTime: "98%",
     revenue: "$8,40,000",
     rating: 4.5,
+    date: "2026-06-28",
   },
   {
     id: 4,
@@ -151,6 +226,7 @@ const drivers: Driver[] = [
     onTime: "98%",
     revenue: "$8,40,000",
     rating: 4.2,
+    date: "2026-07-11",
   },
   {
     id: 5,
@@ -161,6 +237,7 @@ const drivers: Driver[] = [
     onTime: "96%",
     revenue: "$6,10,000",
     rating: 4.0,
+    date: "2026-07-12",
   },
   {
     id: 6,
@@ -171,6 +248,7 @@ const drivers: Driver[] = [
     onTime: "96%",
     revenue: "$5,55,000",
     rating: 4.0,
+    date: "2026-07-16",
   },
 ];
 
@@ -223,13 +301,49 @@ const DriverRow = ({
   );
 };
 
-const DashboardQuickView = () => {
+const DashboardQuickView = ({ selectedDate = [null, null] }: DashboardQuickViewProps) => {
   const [openDriversModal, setOpenDriversModal] = useState(false);
   const [isLiveTrackingModalOpen, setIsLiveTrackingModalOpen] = useState(false);
   const [completionSort, setCompletionSort] = useState("");
   const [ratingSort, setRatingSort] = useState("");
 
-  const sortedDrivers = [...drivers].sort((a, b) => {
+  // const formatDateRange = () => {
+  //   const [start, end] = selectedDate;
+
+  //   if (!start && !end) return "";
+
+  //   if (start && !end) return start.format("DD/MM/YYYY");
+
+  //   if (start && end) {
+  //     return `${start.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`;
+  //   }
+
+  //   return "";
+  // };
+
+  const filteredDrivers = [...drivers].filter((driver) => {
+    const [start, end] = selectedDate;
+
+    if (!start && !end) return true;
+
+    const driverDate = dayjs(driver.date);
+
+    if (start && !end) {
+      return driverDate.isSame(start, "day");
+    }
+
+    if (start && end) {
+      return (
+        driverDate.isSame(start, "day") ||
+        driverDate.isSame(end, "day") ||
+        (driverDate.isAfter(start, "day") && driverDate.isBefore(end, "day"))
+      );
+    }
+
+    return true;
+  });
+
+  const sortedDrivers = [...filteredDrivers].sort((a, b) => {
     if (ratingSort) {
       if (ratingSort === "rating_high_to_low") {
         return b.rating - a.rating;
@@ -258,7 +372,10 @@ const DashboardQuickView = () => {
       {/* Header */}
 
       <div className="px-2 xl:px-5 py-2 sm:py-3 flex items-center justify-between border-b border-(--border-gray-2)">
-        <SectionTitle title="Dispatch Dashboard Quick View" />
+        <SectionTitle
+          title={"Dispatch Dashboard Quick View"}
+          className="text-sm sm:text-[18px]"
+        />
 
         <div className="flex items-center gap-1 sm:gap-4">
           <CommonFilterDropdown
@@ -336,13 +453,21 @@ const DashboardQuickView = () => {
           </thead>
 
           <tbody>
-            {sortedDrivers.map((driver) => (
-              <DriverRow
-                key={driver.id}
-                driver={driver}
-                onDriverClick={() => setIsLiveTrackingModalOpen(true)}
-              />
-            ))}
+            {sortedDrivers.length > 0 ? (
+              sortedDrivers.map((driver) => (
+                <DriverRow
+                  key={driver.id}
+                  driver={driver}
+                  onDriverClick={() => setIsLiveTrackingModalOpen(true)}
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="py-8 text-center text-sm text-text-secondary">
+                  No data found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

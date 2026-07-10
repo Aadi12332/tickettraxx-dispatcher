@@ -97,7 +97,23 @@ const EditDispatchModal = ({
     }
   };
 
-  const handleChange = (field: string) => (value: string) => {
+  const handleChange = (field: keyof typeof formData) => (value: string) => {
+    if (field === "poCode") {
+      // Static mapping for now
+      setFormData((prev) => ({
+        ...prev,
+        poCode: value,
+        pickup: "115 Ambrose Street Bells, TX 75414",
+        deliver: "Tom Harpool WTP Expansion PH...",
+        material: "1' Rock",
+        customer: "HEIDELBERG MATERIALS",
+        invoiceRate: "$10.00",
+        contractorRate: "$10.00",
+      }));
+
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -172,6 +188,111 @@ const EditDispatchModal = ({
             </div>
 
             {/* Columns */}
+
+            {/* Form Grid */}
+            {columns.map((_, index) => (
+              <div key={index}>
+                <h3 className="text-sm xl:text-base font-semibold mb-4 mt-5">
+                  Column {index + 1}
+                </h3>
+                <div
+                  // key={index}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3 md:gap-y-4 mt-6"
+                >
+                  <CommonSelectInput
+                    label="Customer"
+                    value={formData.customer}
+                    onChange={handleChange("customer")}
+                    options={customerOptions}
+                  />
+
+                  <CommonSelectInput
+                    label="Job ID# / PO Code"
+                    value={formData.poCode}
+                    onChange={handleChange("poCode")}
+                    options={poCodeOptions}
+                  />
+                  <CommonSelectInput
+                    label="Material"
+                    value={formData.material}
+                    onChange={handleChange("material")}
+                    options={materialOptions}
+                  />
+
+                  <CommonTextInput
+                    label="Number of Loads"
+                    value={formData.loads}
+                    onChange={handleChange("loads")}
+                    placeholder="Enter"
+                  />
+
+                  <CommonTextInput
+                    label="Invoice Rate"
+                    value={formData.invoiceRate}
+                    onChange={handleChange("invoiceRate")}
+                    placeholder="$0.00"
+                    isAmount
+                  />
+
+                  <CommonTextInput
+                    label="Contractor Rate"
+                    value={formData.contractorRate}
+                    onChange={handleChange("contractorRate")}
+                    placeholder="$0.00"
+                    isAmount
+                  />
+
+                  <CommonSelectInput
+                    label="Pickup"
+                    value={formData.pickup}
+                    onChange={handleChange("pickup")}
+                    options={pickupOptions}
+                  />
+
+                  <CommonSelectInput
+                    label="Deliver"
+                    value={formData.deliver}
+                    onChange={handleChange("deliver")}
+                    options={deliveryOptions}
+                    addNewLabel="Add New"
+                    onAddNew={onOpenPickupModal}
+                    addNewMode="modal"
+                  />
+
+                  <CommonTextInput
+                    label="Start Time"
+                    value={formData.startTime}
+                    onChange={handleChange("startTime")}
+                    type="time"
+                  />
+
+                  <CommonTextInput
+                    label="End Time"
+                    value={formData.endTime}
+                    onChange={handleChange("endTime")}
+                    type="time"
+                  />
+
+                  {columns.length > 0 && (
+                    <div className="mt-6 col-span-2">
+                      <label className="block text-sm xl:text-base mb-2">
+                        Comment
+                      </label>
+
+                      <textarea
+                        placeholder="Enter..."
+                        value={formData.comment}
+                        onChange={(e) =>
+                          handleChange("comment")(e.target.value)
+                        }
+                        className="w-full h-[120px] border-[0.85px] border-[#E5E7EB] rounded-[8px] p-2 md:p-4 resize-none outline-none"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
             <div className="mt-4 flex items-center gap-4">
               <span className="text-sm xl:text-base font-semibold">
                 Columns:
@@ -189,111 +310,15 @@ const EditDispatchModal = ({
                 disabled={columns.length === 0}
                 onClick={handleRemoveColumn}
                 className={`w-7 h-7 rounded flex items-center justify-center text-white
-    ${
-      columns.length
-        ? "bg-[#FF0000] cursor-pointer"
-        : "bg-[#FF0000] cursor-not-allowed"
-    }`}
+                ${
+                  columns.length
+                    ? "bg-[#FF0000] cursor-pointer"
+                    : "bg-[#FF0000] cursor-not-allowed"
+                }`}
               >
                 <Minus size={18} />
               </button>
             </div>
-
-            {/* Form Grid */}
-            {columns.map((_, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3 md:gap-y-4 mt-6"
-              >
-                <CommonSelectInput
-                  label="Customer"
-                  value={formData.customer}
-                  onChange={handleChange("customer")}
-                  options={customerOptions}
-                />
-
-                <CommonSelectInput
-                  label="Job ID# / PO Code"
-                  value={formData.poCode}
-                  onChange={handleChange("poCode")}
-                  options={poCodeOptions}
-                />
-                <CommonSelectInput
-                  label="Material"
-                  value={formData.material}
-                  onChange={handleChange("material")}
-                  options={materialOptions}
-                />
-
-                <CommonTextInput
-                  label="Number of Loads"
-                  value={formData.loads}
-                  onChange={handleChange("loads")}
-                  placeholder="Enter"
-                />
-
-                <CommonTextInput
-                  label="Invoice Rate"
-                  value={formData.invoiceRate}
-                  onChange={handleChange("invoiceRate")}
-                  placeholder="$0.00"
-                  isAmount
-                />
-
-                <CommonTextInput
-                  label="Contractor Rate"
-                  value={formData.contractorRate}
-                  onChange={handleChange("contractorRate")}
-                  placeholder="$0.00"
-                  isAmount
-                />
-
-                <CommonSelectInput
-                  label="Pickup"
-                  value={formData.pickup}
-                  onChange={handleChange("pickup")}
-                  options={pickupOptions}
-                />
-
-                <CommonSelectInput
-                  label="Deliver"
-                  value={formData.deliver}
-                  onChange={handleChange("deliver")}
-                  options={deliveryOptions}
-                  addNewLabel="Add New"
-                  onAddNew={onOpenPickupModal}
-                  addNewMode="modal"
-                />
-
-                <CommonTextInput
-                  label="Start Time"
-                  value={formData.startTime}
-                  onChange={handleChange("startTime")}
-                  type="time"
-                />
-
-                <CommonTextInput
-                  label="End Time"
-                  value={formData.endTime}
-                  onChange={handleChange("endTime")}
-                  type="time"
-                />
-              </div>
-            ))}
-            {columns.length > 0 && (
-              <div className="mt-6">
-                <label className="block text-sm xl:text-base mb-2">
-                  Comment
-                </label>
-
-                <textarea
-                  placeholder="Enter..."
-                  value={formData.comment}
-                  onChange={(e) => handleChange("comment")(e.target.value)}
-                  className="w-full h-[120px] border-[0.85px] border-[#E5E7EB] rounded-[8px] p-2 md:p-4 resize-none outline-none"
-                />
-              </div>
-            )}
           </div>
           <div className="shrink-0 border-t border-[#E5E7EB] px-4 xl:px-8 py-4">
             <div className="flex flex-wrap gap-4">
@@ -314,7 +339,7 @@ const EditDispatchModal = ({
                 Add Another Column
               </button>
 
-              {isEdit && (
+              {isEdit || formData.poCode && (
                 <button
                   onClick={() => navigate("/assign-loads")}
                   disabled={disableActions}

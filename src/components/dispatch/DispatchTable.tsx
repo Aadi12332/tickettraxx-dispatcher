@@ -5,7 +5,6 @@ import Download from "../../assets/icons/downloadfilled.svg";
 import CommonPagination from "../common/CommonPagination";
 import { ActionButton } from "./DispatchMobileCard";
 import { useState } from "react";
-import { Check, ArrowBigDownDash } from "lucide-react";
 
 export interface DispatchItem {
   date: string;
@@ -54,37 +53,37 @@ const DispatchTable = ({
     <div className="overflow-x-auto">
       <table className="w-full min-w-[700px] table-fixed">
         <thead>
-          <tr className="bg-[#E5E7EB]">
-            <th className="w-1/4 px-6 py-3 text-left text-xs xl:text-sm  font-semibold">
-              Dispatch Date
-            </th>
+        <tr className="bg-[#E5E7EB]">
+  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+    Dispatch Date
+  </th>
 
-            <th className="w-1/4 px-6 py-3 text-left text-xs xl:text-sm  font-semibold">
-              Grand Total
-            </th>
+  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+    Grand Total
+  </th>
 
-            <th className="w-1/4 px-6 py-3 text-left text-xs xl:text-sm  font-semibold">
-              Status
-            </th>
+  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+    Status
+  </th>
 
-            <th className="w-1/4 px-6 py-3 text-left text-xs xl:text-sm  font-semibold">
-              Details
-            </th>
-          </tr>
+  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+    Details
+  </th>
+</tr>
         </thead>
 
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className="border-b border-(--border-gray-2)">
-              <td className="w-1/4 px-6 py-4 text-xs xl:text-sm  text-[#666666]">
+              <td className="w-1/4 px-6 py-4 border border-(--border-gray-2) text-xs xl:text-sm text-[#666666]">
                 {item.date}
               </td>
 
-              <td className="w-1/4 px-6 py-4 text-xs xl:text-sm  text-[#666666]">
+              <td className="w-1/4 px-6 py-4 border border-(--border-gray-2) text-xs xl:text-sm text-[#666666]">
                 {item.total}
               </td>
 
-              <td className="w-fit xl:w-1/4 px-6 py-4">
+              <td className="w-fit xl:w-1/4 px-6 py-4 border border-(--border-gray-2)">
                 <span
                   className={`text-xs xl:text-sm  ${
                     item.status === "Active" ? "text-green" : "text-red-500"
@@ -94,7 +93,7 @@ const DispatchTable = ({
                 </span>
               </td>
 
-              <td className="w-1/4 pl-6 py-4">
+              <td className="w-1/4 pl-6 py-4 border border-(--border-gray-2)">
                 <div className="flex justify-left gap-3">
                   <ActionButton
                     icon={<img src={View} alt="" />}
@@ -108,41 +107,39 @@ const DispatchTable = ({
                     />
                   )}
 
-                  <ActionButton
-                    icon={
-                      copiedRow === index ? (
-                        <Check
-                          size={15}
-                          className="text-green-500 animate-[ping_0.9s_ease-out]"
-                        />
-                      ) : (
-                        <img
-                          src={Copy}
-                          alt="copy"
-                          className="transition-transform duration-500"
-                        />
-                      )
-                    }
-                    onClick={() => handleCopy(item, index)}
-                  />
+                 <ActionButton
+  icon={
+    copiedRow === index ? (
+      <span className="text-[11px] font-medium text-green-600 whitespace-nowrap px-1.5">
+        Copied
+      </span>
+    ) : (
+      <img
+        src={Copy}
+        alt="copy"
+        className="transition-transform duration-500"
+      />
+    )
+  }
+  onClick={() => handleCopy(item, index)}
+/>
 
-                  <ActionButton
-                    icon={
-                      downloadedRow === index ? (
-                        <ArrowBigDownDash
-                          size={15}
-                          className="text-green-500 animate-bounce"
-                        />
-                      ) : (
-                        <img
-                          src={Download}
-                          alt="download"
-                          className="transition-transform duration-500"
-                        />
-                      )
-                    }
-                    onClick={() => handleDownload(item, index)}
-                  />
+<ActionButton
+  icon={
+    downloadedRow === index ? (
+      <span className="text-[11px] font-medium text-green-600 whitespace-nowrap px-1.5">
+        Downloaded
+      </span>
+    ) : (
+      <img
+        src={Download}
+        alt="download"
+        className="transition-transform duration-500"
+      />
+    )
+  }
+  onClick={() => handleDownload(item, index)}
+/>
                 </div>
               </td>
             </tr>

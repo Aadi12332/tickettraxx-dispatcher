@@ -2,11 +2,10 @@ import {
   Drawer,
   Checkbox,
   FormControlLabel,
-  TextField,
-  MenuItem,
 } from "@mui/material";
 import { RotateCcw, MapPin, Eye, X, Phone, Copy } from "lucide-react";
 import { useState } from "react";
+import CommonSelectInput from "../common/CommonSelectInput";
 
 interface Props {
   open: boolean;
@@ -18,12 +17,11 @@ const CancelRerouteDrawer = ({ open, onClose, onShowToast }: Props) => {
   const [selectedAction, setSelectedAction] = useState<
     "return" | "reroute" | null
   >(null);
+const [newLocation, setNewLocation] = useState("");
+const handleActionClick = (title: string) => {
+  onShowToast?.(title);
+};
 
-  const handleActionClick = (title: string) => {
-    onClose();
-    onShowToast?.(title);
-    setSelectedAction('reroute')
-  };
   return (
     <Drawer
       anchor="right"
@@ -190,11 +188,16 @@ const CancelRerouteDrawer = ({ open, onClose, onShowToast }: Props) => {
               </div>
 
               <button
-                onClick={() => handleActionClick("Return to pickup confirmed!")}
+                  onClick={() =>
+    handleActionClick(
+      "You successfully sent the reminder to return to the pickup location."
+    )
+  }
                 className="mt-auto w-full h-10 rounded-lg bg-[#D99018] text-white text-sm font-semibold hover:opacity-90 cursor-pointer"
               >
                 Confirm Return to Pickup
               </button>
+        
             </div>
 
             {/* Reroute */}
@@ -215,27 +218,19 @@ const CancelRerouteDrawer = ({ open, onClose, onShowToast }: Props) => {
                 ▶ Ticket must be updated at scalehouse
               </p>
 
-              <TextField
-                fullWidth
-                select
-                size="small"
-                label="New Delivery Location"
-                disabled
-                sx={{
-                  mb: 1,
-                  "& .MuiInputBase-root": {
-                    fontSize: "12px",
-                    height: "40px",
-                    bgcolor: "#E4EEFF",
-                  },
-                }}
-              >
-                <MenuItem value="">Select new location</MenuItem>
-
-                <MenuItem value="1">Houston Project</MenuItem>
-
-                <MenuItem value="2">Arlington Plant</MenuItem>
-              </TextField>
+             <CommonSelectInput
+  label="New Delivery Location"
+  value={newLocation}
+  placeholder="Select new location"
+  onChange={setNewLocation}
+  options={[
+    { label: "Sunnyvale.", value: "Sunnyvale" },
+    { label: "Maplewood.", value: "Maplewood" },
+    { label: "Riverton.", value: "Riverton" },
+    { label: "Crestview.", value: "Crestview" },
+    { label: "Brookfield.", value: "Brookfield" },
+  ]}
+/>
 
               <FormControlLabel
                 control={
@@ -273,9 +268,11 @@ const CancelRerouteDrawer = ({ open, onClose, onShowToast }: Props) => {
               />
 
               <button
-                onClick={() =>
-                  handleActionClick("Reroute request sent successfully!")
-                }
+               onClick={() =>
+    handleActionClick(
+      "You successfully sent the reroute request"
+    )
+  }
                 className="w-full h-10 mt-4 rounded-lg bg-[#3452F1] text-white text-sm font-semibold hover:opacity-90 cursor-pointer"
               >
                 Send Reroute Request

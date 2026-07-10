@@ -80,7 +80,7 @@ const initialForm = {
   unit: "",
   trucks: "",
   autoRenewal: true,
-
+truckCount: "",
   contractFile: null as File | null,
   coiFile: null as File | null,
 };
@@ -441,6 +441,20 @@ const [cityOptionsState, setCityOptionsState] = useState(cityOptions);
                 }
                 options={truckOptions}
               />
+
+              {form.trucks === "multiple" && (
+  <CommonTextInput
+    label="Enter Truck Number"
+    value={form.truckCount}
+    onChange={(value) =>
+      setForm((prev) => ({
+        ...prev,
+        truckCount: value,
+      }))
+    }
+    placeholder="e.g., 3"
+  />
+)}
 
               {/* Auto Renewal */}
               <div className="md:col-span-2 flex items-center justify-between mt-2 mb-4">

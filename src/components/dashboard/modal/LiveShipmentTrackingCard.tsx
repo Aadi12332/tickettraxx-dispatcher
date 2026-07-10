@@ -36,7 +36,7 @@ const LiveShipmentTrackingCard = ({ data }: LiveShipmentTrackingCardProps) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setTooltipState({
       visible: true,
-      x: rect.right + 15,
+      x: rect.right - 15,
       y: rect.top + rect.height / 2,
     });
   };
@@ -46,7 +46,7 @@ const LiveShipmentTrackingCard = ({ data }: LiveShipmentTrackingCardProps) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white border border-(--border-gray-2) rounded-2xl p-4 xl:p-6 overflow-y-auto">
+    <div className="flex flex-col h-full bg-white border border-(--border-gray-2) rounded-2xl p-4 overflow-y-auto">
       {/* Driver Info */}
       <div className="flex items-center gap-3 mb-4">
         <img
@@ -74,7 +74,7 @@ const LiveShipmentTrackingCard = ({ data }: LiveShipmentTrackingCardProps) => {
         {/* Load In Progress */}
         <div className="mb-3 pb-3 border-b border-(--border-gray-2)">
           <h4 className="font-semibold text-black mb-3 text-sm xl:text-base">Load In Progress</h4>
-          <div className="space-y-3">
+          <div className="space-y-1">
             {inProgressLoads.map((load, idx) => (
               <div
                 key={idx}
@@ -107,7 +107,7 @@ const LiveShipmentTrackingCard = ({ data }: LiveShipmentTrackingCardProps) => {
           <h4 className="font-semibold text-black mb-3 text-sm xl:text-base">
             Remaining Loads ({remainingLoads.length})
           </h4>
-          <div className="space-y-3">
+          <div className="space-y-1">
             {remainingLoads.map((load, idx) => (
               <div
                 key={idx}
@@ -187,7 +187,7 @@ const LiveShipmentTrackingCard = ({ data }: LiveShipmentTrackingCardProps) => {
         )}
 
       {/* Actions */}
-      <div className="flex gap-4 mt-1 lg:mt-6 pt-1 xl:pt-4 mb-1">
+      <div className="flex gap-4 mt-1 pt-2 mb-1">
         <ActionIcon icon={<Mail size={18} />} active />
         <ActionIcon icon={<PhoneCall size={18} />} />
         <ActionIcon icon={<MessageSquareText size={18} />} active />

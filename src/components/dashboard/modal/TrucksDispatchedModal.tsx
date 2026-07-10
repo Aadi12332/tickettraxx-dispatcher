@@ -57,7 +57,7 @@ const TrucksDispatchedModal = ({ isOpen, onClose,onRowClicked }: TrucksDispatche
       isOpen={isOpen}
       onClose={onClose}
       position="center"
-      className="max-w-[600px] lg:max-w-[800px] xl:max-w-[1050px]"
+      className="max-w-[600px] lg:max-w-[800px] xl:max-w-[850px]"
       showCloseButton={false}
     >
       <div className="bg-white rounded-xl border border-(--border-gray) overflow-hidden flex flex-col">

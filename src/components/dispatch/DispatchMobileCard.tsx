@@ -78,7 +78,7 @@ export const ActionButton = ({ icon, onClick }: ActionButtonProps) => (
   <button
     onClick={onClick}
     className="
-      w-7
+      min-w-7
       h-7
       border
       border-[#E8E8E8]

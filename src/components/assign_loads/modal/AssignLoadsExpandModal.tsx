@@ -8,6 +8,7 @@ import AssignLoadCard from "../AssignLoadCard";
 import CommonButton from "../../common/CommonButton";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { setRowData, selectLoadCards, type AssignLoadCardData } from "../../../store/dispatchSlice";
+import SuccessActionModal from "../SuccessActionModal";
 
 interface Props {
   open: boolean;
@@ -21,6 +22,11 @@ const AssignLoadsExpandModal = ({
   onClose,
   isCanceled,
 }: Props) => {
+
+const [successModal, setSuccessModal] = useState({
+  open: false,
+  title: "",
+});
   const [openCancelDrawer, setOpenCancelDrawer] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -155,10 +161,28 @@ const AssignLoadsExpandModal = ({
         </div>
       </Modal>
 
-      <CancelRerouteDrawer
-        open={openCancelDrawer}
-        onClose={() => setOpenCancelDrawer(false)}
-      />
+ <CancelRerouteDrawer
+  open={openCancelDrawer}
+  onClose={() => setOpenCancelDrawer(false)}
+  onShowToast={(title) => {
+    setSuccessModal({
+      open: true,
+      title,
+    });
+
+    setTimeout(() => {
+      setSuccessModal({
+        open: false,
+        title: "",
+      });
+    }, 3000);
+  }}
+/>
+
+<SuccessActionModal
+  open={successModal.open}
+  title={successModal.title}
+/>
 
       <EditDispatchModal
         open={openModal}

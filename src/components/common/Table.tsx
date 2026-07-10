@@ -1,6 +1,7 @@
 import { Checkbox } from "@mui/material";
-import { ArrowUpDown, CircleCheck, Eye } from "lucide-react";
+import { ArrowUpDown, CircleCheck, Eye, X } from "lucide-react";
 import delete_orange from "../../assets/icons/delete_orange.svg";
+import billImage from "../../assets/images/billimg.png";
 import Edit from "../../assets/icons/editfilled.svg";
 // import view from "../../assets/icons/EyeClosed.svg";
 import { ActionButton } from "../dispatch/DispatchMobileCard";
@@ -16,7 +17,7 @@ interface Column {
   render?: (item: any) => React.ReactNode;
   textColor?: string;
   sortable?: boolean;
-    width?: string; 
+  width?: string;
   minWidth?: string;
 }
 
@@ -47,6 +48,11 @@ const Table = ({
   const [deleteItem, setDeleteItem] = useState<any>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  // Bill/invoice view modal state
+  const [viewItem, setViewItem] = useState<any>(null);
+  const [showViewModal, setShowViewModal] = useState(false);
+
   const handleSort = (key: string) => {
     let direction: "asc" | "desc" = "asc";
 
@@ -75,7 +81,7 @@ const Table = ({
   return (
     <div className="w-full bg-white p-1 xl:p-2">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[900px] sm:min-w-full lg:table-fixed border-collapse font-archivo">
+        <table className="w-full min-w-[900px] sm:min-w-full lg:table-fixed border-collapse border-spacing-0 font-archivo">
           <thead>
             <tr className="bg-[#F9FAFB] border border-[#E8E8E8]">
               {isCheckbox && (
@@ -87,12 +93,14 @@ const Table = ({
               {columns.map((column) => (
                 <th
                   key={column.key}
-                    style={{
-    width: column.width,
-    minWidth: column.minWidth,
-  }}
+                  style={{
+                    width: column.width,
+                    minWidth: column.minWidth,
+                  }}
                   className={`
-                    py-3 text-xs xl:text-sm font-medium text-[#1F2937]
+                     px-2 py-3
+  border border-[#E5E7EB]
+  text-xs xl:text-sm font-medium text-[#1F2937]
                     ${
                       column.key === "actions"
                         ? "text-left px-2"
@@ -148,7 +156,7 @@ const Table = ({
                 }`}
               >
                 {isCheckbox && (
-                  <td className="xl:w-[45px] py-3 text-left">
+                  <td className="xl:w-[45px] py-3 text-left border border-[#E5E7EB]">
                     <Checkbox size="small" />
                   </td>
                 )}
@@ -156,12 +164,14 @@ const Table = ({
                 {columns.map((column) => (
                   <td
                     key={column.key}
-                      style={{
-    width: column.width,
-    minWidth: column.minWidth,
-  }}
+                    style={{
+                      width: column.width,
+                      minWidth: column.minWidth,
+                    }}
                     className={`
-                      px-1 py-3 text-[11px] sm:text-xs xl:text-sm
+                        px-2 py-3
+  border border-[#E5E7EB]
+  text-[11px] sm:text-xs xl:text-sm
                       ${column.textColor ?? "text-[#707070]"}
                       ${
                         column.key === "actions"
@@ -204,11 +214,17 @@ const Table = ({
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            // onView?.(item);
+                            setViewItem(item);
+                            setShowViewModal(true);
                           }}
                           className="p-0.5  border border-[#E8E8E8] rounded-sm flex items-center justify-center  hover:bg-gray-100 transition-colors cursor-pointer"
                         >
-                          <Eye strokeWidth={2.5} size={19} fill="#707070" color="#fff" />
+                          <Eye
+                            strokeWidth={2.5}
+                            size={19}
+                            fill="#707070"
+                            color="#fff"
+                          />
                         </button>
 
                         <button
@@ -221,7 +237,8 @@ const Table = ({
                           <CircleCheck
                             strokeWidth={2.5}
                             size={14}
-                            fill="#707070" color="#fff"
+                            fill="#707070"
+                            color="#fff"
                           />
                         </button>
                       </div>
@@ -276,6 +293,37 @@ const Table = ({
         onClose={() => setShowSuccessModal(false)}
         title="Deleted Successfully."
       />
+
+      {/* Bill/Invoice view modal */}
+      {showViewModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-md w-full max-w-md">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[#E8E8E8]">
+              <h2 className="text-sm font-semibold text-[#1F2937]">
+                Bill {viewItem?.ticketNo ? `- ${viewItem.ticketNo}` : ""}
+              </h2>
+
+              <button
+                onClick={() => {
+                  setShowViewModal(false);
+                  setViewItem(null);
+                }}
+                className="text-[#707070] hover:text-[#1F2937] cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="p-4">
+              <img
+                src={billImage || "https://placehold.co/500x650?text=Bill"}
+                alt="Bill"
+                className="w-full max-h-[70vh] object-contain rounded-sm border border-[#E8E8E8]"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

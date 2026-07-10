@@ -56,7 +56,7 @@ const TrucksInTransitModal = ({
       isOpen={isOpen}
       onClose={onClose}
       position="center"
-      className="max-w-[1050px]"
+      className="max-w-[850px]"
       showCloseButton={false}
     >
       <div className="bg-white rounded-xl border border-(--border-gray) overflow-hidden flex flex-col">

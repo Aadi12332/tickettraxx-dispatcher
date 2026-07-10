@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Funnel, Plus, RefreshCcw } from "lucide-react";
+import { Calendar1, Funnel, Plus, RefreshCcw } from "lucide-react";
 import PageHeader from "../../components/common/PageHeader";
 import Table from "../../components/common/Table";
 import CommonButton from "../../components/common/CommonButton";
@@ -146,6 +146,20 @@ const ContractorsPage = () => {
     }, 3000);
   };
 
+  const formatDateRange = () => {
+    const [start, end] = selectedDate;
+
+    if (!start && !end) return "Select Date Range";
+
+    if (start && !end) return start.format("DD/MM/YYYY");
+
+    if (start && end) {
+      return `${start.format("DD/MM/YYYY")} - ${end.format("DD/MM/YYYY")}`;
+    }
+
+    return "Select Date Range";
+  };
+
   const handleStatusToggle = (item: any) => {
     console.log("clicked", item);
     setContractors((prev) =>
@@ -217,13 +231,20 @@ const ContractorsPage = () => {
         title="Contractors"
         description="Create, edit and deactivate subcontractors"
       >
-        <div className="flex flex-wrap md:flex-nowrap items-center gap-2 ml-auto ml-auto">
+        <div className="flex flex-wrap md:flex-nowrap items-center gap-2 ml-auto">
           <CommonSearchInput
             placeholder="Search"
             size="md"
             value={search}
             onChange={setSearch}
           />
+          <button
+            onClick={() => setOpenCalendarModal(true)}
+            className="bg-white border border-(--border-gray-2) rounded-[5px] px-2 xl:px-4 py-1 xl:py-2 flex items-center gap-3 cursor-pointer w-fit"
+          >
+            <Calendar1 size={16} />
+            <span className="text-sm font-normal">{formatDateRange()}</span>
+          </button>
           <CommonButton
             variant="primary"
             size="xs"
