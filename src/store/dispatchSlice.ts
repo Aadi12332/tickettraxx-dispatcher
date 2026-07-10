@@ -35,6 +35,7 @@ export interface JobData {
   id: string;
   loads: number;
   isManual?: boolean;
+  location?: string;
 }
 
 export interface RowData {
@@ -158,11 +159,11 @@ const INITIAL_BASE_GRID_DATA: RowData[] = [
   {
     driver: "Carter Westervelt",
     truckId: "452 to 457",
-    jobs: [
-      { id: "6014", loads: 3 },
-      { id: "1143", loads: 1 },
-      { id: "1143B", loads: 1 },
-    ],
+ jobs: [
+  { id: "6014", loads: 3, location: "Hanson Lake" },
+  { id: "1143", loads: 1, location: "LMC - Plano" },
+  { id: "1143B", loads: 1, location: "Sunnyvale Park" },
+],
     tonnage: "$52.50",
     total: "$1,391.25",
     weCall: false,
@@ -172,10 +173,10 @@ const INITIAL_BASE_GRID_DATA: RowData[] = [
     driver: "Hanna Saris",
     truckId: "453 to 457",
     jobs: [
-      { id: "6014", loads: 3 },
-      { id: "1143", loads: 1 },
-      { id: "1143B", loads: 1 },
-      { id: "6543", loads: 1 },
+      { id: "6014", loads: 3, location: "Hanson Lake" },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1143B", loads: 1, location: "Sunnyvale Park" },
+      { id: "6543", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
     ],
     tonnage: "$52.00",
     total: "$1,378.00",
@@ -186,11 +187,11 @@ const INITIAL_BASE_GRID_DATA: RowData[] = [
     driver: "Kianna Rosser",
     truckId: "454 to 455",
     jobs: [
-      { id: "1143", loads: 1 },
-      { id: "1143B", loads: 1 },
-      { id: "1142", loads: 1 },
-      { id: "1142", loads: 1 },
-      { id: "1142", loads: 1 },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1143B", loads: 1, location: "Sunnyvale Park" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
     ],
     tonnage: "$17.25",
     total: "$457.12",
@@ -201,11 +202,11 @@ const INITIAL_BASE_GRID_DATA: RowData[] = [
     driver: "Kierra Mango",
     truckId: "456 to 457",
     jobs: [
-      { id: "1143", loads: 1 },
-      { id: "1143", loads: 1 },
-      { id: "1142", loads: 1 },
-      { id: "1142", loads: 1 },
-      { id: "1142", loads: 1 },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
     ],
     tonnage: "$10.50",
     total: "$278.25",
@@ -216,8 +217,8 @@ const INITIAL_BASE_GRID_DATA: RowData[] = [
     driver: "Alfredo Rhiel Madsen",
     truckId: "845",
     jobs: [
-      { id: "1143", loads: 1 },
-      { id: "1142", loads: 1 },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
     ],
     tonnage: "$10.50",
     total: "$278.25",
@@ -237,11 +238,11 @@ const INITIAL_BASE_GRID_DATA: RowData[] = [
     driver: "Jaydon Donin",
     truckId: "857 to 859",
     jobs: [
-      { id: "1143", loads: 1 },
-      { id: "1143", loads: 1 },
-      { id: "1143", loads: 1 },
-      { id: "1142", loads: 1 },
-      { id: "1142", loads: 1 },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1143", loads: 1, location: "LMC - Plano" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
+      { id: "1142", loads: 1, location: "O'Paving-135 W - Job#21143 -20 S Fort Worth" },
     ],
     tonnage: "$36.00",
     total: "$954.00",

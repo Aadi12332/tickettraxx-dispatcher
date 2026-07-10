@@ -318,9 +318,9 @@ const AssignLoadsPage = () => {
               rowData={rowData}
               setRowData={handleSetRowData}
               originalRowData={originalRowData}
+              currentLoadCards={currentLoadCards}
               handleUpdate={() => {
                 setShowSuccessModal(true);
-
                 setTimeout(() => {
                   setShowSuccessModal(false);
                 }, 3000);

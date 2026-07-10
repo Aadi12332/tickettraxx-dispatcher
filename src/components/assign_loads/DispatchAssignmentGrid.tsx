@@ -165,9 +165,11 @@ const DispatchAssignmentGrid = ({
   setRowData,
   originalRowData,
   handleUpdate,
+  currentLoadCards,
 }: any) => {
   const jobHeaders = useAppSelector(selectJobHeaders);
-  const [driverPopup, setDriverPopup] = useState<any>(null);
+  const [driverPopup, setDriverPopup] = useState<any>(null)
+
   const pinnedBottomRowData = useMemo(() => {
     const totalJobs = jobHeaders.map((job, index) => {
       const occurrencesBefore = jobHeaders
@@ -399,33 +401,47 @@ const DispatchAssignmentGrid = ({
         return {
           headerName: `#${job}`,
           field: `jobs.${index}`,
-          headerComponent: () => (
-            <Tooltip
-              title={`Job ID #${job}`}
-              arrow
-              placement="top"
-              slotProps={{
-                tooltip: {
-                  sx: {
-                    bgcolor: "#fff",
-                    color: "#000",
-                    border: "1px solid #E5E7EB",
-                    fontWeight: 500,
-                  },
-                },
-                arrow: {
-                  sx: {
-                    color: "#fff",
-                    "&::before": {
-                      border: "1px solid #E5E7EB",
-                    },
-                  },
-                },
-              }}
-            >
-              <span>#{job}</span>
-            </Tooltip>
-          ),
+        headerComponent: () => {
+            const dispatches = useAppSelector(
+  (state) => state.dispatch.dispatches
+);
+const dispatchItem = dispatches.find((d) => d.poCode === job);
+
+const location = dispatchItem?.pickup ?? "";
+
+  return (
+    <Tooltip
+      title={`Job ID #${job}`}
+      arrow
+      placement="top"
+      slotProps={{
+        tooltip: {
+          sx: {
+            bgcolor: "#fff",
+            color: "#000",
+            border: "1px solid #E5E7EB",
+            fontWeight: 500,
+          },
+        },
+        arrow: {
+          sx: {
+            color: "#fff",
+            "&::before": {
+              border: "1px solid #E5E7EB",
+            },
+          },
+        },
+      }}
+    >
+      <div className="flex flex-col items-center justify-center leading-tight py-1">
+        <span className="text-xs font-semibold">#{job}</span>
+        <span className="text-[10px] text-[#666] font-normal truncate max-w-[90px]">
+          {location}
+        </span>
+      </div>
+    </Tooltip>
+  );
+},
           // minWidth: 80,
           wrapText: true,
           flex: 1,
@@ -527,6 +543,8 @@ const DispatchAssignmentGrid = ({
     ],
     [],
   );
+
+  console.log({ rowData, originalRowData, currentLoadCards });
 
   return (
     <AgGridProvider modules={modules}>
