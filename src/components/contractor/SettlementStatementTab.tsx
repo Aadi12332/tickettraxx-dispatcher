@@ -80,7 +80,7 @@ const SettlementStatementTab = () => {
           </div>
           <button
             onClick={() => setIsGenerated(true)}
-            className="bg-[#1B2D6B] hover:bg-[#152456] text-white px-6 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap mt-4 md:mt-0"
+            className="bg-[#1B2D6B] cursor-pointer hover:bg-[#152456] text-white px-6 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap mt-4 md:mt-0"
           >
             Generate Statement
           </button>
@@ -160,7 +160,7 @@ const SettlementStatementTab = () => {
             </table>
           </div>
 
-          <button className="bg-[#00C0E8] hover:bg-[#00b0dd] text-white px-6 py-2.5 rounded flex justify-center items-center gap-2 text-sm font-medium transition-colors lg:min-w-[202px]">
+          <button className="bg-[#1B2D6B] hover:bg-[#1B2D6B]/90 cursor-pointer text-white px-6 py-2.5 rounded flex justify-center items-center gap-2 text-sm font-medium transition-colors lg:min-w-[202px]">
             <Download size={16} />
             Download
           </button>

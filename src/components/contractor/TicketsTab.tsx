@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Calendar1, Funnel, Search } from "lucide-react";
 // import TableFilters from "../common/TableFilters";
 import Table from "../common/Table";
@@ -243,6 +243,34 @@ const TicketsTab = () => {
   const [openCalendarModal, setOpenCalendarModal] = useState(false);
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("");
+  const [search, setSearch] = useState("");
+  const filteredTickets = useMemo(() => {
+  const value = search.toLowerCase().trim();
+
+  if (!value) return contractorStatementData;
+
+  return contractorStatementData.filter((item) =>
+    [
+      item.ticketNo,
+      item.date,
+      item.aliasUnit,
+      item.driver,
+      item.pickup,
+      item.dropOff,
+      item.material,
+      item.tonage,
+      item.rate,
+      item.fsc,
+      item.gross,
+      item.ticketStatus,
+      item.invoiceStatus,
+      item.settlementStatus,
+    ]
+      .join(" ")
+      .toLowerCase()
+      .includes(value)
+  );
+}, [search]);
   return (
     <div className="space-y-4">
       <div className="mt-[px] w-full px-1 xl:px-3 border-b border-(--border-gray-2)">
@@ -273,10 +301,12 @@ const TicketsTab = () => {
                 className="absolute left-2 top-1/2 -translate-y-1/2 text-text-gray"
               />
 
-              <input
-                placeholder="Search"
-                className="h-[36px] w-[180px] border border-(--border-gray-2) rounded-[4px] pl-8 pr-4 outline-none"
-              />
+             <input
+  placeholder="Search"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="h-[36px] w-[180px] border border-(--border-gray-2) rounded-[4px] pl-8 pr-4 outline-none"
+/>
             </div>
           </div>
         </div>
@@ -309,7 +339,7 @@ const TicketsTab = () => {
             <div className="min-w-[1800px]">
               <Table
             columns={statementColumns}
-            data={contractorStatementData}
+            data={filteredTickets}
             onEdit={(item) => console.log("Edit Material:", item)}
             onDelete={(item) => console.log("Delete Material:", item)}
           />
