@@ -262,6 +262,7 @@ const EditDispatchModal = ({
                   options={deliveryOptions}
                   addNewLabel="Add New"
                   onAddNew={onOpenPickupModal}
+                  addNewMode="modal"
                 />
 
                 <CommonTextInput
