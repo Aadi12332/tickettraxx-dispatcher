@@ -55,6 +55,21 @@ const [successModal, setSuccessModal] = useState({
       dispatch(setRowData(newData));
     }
   };
+
+  const handleShowToast = (title: string) => {
+  setSuccessModal({
+    open: true,
+    title,
+  });
+
+  setTimeout(() => {
+    setSuccessModal({
+      open: false,
+      title: "",
+    });
+  }, 3000);
+};
+
   return (
     <>
       <Modal
@@ -161,22 +176,10 @@ const [successModal, setSuccessModal] = useState({
         </div>
       </Modal>
 
- <CancelRerouteDrawer
+<CancelRerouteDrawer
   open={openCancelDrawer}
   onClose={() => setOpenCancelDrawer(false)}
-  onShowToast={(title) => {
-    setSuccessModal({
-      open: true,
-      title,
-    });
-
-    setTimeout(() => {
-      setSuccessModal({
-        open: false,
-        title: "",
-      });
-    }, 3000);
-  }}
+  onShowToast={handleShowToast}
 />
 
 <SuccessActionModal

@@ -187,12 +187,12 @@ const handleActionClick = (title: string) => {
                 </div>
               </div>
 
-              <button
+              <button type="button"
                   onClick={() =>
-    handleActionClick(
-      "You successfully sent the reminder to return to the pickup location."
-    )
-  }
+                    handleActionClick(
+                      "You successfully sent the reminder to return to the pickup location."
+                    )
+                  }
                 className="mt-auto w-full h-10 rounded-lg bg-[#D99018] text-white text-sm font-semibold hover:opacity-90 cursor-pointer"
               >
                 Confirm Return to Pickup
@@ -267,7 +267,7 @@ const handleActionClick = (title: string) => {
                 }}
               />
 
-              <button
+              <button type="button"
                onClick={() =>
     handleActionClick(
       "You successfully sent the reroute request"

@@ -544,8 +544,6 @@ const DispatchAssignmentGrid = ({
     [],
   );
 
-  console.log({ rowData, originalRowData, currentLoadCards });
-
   return (
     <AgGridProvider modules={modules}>
       <div

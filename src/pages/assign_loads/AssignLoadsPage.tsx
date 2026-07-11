@@ -21,6 +21,7 @@ import {
   selectLoadCards,
 } from "../../store/dispatchSlice";
 import ToastModal from "../../components/common/modal/ToastModal";
+import SuccessActionModal from "../../components/assign_loads/SuccessActionModal";
 
 export const weekDays = [
   "SUN 4/3",
@@ -49,6 +50,10 @@ const AssignLoadsPage = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [isLiveTrackingModalOpen, setIsLiveTrackingModalOpen] = useState(false);
   const [buttonStatus] = useState(false);
+  const [successModal, setSuccessModal] = useState({
+  open: false,
+  title: "",
+});
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
@@ -74,13 +79,18 @@ const AssignLoadsPage = () => {
     "SAT 4/9",
   ];
   const handleShowToast = (title: string) => {
-    setToastTitle(title);
-    setShowToast(true);
+  setSuccessModal({
+    open: true,
+    title,
+  });
 
-    setTimeout(() => {
-      setShowToast(false);
-    }, 2000);
-  };
+  setTimeout(() => {
+    setSuccessModal({
+      open: false,
+      title: "",
+    });
+  }, 3000);
+};
 
   const handleSetRowData = (newData: any) => {
     if (typeof newData === "function") {
@@ -368,10 +378,14 @@ const AssignLoadsPage = () => {
         isOpen={isLiveTrackingModalOpen}
         onClose={() => setIsLiveTrackingModalOpen(false)}
       />
-      <LoadUpdateSuccessModal
+      {/* <LoadUpdateSuccessModal
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
         // title="You have successfully loaded the loads."
+      /> */}
+      <SuccessActionModal
+        open={successModal.open}
+        title={successModal.title}
       />
       <CommonConfirmModal
         isOpen={showConfirmModal}
