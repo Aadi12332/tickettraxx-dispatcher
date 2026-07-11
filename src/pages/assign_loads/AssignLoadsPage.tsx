@@ -10,7 +10,6 @@ import UpscaleImg from "../../assets/icons/expand.svg";
 import searchIcon from "../../assets/icons/searchIcon.svg";
 import EditDispatchModal from "../../components/assign_loads/modal/EditDispatchModal";
 import LiveShipmentTrackingModal from "../../components/dashboard/modal/LiveShipmentTrackingModal";
-import LoadUpdateSuccessModal from "../../components/common/modal/LoadUpdateSuccessModal";
 import CommonConfirmModal from "../../components/common/modal/CommonConfirmModal";
 import { useAppDispatch, useAppSelector } from "../../store";
 import {
@@ -36,6 +35,7 @@ export const weekDays = [
 const AssignLoadsPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastTitle, setToastTitle] = useState("");
+  console.log(setToastTitle)
   const dispatch = useAppDispatch();
   const selectedDay = useAppSelector((state) => state.dispatch.selectedDay);
   const rowData = useAppSelector((state) => state.dispatch.rowData);
@@ -55,6 +55,7 @@ const AssignLoadsPage = () => {
   title: "",
 });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  console.log(showSuccessModal)
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0],

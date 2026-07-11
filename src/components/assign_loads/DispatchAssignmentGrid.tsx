@@ -165,7 +165,6 @@ const DispatchAssignmentGrid = ({
   setRowData,
   originalRowData,
   handleUpdate,
-  currentLoadCards,
 }: any) => {
   const jobHeaders = useAppSelector(selectJobHeaders);
   const [driverPopup, setDriverPopup] = useState<any>(null);
