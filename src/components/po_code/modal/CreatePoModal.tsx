@@ -188,6 +188,8 @@ useEffect(() => {
                 onChange={handleChange("pickup")}
                 options={pickupOptions}
                 addNewLabel="Add New"
+                addNewMode="modal"  
+                onAddNew={onOpenPickupModal}
               />
 
               <CommonSelectInput

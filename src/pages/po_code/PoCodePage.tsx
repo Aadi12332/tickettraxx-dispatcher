@@ -138,6 +138,7 @@ const POCode = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [openPickupModal, setOpenPickupModal] = useState(false);
   const [search, setSearch] = useState("");
+  const [hidePoModal, setHidePoModal] = useState(false);
 
   const filteredData = poCodeData.filter((item) => {
     const value = search.toLowerCase();
@@ -154,14 +155,15 @@ const POCode = () => {
     );
   });
 
-  const handleOpenPickupModal = () => {
-    setOpenModal(false);
-    setOpenPickupModal(true);
-  };
+const handleOpenPickupModal = () => {
+  setHidePoModal(true);
+  setOpenPickupModal(true);
+};
 
-  const handleClosePickupModal = () => {
-    setOpenPickupModal(false);
-  };
+const handleClosePickupModal = () => {
+  setOpenPickupModal(false);
+  setHidePoModal(false);
+};
 
   const handleUpdate = () => {
     setShowSuccessModal(true);
@@ -233,16 +235,22 @@ const POCode = () => {
         onClose={() => setOpenModal(false)}
         onOpenPickupModal={handleOpenPickupModal}
       />
-      <CreatePOCodeModal
-        open={editModal}
-        onClose={() => setEditModal(false)}
-        isEdit
-        onOpenPickupModal={handleOpenPickupModal}
-      />
+
+  <CreatePOCodeModal
+  open={editModal && !hidePoModal}
+  onClose={() => {
+    setEditModal(false);
+    setHidePoModal(false);
+  }}
+  isEdit
+  onOpenPickupModal={handleOpenPickupModal}
+/>
+
       <CreatePickupModal
         open={openPickupModal}
         onClose={handleClosePickupModal}
       />
+      
       <LoadUpdateSuccessModal
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}

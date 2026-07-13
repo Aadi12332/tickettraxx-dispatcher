@@ -472,21 +472,58 @@ const DispatchAssignmentGrid = ({
             });
 
             if (targetIndex !== -1) {
-              params.data.jobs[targetIndex].loads = finalValue;
+           const jobs = [...(params.data.jobs || [])];
+
+jobs[targetIndex] = {
+  ...jobs[targetIndex],
+  loads: finalValue,
+};
+
+const updatedRows = rowData.map((row: any) => {
+  if (row.driver !== params.data.driver) return row;
+
+  return {
+    ...row,
+    jobs,
+  };
+});
+
+setRowData(updatedRows);
+
+params.data.jobs = jobs;
+
+return true;
             } else {
-              if (!params.data.jobs) params.data.jobs = [];
-              let currentCount = params.data.jobs.filter(
-                (j: any) => j.id === job,
-              ).length;
-              while (currentCount < occurrencesBefore) {
-                params.data.jobs.push({ id: job, loads: 0 });
-                currentCount++;
-              }
-              params.data.jobs.push({
-                id: job,
-                loads: finalValue,
-                isManual: true,
-              });
+           const jobs = [...(params.data.jobs || [])];
+
+let currentCount = jobs.filter((j: any) => j.id === job).length;
+
+while (currentCount < occurrencesBefore) {
+  jobs.push({
+    id: job,
+    loads: 0,
+  });
+  currentCount++;
+}
+
+jobs.push({
+  id: job,
+  loads: finalValue,
+  isManual: true,
+});
+
+const updatedRows = rowData.map((row: any) => {
+  if (row.driver !== params.data.driver) return row;
+
+  return {
+    ...row,
+    jobs,
+  };
+});
+
+setRowData(updatedRows);
+
+return true;
             }
             return true;
           },
@@ -541,7 +578,7 @@ const DispatchAssignmentGrid = ({
         // pinned: "right",
       },
     ],
-    [],
+    [rowData],
   );
 
   return (
@@ -564,9 +601,9 @@ const DispatchAssignmentGrid = ({
           <AgGridReact
             theme={themeQuartz}
             rowData={rowData}
-            onCellValueChanged={() => {
-              setRowData((prev: any) => [...prev]);
-            }}
+            // onCellValueChanged={() => {
+            //   setRowData((prev: any) => [...prev]);
+            // }}
             columnDefs={columnDefs}
             context={{
               handleUpdate,

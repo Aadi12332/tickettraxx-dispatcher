@@ -60,7 +60,7 @@ export default function ShipmentOverview() {
 
   return (
     <div className="bg-white rounded-[5px] border shadow-sm border-(--border-gray-2) pb-2">
-      <div className="flex flex-wrap lg:flex-nowrap gap-3 items-center justify-between border-b border-(--border-gray-2) px-3 py-3">
+      <div className="flex flex-wrap lg:flex-nowrap gap-3 items-center justify-between border-b border-(--border-gray-2) px-3 py-4">
         <SectionTitle title="Shipment Overview" />
 
         <div className="flex items-center xl:gap-2 gap-3 sm:ml-auto">
@@ -84,7 +84,7 @@ export default function ShipmentOverview() {
         </div>
       </div>
 
-      <div className="flex items-end justify-between h-[250px] mt-10 px-4">
+      <div className="flex items-end justify-between xl:h-[290px] h-[200px] mt-10 px-4">
  {shipmentData.map((item, index) => (
   <div
     key={index}
