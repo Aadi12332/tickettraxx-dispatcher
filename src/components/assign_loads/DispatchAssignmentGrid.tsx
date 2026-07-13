@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 
 import type { ColDef, ICellRendererParams } from "ag-grid-community";
@@ -581,6 +581,18 @@ return true;
     [rowData],
   );
 
+  const gridRef = useRef<AgGridReact>(null);
+
+useEffect(() => {
+  const handleResize = () => {
+    gridRef.current?.api.sizeColumnsToFit();
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   return (
     <AgGridProvider modules={modules}>
       <div
@@ -599,6 +611,7 @@ return true;
       >
         <div className="ag-theme-alpine w-full h-full">
           <AgGridReact
+          ref={gridRef}
             theme={themeQuartz}
             rowData={rowData}
             // onCellValueChanged={() => {
@@ -628,6 +641,8 @@ return true;
             // rowSelection="multiple"
             suppressRowClickSelection={buttonStatus}
             pinnedBottomRowData={pinnedBottomRowData}
+            stopEditingWhenCellsLoseFocus={false}
+            // singleClickEdit={true}
           />
         </div>
       </div>
