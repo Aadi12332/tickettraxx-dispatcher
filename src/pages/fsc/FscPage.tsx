@@ -212,7 +212,7 @@ const FscPage = () => {
               setEditModalOpen(true);
             }}
             onDelete={(item) => console.log(item)}
-            minWidth="9000px"
+            minWidth="min-w-[900px]"
           />
         </div>
       </div>

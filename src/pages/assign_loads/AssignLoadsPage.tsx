@@ -304,7 +304,7 @@ const AssignLoadsPage = () => {
 
       <div className="relative w-full mt-3">
         {/* Cards Layer */}
-        <div className="absolute top-0 left-0 right-0 z-[999]">
+        <div className="absolute top-0 left-0 right-0 z-[80]">
           <div
             className="cards-scroll overflow-x-auto"
             style={{

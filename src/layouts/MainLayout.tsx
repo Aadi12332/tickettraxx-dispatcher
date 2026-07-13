@@ -12,7 +12,7 @@ const MainLayout = () => {
       {/* Overlay for mobile sidebar */}
       {isMobileOpen && (
         <div
-          className="fixed inset-0 bg-black/50 lg:hidden z-[9999]"
+          className="fixed inset-0 bg-black/50 lg:hidden z-[99]"
           onClick={() => setIsMobileOpen(false)}
         />
       )}
@@ -20,7 +20,7 @@ const MainLayout = () => {
       {/* Sidebar */}
       <div
         className={`
-        fixed inset-y-0 left-0 z-50 transform lg:relative z-[9999] lg:translate-x-0 transition-transform duration-300 ease-in-out p-2 md:p-4 lg:p-0
+        fixed inset-y-0 left-0 z-50 transform lg:relative z-[99] lg:translate-x-0 transition-transform duration-300 ease-in-out p-2 md:p-4 lg:p-0
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
       `}
       >

@@ -111,7 +111,7 @@ const DriverSection = () => {
         </div>
       </div>
 
-      <Table data={filteredDrivers} columns={driverColumns} isCheckbox={false} minWidth="600px" />
+      <Table data={filteredDrivers} columns={driverColumns} isCheckbox={false} minWidth="min-w-[600px]" />
     </div>
   );
 };

@@ -151,7 +151,7 @@ const filteredData = useMemo(() => {
         data={filteredData}
         columns={truckDetailsColumns}
         isCheckbox={false}
-        minWidth="600px"
+        minWidth="min-w-[600px]"
       />
     </div>
   );

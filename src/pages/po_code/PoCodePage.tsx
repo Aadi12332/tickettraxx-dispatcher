@@ -225,6 +225,7 @@ const POCode = () => {
         data={filteredData}
         onEdit={() => setEditModal(true)}
         onDelete={(item) => console.log(item)}
+        minWidth="min-w-[1100px]"
       />
 
       <CreatePOCodeModal

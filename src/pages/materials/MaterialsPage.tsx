@@ -92,7 +92,7 @@ const MaterialsPage = () => {
           data={filteredMaterials}
           onEdit={() => setOpenEditMaterial(true)}
           onDelete={(item) => console.log("Delete Material:", item)}
-          minWidth="500px"
+          minWidth="min-w-[500px]"
         />
       </div>
 

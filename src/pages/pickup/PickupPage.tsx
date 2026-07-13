@@ -158,6 +158,7 @@ const PickupPage = () => {
           columns={columns}
           data={filteredData}
           onEdit={() => setOpenEditPickup(true)}
+          minWidth="min-w-[1000px]"
         />
       </div>
 

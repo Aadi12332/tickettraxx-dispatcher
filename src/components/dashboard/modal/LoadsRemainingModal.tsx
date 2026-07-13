@@ -104,7 +104,7 @@ const LoadsRemainingModal = ({ isOpen, onClose }: LoadsRemainingModalProps) => {
 
 <div className="overflow-hidden p-3">
   <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
-    <table className="w-full table-fixed border-collapse min-w-[500px]">
+    <table className="w-full table-fixed border-collapse min-w-[450px]">
       <thead>
         <tr className="text-sm font-semibold text-[#343434] border-b border-[#E5E7EB]">
           <th className="px-3 py-2 text-left border border-[#E5E7EB]">

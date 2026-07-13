@@ -418,7 +418,7 @@ const filteredPastJobs = pastJobsData.filter((job) => {
                 data={truckTableData}
                 columns={truckColumns}
                 isCheckbox={false}
-                minWidth="600px"
+                minWidth="min-w-[600px]"
               />
             </div>
 

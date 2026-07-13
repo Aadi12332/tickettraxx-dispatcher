@@ -342,7 +342,7 @@ const TicketsTab = () => {
                 data={filteredTickets}
                 onEdit={(item) => console.log("Edit Material:", item)}
                 onDelete={(item) => console.log("Delete Material:", item)}
-                minWidth="1800px"
+                minWidth="min-w-[1800px]"
               />
             </div>
           </div>

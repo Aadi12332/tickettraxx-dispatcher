@@ -38,7 +38,7 @@ const Table = ({
   onDelete,
   columns,
   onStatusToggle,
-  minWidth = "1080px",
+  minWidth,
   onRowClick,
   isCheckbox = true,
 }: TableProps) => {
@@ -83,7 +83,7 @@ const Table = ({
   return (
     <div className="w-full bg-white">
       <div className="overflow-x-auto">
-        <table className={`w-full lg:table-fixed border-collapse border-spacing-0 font-archivo min-w-[${minWidth}]`}>
+        <table className={`w-full border-collapse border-spacing-0 font-archivo ${minWidth || "min-w-[900px]"}`}>
           <thead>
             <tr className="bg-[#F9FAFB] border border-[#E8E8E8]">
               {isCheckbox && (
