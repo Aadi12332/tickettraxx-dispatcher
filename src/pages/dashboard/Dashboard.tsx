@@ -193,7 +193,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stat Cards */}
-      <div className=" grid gap-2 md:gap-4 grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
+      <div className=" grid gap-2 md:gap-3 grid-cols-2 lg:grid-cols-4">
         {dashboardStats.map((item) => (
           <DashboardStatCard
             key={item.title}
@@ -204,17 +204,18 @@ const Dashboard = () => {
       </div>
 
       <DashboardQuickView selectedDate={selectedDate} />
-      <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-3">
+
+      <div className="grid grid-cols-1 xl:grid-cols-[3fr_2fr] gap-3">
         <div className="">
           <RevenueChart />
         </div>
 
         <ShipmentOverview />
       </div>
-      <div className=" bg-white border border-(--border-gray-2) rounded-[5px] shadow-sm p-4 lg:p-6">
+      <div className=" bg-white border border-(--border-gray-2) rounded-[5px] shadow-sm p-3 lg:p-6">
         {/* Header */}
 
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
+        <div className="flex gap-3 flex-row flex-wrap items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <SectionTitle
               title="Live Shipment Tracking"
@@ -240,8 +241,8 @@ const Dashboard = () => {
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-[5fr_2fr] gap-3">
-          <div className="min-h-[250px] xl:h-full">
+        <div className="grid grid-cols-1 xl:grid-cols-[5fr_2fr] gap-3">
+          <div className="min-h-[250px] xl:h-full rounded-lg overflow-hidden">
             <ShipmentMap data={currentDriver.map} />
           </div>
 

@@ -17,10 +17,10 @@ const sizeStyles = {
     input: "pl-9 pr-3 text-sm max-w-xs",
   },
   md: {
-    height: "h-[34px]",
+    height: "h-[36px]",
     icon: "top-2.5 left-3",
     iconSize: 18,
-    input: "pl-11 pr-4 text-xs lg:text-sm w-full max-w-[290px]",
+    input: "pl-11 pr-4 text-xs lg:text-sm w-full md:max-w-[290px] max-w-[150px]",
   },
   lg: {
     height: "h-[42px]",

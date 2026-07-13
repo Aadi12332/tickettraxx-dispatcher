@@ -15,13 +15,13 @@ const ToggleButtonGroup = ({
   onChange,
 }: ToggleButtonGroupProps) => {
   return (
-    <div className="border border-(--border-gray-2) rounded-[5px] flex gap-2 py-1 px-2">
+    <div className="border border-(--border-gray-2) rounded-[5px] flex gap-2 py-1 sm:px-2 px-1">
       {options.map((option) => (
         <button
           key={option.value}
           onClick={() => onChange(option.value)}
           className={`
-            px-4
+            sm:px-4 px-2
             py-0.5
             rounded-[5px]
             text-sm

@@ -11,6 +11,7 @@ export interface DispatchEntry {
   poCode: string;                    // grid column / job ID
   driverName: string;                // card header label
   delivery: string;
+  location?: string;
   loads: number;
   rate: number;
   pickup: string;
@@ -55,12 +56,12 @@ interface DispatchState {
   selectedDay: string;
 }
 
-// ─── Initial dispatches (cards + grid columns combined) ───────────────────────
 const INITIAL_DISPATCHES: DispatchEntry[] = [
   {
     id: "6014",
     poCode: "6014",
     driverName: "AMRIZE",
+    location: "North Sky PH3",
     delivery: "LitLacy - Job#6014 - North Sky PH3",
     loads: 40,
     rate: 6.75,
@@ -73,6 +74,7 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     id: "1143",
     poCode: "1143",
     driverName: "HEIDELBERG MATERIALS",
+    location: "1143-Prosper",
     delivery: "GM Const-Creekend - Job#25-1143 -1143-Prosper",
     loads: 30,
     rate: 6.75,
@@ -85,6 +87,7 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     id: "1143B",
     poCode: "1143B",
     driverName: "RAVENNA-1",
+    location: "Fort Worth",
     delivery: "O'Paving-135 W - Job#21143 -20 S Fort Worth",
     loads: 3,
     rate: 6.75,
@@ -97,6 +100,7 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     id: "6543",
     poCode: "6543",
     driverName: "RAVENNA-2",
+    location: "North Sky PH3",
     delivery: "GM Const-Creekend - Job#20143 -North Sky PH3",
     loads: 30,
     rate: 6.75,
@@ -106,9 +110,10 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     headerColor: "orange",
   },
   {
-    id: "1143_2",      // second occurrence of job 1143 — unique id, same poCode
+    id: "1143_2",
     poCode: "1143",
     driverName: "MARTIN MARETTA",
+    location: "1143-Prosper",
     delivery: "GM Const-Creekend - Job#25143 -1143-Prosper",
     loads: 25,
     rate: 6.75,
@@ -121,6 +126,7 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     id: "1143C",
     poCode: "1143C",
     driverName: "Eric Henry",
+    location: "Arlington Plant 8",
     delivery: "Jstevens - Job#25143 Arlington Plant 8",
     loads: 25,
     rate: 6.75,
@@ -133,6 +139,7 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     id: "1142",
     poCode: "1142",
     driverName: "Clara Jim",
+    location: "North Sky PH3",
     delivery: "GM Const-Creekend - Job#25143 -North Sky PH3",
     loads: 3,
     rate: 6.75,
@@ -145,6 +152,7 @@ const INITIAL_DISPATCHES: DispatchEntry[] = [
     id: "1142B",
     poCode: "1142B",
     driverName: "Eric Henry",
+    location: "Arlington Plant 8",
     delivery: "Jstevens - Job#25143 Arlington Plant 8",
     loads: 25,
     rate: 6.75,
@@ -469,6 +477,7 @@ const dispatchSlice = createSlice({
         loads,
         invoiceRate,
         pickup,
+        location,
         deliver,
         startTime,
         endTime,
@@ -489,6 +498,7 @@ const dispatchSlice = createSlice({
         loads: cardLoads,
         rate: rateVal,
         pickup: pickup || "115 Ambrose Street Bells, TX 75414",
+        location: location,
         material: material || "Material",
         time: `${startT} - ${endT}`,
         headerColor: state.dispatches.length % 2 === 0 ? "yellow" : "orange",

@@ -406,7 +406,7 @@ const DispatchAssignmentGrid = ({
             );
             const dispatchItem = dispatches.find((d) => d.poCode === job);
 
-            const location = dispatchItem?.pickup ?? "";
+            const location = dispatchItem?.location ?? "";
 
             return (
               <Tooltip
@@ -432,9 +432,9 @@ const DispatchAssignmentGrid = ({
                   },
                 }}
               >
-                <div className="flex flex-col items-center justify-center leading-tight py-1">
+                <div className="flex flex-col items-center justify-center leading-tight py-1 w-full">
                   <span className="text-xs font-semibold">#{job}</span>
-                  <span className="text-[10px] text-[#666] font-normal truncate max-w-[90px]">
+                  <span className="text-[10px] text-[#666] font-normal w-full block text-center">
                     {location}
                   </span>
                 </div>
@@ -551,6 +551,7 @@ const DispatchAssignmentGrid = ({
           {
             height: "calc(100vh - 65px)",
             width: "100%",
+            minWidth: "1300px",
             "--ag-background-color": "#ffffff",
             "--ag-header-background-color": "#ffffff",
             "--ag-row-border-color": "#D1D5DB",

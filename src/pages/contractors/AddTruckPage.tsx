@@ -84,7 +84,7 @@ const AddTruckPage = () => {
   return (
     <div className="pb-10">
       {/* Header section */}
-      <div className="flex items-start gap-4 mb-8">
+      <div className="flex items-start gap-4 mb-8 flex-wrap">
         <CommonButton
           onClick={() => navigate(-1)}
           size="sm"

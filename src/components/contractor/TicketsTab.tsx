@@ -245,32 +245,32 @@ const TicketsTab = () => {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const filteredTickets = useMemo(() => {
-  const value = search.toLowerCase().trim();
+    const value = search.toLowerCase().trim();
 
-  if (!value) return contractorStatementData;
+    if (!value) return contractorStatementData;
 
-  return contractorStatementData.filter((item) =>
-    [
-      item.ticketNo,
-      item.date,
-      item.aliasUnit,
-      item.driver,
-      item.pickup,
-      item.dropOff,
-      item.material,
-      item.tonage,
-      item.rate,
-      item.fsc,
-      item.gross,
-      item.ticketStatus,
-      item.invoiceStatus,
-      item.settlementStatus,
-    ]
-      .join(" ")
-      .toLowerCase()
-      .includes(value)
-  );
-}, [search]);
+    return contractorStatementData.filter((item) =>
+      [
+        item.ticketNo,
+        item.date,
+        item.aliasUnit,
+        item.driver,
+        item.pickup,
+        item.dropOff,
+        item.material,
+        item.tonage,
+        item.rate,
+        item.fsc,
+        item.gross,
+        item.ticketStatus,
+        item.invoiceStatus,
+        item.settlementStatus,
+      ]
+        .join(" ")
+        .toLowerCase()
+        .includes(value),
+    );
+  }, [search]);
   return (
     <div className="space-y-4">
       <div className="mt-[px] w-full px-1 xl:px-3 border-b border-(--border-gray-2)">
@@ -282,13 +282,13 @@ const TicketsTab = () => {
           <p className="font-semibold text-sm ml-1">Total Tickets : 10</p>
 
           {/* Right */}
-          <div className="flex items-center gap-3 ml-auto">
+          <div className="flex items-center gap-2 sm:ml-auto">
             {/* Date */}
             <button
               onClick={() => {
                 setOpenCalendarModal(true);
               }}
-              className="h-[36px] px-4 border border-(--border-gray-2) rounded-[4px] flex items-center gap-2 cursor-pointer"
+              className="h-[36px] px-3 border border-(--border-gray-2) rounded-[4px] min-w-fit sm:text-sm text-xs flex items-center gap-2 cursor-pointer"
             >
               <Calendar1 size={18} />
               <span>{"15/05/2026 - 21/05/2026"}</span>
@@ -301,17 +301,17 @@ const TicketsTab = () => {
                 className="absolute left-2 top-1/2 -translate-y-1/2 text-text-gray"
               />
 
-             <input
-  placeholder="Search"
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-  className="h-[36px] w-[180px] border border-(--border-gray-2) rounded-[4px] pl-8 pr-4 outline-none"
-/>
+              <input
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="h-[36px] sm:w-[180px] w-[120px] border border-(--border-gray-2) rounded-[4px] pl-8 pr-4 outline-none"
+              />
             </div>
           </div>
         </div>
-        <div className="px-0 py-4 pb-0 space-y-4">
-          <div className="flex gap-2 justify-between flex-wrap px-2">
+        <div className="px-0 py-4 pb-0 space-y-3">
+          <div className="flex gap-2 sm:justify-between flex-wrap px-2">
             <CommonFilterDropdown
               title="Filter"
               value={filter}
@@ -336,13 +336,14 @@ const TicketsTab = () => {
             />
           </div>
           <div className="overflow-x-auto">
-            <div className="min-w-[1800px]">
+            <div className="">
               <Table
-            columns={statementColumns}
-            data={filteredTickets}
-            onEdit={(item) => console.log("Edit Material:", item)}
-            onDelete={(item) => console.log("Delete Material:", item)}
-          />
+                columns={statementColumns}
+                data={filteredTickets}
+                onEdit={(item) => console.log("Edit Material:", item)}
+                onDelete={(item) => console.log("Delete Material:", item)}
+                minWidth="1800px"
+              />
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ const MaterialsPage = () => {
         title="Materials"
         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
       >
-        <div className="flex flex-wrap items-center gap-4 ml-auto">
+        <div className="flex flex-wrap items-center lg:gap-3 gap-1 ml-auto">
           <CommonButton
             variant="primary"
             size="md"
@@ -92,6 +92,7 @@ const MaterialsPage = () => {
           data={filteredMaterials}
           onEdit={() => setOpenEditMaterial(true)}
           onDelete={(item) => console.log("Delete Material:", item)}
+          minWidth="500px"
         />
       </div>
 

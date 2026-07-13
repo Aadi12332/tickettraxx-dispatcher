@@ -1,4 +1,4 @@
-import { CircleX } from "lucide-react";
+import { X } from "lucide-react";
 import BaseModal from "../../common/modal/BaseModal";
 import CommonPagination from "../../common/CommonPagination";
 
@@ -54,7 +54,7 @@ const LoadsDetailsModal = ({
       className="max-w-[520px]"
       showCloseButton={false}
     >
-      <div className="bg-white rounded-xl border border-(--border-gray) overflow-hidden">
+      <div className="bg-white rounded-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3">
           <h2 className="text-base font-semibold font-archivo text-black">
@@ -65,37 +65,59 @@ const LoadsDetailsModal = ({
             onClick={onClose}
             className="cursor-pointer text-black hover:opacity-70"
           >
-            <CircleX size={20} />
+            <X size={20} />
           </button>
         </div>
 
         <div className="h-px bg-[#E5E7EB]" />
 
-        {/* Table Header */}
-        <div className="grid grid-cols-[2fr_1fr_1.5fr_1fr] px-4 py-3 text-sm font-medium text-[#343434]">
-          <span>Customer</span>
-          <span>Loads</span>
-          <span>Grand Total</span>
-          <span>Status</span>
-        </div>
+<div className="overflow-hidden p-3">
+  <div className="max-h-[320px] overflow-y-auto custom-scrollbar">
+    <table className="w-full table-fixed border-collapse min-w-[500px]">
+      <thead>
+        <tr className="text-sm font-semibold text-[#343434] border-b border-[#E5E7EB]">
+          <th className="px-3 py-2 border border-[#E5E7EB] text-left">
+            Customer
+          </th>
+          <th className="px-3 py-2 border border-[#E5E7EB] text-left">
+            Loads
+          </th>
+          <th className="px-3 py-2 border border-[#E5E7EB] text-left">
+            Grand Total
+          </th>
+          <th className="px-3 py-2 border border-[#E5E7EB] text-left">
+            Status
+          </th>
+        </tr>
+      </thead>
 
-        {/* Table Body */}
-        <div className="max-h-[320px] overflow-y-auto custom-scrollbar px-4">
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-[2fr_1fr_1.5fr_1fr] py-3 text-sm"
-            >
-              <span className="text-[#6B7280]">{item.customer}</span>
+      <tbody>
+        {data.map((item, index) => (
+          <tr
+            key={index}
+            className="border-b border-[#F3F4F6] text-sm hover:bg-gray-50"
+          >
+            <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+              {item.customer}
+            </td>
 
-              <span className="text-[#6B7280]">{item.loads}</span>
+            <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+              {item.loads}
+            </td>
 
-              <span className="text-[#6B7280]">{item.total}</span>
+            <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+              {item.total}
+            </td>
 
-              <span className="font-medium text-green">{item.status}</span>
-            </div>
-          ))}
-        </div>
+            <td className="px-3 py-2 border border-[#E5E7EB] font-medium text-green">
+              {item.status}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
 
         {/* Pagination */}
         <CommonPagination

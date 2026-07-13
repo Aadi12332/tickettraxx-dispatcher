@@ -136,9 +136,9 @@ const chartData =
 
   return (
     <div className="bg-white rounded-[5px] border border-(--border-gray-2) shadow-sm">
-      <div className="flex items-center flex-wrap justify-between border-b border-(--border-gray-2) p-4 gap-2">
+      <div className="flex items-center flex-wrap justify-between border-b border-(--border-gray-2) sm:p-4 p-3 gap-3">
         <SectionTitle title="Dispatch Dashboard Quick View" />
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="flex items-center gap-2 sm:ml-auto">
           <ToggleButtonGroup
             value={period}
             onChange={setPeriod}

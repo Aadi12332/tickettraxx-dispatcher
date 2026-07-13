@@ -371,7 +371,7 @@ const DashboardQuickView = ({ selectedDate = [null, null] }: DashboardQuickViewP
     <div className="bg-white rounded-[5px] border border-(--border-gray-2) overflow-hidden shadow-sm">
       {/* Header */}
 
-      <div className="px-2 xl:px-5 py-2 sm:py-3 flex items-center justify-between border-b border-(--border-gray-2)">
+      <div className="px-3 xl:px-5 py-2 sm:py-3 flex-wrap gap-3 flex items-center justify-between border-b border-(--border-gray-2)">
         <SectionTitle
           title={"Dispatch Dashboard Quick View"}
           className="text-sm sm:text-[18px]"
@@ -406,7 +406,7 @@ const DashboardQuickView = ({ selectedDate = [null, null] }: DashboardQuickViewP
       {/* Table */}
 
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-[900px]">
           <thead>
             <tr className="bg-(--border-gray-2) h-[36px]">
               <th className="text-left px-2 xl:px-5 text-xs sm:text-sm font-semibold text-black font-archivo">

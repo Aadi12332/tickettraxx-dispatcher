@@ -29,9 +29,9 @@ const TableFilters = ({
 }: TableFiltersProps) => {
   return (
     <div className="p-3 lg:p-4 border-b border-(--border-gray-2) bg-white">
-      <div className="flex flex-wrap gap-4 lg:items-center justify-between">
+      <div className="flex flex-wrap lg:gap-4 gap-2 lg:items-center justify-between">
         {/* Left Section */}
-        <div className="flex flex-wrap gap-4">
+        <div className={`flex flex-wrap lg:gap-4 gap-2 ${entries !== undefined ? "w-[unset]" : "w-full"}`}>
           {/* Period */}
           {period && (
             <CommonFilterDropdown
@@ -48,7 +48,7 @@ const TableFilters = ({
           )}
 
           {/* Search */}
-          <div className="relative">
+          <div className="relative md:w-[200px] w-[130px] lg:w-[330px]">
             <Search
               size={18}
               className="absolute left-3 top-2.5 text-text-gray"
@@ -58,7 +58,7 @@ const TableFilters = ({
               value={searchValue}
               onChange={(e) => onSearchChange?.(e.target.value)}
               placeholder="Search"
-              className="h-[36px] w-full lg:w-[330px] border border-(--border-gray-2) rounded-[4px] pl-11 pr-4 outline-none"
+              className="h-[36px] w-full border border-(--border-gray-2) rounded-[4px] pl-11 pr-4 outline-none"
             />
           </div>
 
@@ -74,6 +74,23 @@ const TableFilters = ({
               </span>
             </button>
           )}
+
+                  {isSettingFilter && (
+         <div className="sm:ml-auto">
+           <CommonFilterDropdown
+            value={statusFilter}
+            onChange={(value) => onStatusFilterChange?.(value)}
+            icon={<SlidersHorizontal size={18} />}
+            options={[
+              { label: "Default", value: "" },
+              { label: "Active", value: "active" },
+              { label: "Close", value: "close" },
+              { label: "We Call", value: "we_call" },
+            ]}
+            size="auto"
+          />
+         </div>
+        )}
         </div>
 
         {/* Right Section */}
@@ -94,20 +111,6 @@ const TableFilters = ({
 
             <span>entries</span>
           </div>
-        )}
-        {isSettingFilter && (
-          <CommonFilterDropdown
-            value={statusFilter}
-            onChange={(value) => onStatusFilterChange?.(value)}
-            icon={<SlidersHorizontal size={18} />}
-            options={[
-              { label: "Default", value: "" },
-              { label: "Active", value: "active" },
-              { label: "Close", value: "close" },
-              { label: "We Call", value: "we_call" },
-            ]}
-            size="auto"
-          />
         )}
       </div>
     </div>

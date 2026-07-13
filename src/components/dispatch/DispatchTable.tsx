@@ -54,19 +54,19 @@ const DispatchTable = ({
       <table className="w-full min-w-[700px] table-fixed">
         <thead>
         <tr className="bg-[#E5E7EB]">
-  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+  <th className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
     Dispatch Date
   </th>
 
-  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+  <th className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
     Grand Total
   </th>
 
-  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+  <th className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
     Status
   </th>
 
-  <th className="w-1/4 px-6 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
+  <th className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2) text-left text-xs xl:text-sm font-semibold">
     Details
   </th>
 </tr>
@@ -75,15 +75,15 @@ const DispatchTable = ({
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className="border-b border-(--border-gray-2)">
-              <td className="w-1/4 px-6 py-4 border border-(--border-gray-2) text-xs xl:text-sm text-[#666666]">
+              <td className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2) text-xs xl:text-sm text-[#666666]">
                 {item.date}
               </td>
 
-              <td className="w-1/4 px-6 py-4 border border-(--border-gray-2) text-xs xl:text-sm text-[#666666]">
+              <td className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2) text-xs xl:text-sm text-[#666666]">
                 {item.total}
               </td>
 
-              <td className="w-fit xl:w-1/4 px-6 py-4 border border-(--border-gray-2)">
+              <td className="w-fit xl:w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2)">
                 <span
                   className={`text-xs xl:text-sm  ${
                     item.status === "Active" ? "text-green" : "text-red-500"
@@ -93,7 +93,7 @@ const DispatchTable = ({
                 </span>
               </td>
 
-              <td className="w-1/4 pl-6 py-4 border border-(--border-gray-2)">
+              <td className="w-1/4 md:px-6 px-3 md:py-4 py-3 border border-(--border-gray-2)">
                 <div className="flex justify-left gap-3">
                   <ActionButton
                     icon={<img src={View} alt="" />}

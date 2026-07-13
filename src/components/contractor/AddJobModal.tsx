@@ -118,7 +118,7 @@ const AddJobModal = ({ open, onClose }: AddJobModalProps) => {
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-[9999]">
         <div className="w-full max-w-[570px] bg-white rounded-[8px] shadow-sm overflow-hidden">
           {/* Header */}
-          <div className="px-8 pt-8 pb-4 flex items-start justify-between">
+          <div className="px-4 md:px-2 md:pt-6 pt-3 flex items-start justify-between">
             <div>
               <h2 className="text-xl font-medium text-black">Add Job</h2>
 
@@ -134,7 +134,7 @@ const AddJobModal = ({ open, onClose }: AddJobModalProps) => {
           </div>
 
           {/* Form */}
-          <div className="px-8 pb-8">
+          <div className="px-4 md:px-2 pt-5 pb-4 ">
             <div className="space-y-6">
               <CommonTextInput
                 label="Job Name"

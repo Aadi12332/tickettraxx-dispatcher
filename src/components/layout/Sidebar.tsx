@@ -260,21 +260,25 @@ const Sidebar = ({
 
       {/* Navigation Menu Container */}
       <div className="bg-primary rounded-[14px] flex-1 py-6 flex flex-col gap-3 overflow-y-auto shadow-sm">
-        {navItems.map((item) => {
-          const isActive = location.pathname.includes(item.path);
+       {navItems.map((item) => {
+  const isActive = location.pathname.includes(item.path);
 
-          return (
-            <Link key={item.name} to={item.path}>
-              <SidebarItem
-                icon={item.icon}
-                active={isActive}
-                title={item.name}
-                isCollapsed={isCollapsed}
-                activeIcon={item.activeIcon}
-              />
-            </Link>
-          );
-        })}
+  return (
+    <Link
+      key={item.name}
+      to={item.path}
+      onClick={() => setIsMobileOpen?.(false)}
+    >
+      <SidebarItem
+        icon={item.icon}
+        active={isActive}
+        title={item.name}
+        isCollapsed={isCollapsed}
+        activeIcon={item.activeIcon}
+      />
+    </Link>
+  );
+})}
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ export const weekDays = [
 const AssignLoadsPage = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastTitle, setToastTitle] = useState("");
-  console.log(setToastTitle)
+  console.log(setToastTitle);
   const dispatch = useAppDispatch();
   const selectedDay = useAppSelector((state) => state.dispatch.selectedDay);
   const rowData = useAppSelector((state) => state.dispatch.rowData);
@@ -51,11 +51,11 @@ const AssignLoadsPage = () => {
   const [isLiveTrackingModalOpen, setIsLiveTrackingModalOpen] = useState(false);
   const [buttonStatus] = useState(false);
   const [successModal, setSuccessModal] = useState({
-  open: false,
-  title: "",
-});
+    open: false,
+    title: "",
+  });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  console.log(showSuccessModal)
+  console.log(showSuccessModal);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0],
@@ -80,18 +80,18 @@ const AssignLoadsPage = () => {
     "SAT 4/9",
   ];
   const handleShowToast = (title: string) => {
-  setSuccessModal({
-    open: true,
-    title,
-  });
-
-  setTimeout(() => {
     setSuccessModal({
-      open: false,
-      title: "",
+      open: true,
+      title,
     });
-  }, 3000);
-};
+
+    setTimeout(() => {
+      setSuccessModal({
+        open: false,
+        title: "",
+      });
+    }, 3000);
+  };
 
   const handleSetRowData = (newData: any) => {
     if (typeof newData === "function") {
@@ -146,20 +146,24 @@ const AssignLoadsPage = () => {
         title="Assign Loads"
         description="Enables you to assign loads to available drivers"
       >
-        <div className="flex items-stretch gap-[0.2vw] w-full md:justify-end flex-wrap sm:flex-nowrap min-w-0">
+        <div className="overflow-auto cards-scroll w-[calc(100vw-32px)] lg:w-[unset]"  style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "#1D3461 #D9D9D9",
+            }}>
+          <div className="flex items-stretch gap-1 w-full md:justify-end min-w-[710px] lg:min-w-[unset]">
           {/* Left Action */}
           <button
             // onClick={() => setOpenGridModal(true)}
             onClick={() => setOpenDispatchModal(true)}
             className="
-      h-10 xl:w-10 w-8
-      rounded-lg
-      border border-(--border-gray-2)
-      bg-white
-      flex items-center justify-center
-      cursor-pointer
-      shrink-0
-    "
+              h-10 w-10 min-w-10
+              rounded-lg
+              border border-(--border-gray-2)
+              bg-white
+              flex items-center justify-center
+              cursor-pointer
+              shrink-0
+            "
           >
             <img src={UpscaleImg} className="size-[18px]" />
           </button>
@@ -167,20 +171,20 @@ const AssignLoadsPage = () => {
           {/* Date Filter */}
           <div
             className="
-              flex
+              flex gap-3
               flex-wrap sm:flex-nowrap
               items-center
               rounded-lg
               border border-(--border-gray-2)
               bg-white
-              px-1 sm:py-0 p-2
+              px-1 sm:py-0 p-[3px]
             min-w-0
               overflow-hidden
             "
           >
             {/* Week Days */}
             <div className="flex md:flex-1 max-w-lg min-w-0 overflow-x-auto scrollbar-hide ">
-              <div className="flex items-center gap-[0.2vw] w-max text-xs">
+              <div className="flex items-center gap-2 w-max text-xs">
                 {weekDays.map((day, index) => (
                   <button
                     key={day}
@@ -207,7 +211,7 @@ const AssignLoadsPage = () => {
             </div>
 
             {/* Date + Search */}
-            <div className="flex items-center gap-[0.2vw] ml-auto sm:ml-2 shrink-0 ">
+            <div className="flex items-center gap-1 ml-auto sm:ml-2 shrink-0 ">
               <input
                 type="date"
                 value={selectedDate}
@@ -224,6 +228,7 @@ const AssignLoadsPage = () => {
                   h-8
                   w-[120px] sm:w-[110px] xl:w-[170px] 2xl:w-[190px]
                   px-2
+                  text-sm
                   border border-(--border-gray-2)
                   rounded
                   outline-none
@@ -232,14 +237,14 @@ const AssignLoadsPage = () => {
 
               <button
                 className="
-          h-8
-        w-10 sm:w-fit xl:w-8
-          rounded
-          bg-sky-blue-two
-          flex items-center justify-center
-          text-white
-          cursor-pointer
-        "
+                  h-8 
+                  w-8 min-w-8
+                  rounded
+                  bg-sky-blue-two
+                  flex items-center justify-center
+                  text-white
+                  cursor-pointer
+                "
               >
                 <img src={searchIcon} alt="search" className="size-5" />
               </button>
@@ -247,17 +252,17 @@ const AssignLoadsPage = () => {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-[0.2vw] shrink-0">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               onClick={handleUpdate}
               className="
-        h-10 w-8 xl:w-10
-        rounded-lg
-        border border-(--border-gray-2)
-        bg-white
-        flex items-center justify-center
-        cursor-pointer
-      "
+                h-10 w-10 min-w-10
+                rounded-lg
+                border border-(--border-gray-2)
+                bg-white
+                flex items-center justify-center
+                cursor-pointer
+              "
             >
               <RefreshCcw size={16} />
             </button>
@@ -266,17 +271,18 @@ const AssignLoadsPage = () => {
               // onClick={() => setOpenDispatchModal(true)}
               onClick={() => setOpenGridModal(true)}
               className="
-        h-10 w-8 xl:w-10
-        rounded-lg
-        border border-(--border-gray-2)
-        bg-white
-        flex items-center justify-center
-        cursor-pointer
-      "
+                h-10 w-10 min-w-10
+                rounded-lg
+                border border-(--border-gray-2)
+                bg-white
+                flex items-center justify-center
+                cursor-pointer
+              "
             >
               <img src={UpscaleImg} className="size-[18px]" />
             </button>
           </div>
+        </div>
         </div>
       </PageHeader>
       <style>{`
@@ -319,7 +325,7 @@ const AssignLoadsPage = () => {
           </div>
         </div>
 
-        <div className="pt-[154px] relative z-1 w-full overflow-auto">
+        <div className="pt-[170px] relative z-1 w-full overflow-auto">
           <div className="min-h-[500px] min-w-[1400px]">
             <DispatchAssignmentGrid
               onOpenCancelDrawer={() => setOpenCancelDrawer(true)}
@@ -384,10 +390,7 @@ const AssignLoadsPage = () => {
         onClose={() => setShowSuccessModal(false)}
         // title="You have successfully loaded the loads."
       /> */}
-      <SuccessActionModal
-        open={successModal.open}
-        title={successModal.title}
-      />
+      <SuccessActionModal open={successModal.open} title={successModal.title} />
       <CommonConfirmModal
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}

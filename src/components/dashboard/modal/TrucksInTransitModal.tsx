@@ -1,4 +1,4 @@
-import { Search, CircleX } from "lucide-react";
+import { Search, X } from "lucide-react";
 import BaseModal from "../../common/modal/BaseModal";
 import CommonPagination from "../../common/CommonPagination";
 
@@ -59,10 +59,10 @@ const TrucksInTransitModal = ({
       className="max-w-[850px]"
       showCloseButton={false}
     >
-      <div className="bg-white rounded-xl border border-(--border-gray) overflow-hidden flex flex-col">
+      <div className="bg-white rounded-lg overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex flex-wrap items-center gap-4">
+        <div className="flex sm:items-center items-start justify-between px-3 xl:px-6 py-2 xl:py-5">
+          <div className="flex sm:flex-row flex-col sm:items-center items-start gap-3">
             <h2 className="text-base font-semibold font-archivo text-black whitespace-nowrap">
               Trucks in Transit
             </h2>
@@ -77,28 +77,26 @@ const TrucksInTransitModal = ({
               />
             </div>
           </div>
-          <button
+           <button
             onClick={onClose}
             className="cursor-pointer text-black hover:opacity-70"
           >
-            <CircleX size={20} />
+            <X size={20} />
           </button>
         </div>
 
         <div className="h-px bg-[#E5E7EB]" />
 
-        {/* Table */}
-        <div className="flex-1 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              {/* Header */}
+        <div className="overflow-hidden p-3">
+          <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+            <table className="w-full table-fixed border-collapse min-w-[700px]">
               <thead>
                 <tr className="text-sm font-semibold text-[#343434] border-b border-[#E5E7EB]">
-                  <th className="px-6 py-5 text-left">Truck ID</th>
-                  <th className="px-6 py-5 text-left">Driver</th>
-                  <th className="px-6 py-5 text-left">Loads Remaining</th>
-                  <th className="px-6 py-5 text-left">Pickup</th>
-                  <th className="px-6 py-5 text-left">Deliver</th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Truck ID</th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Driver</th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Loads Remaining</th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Pickup</th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Deliver</th>
                 </tr>
               </thead>
 
@@ -108,25 +106,25 @@ const TrucksInTransitModal = ({
                   <tr
                     key={index}
                     onClick={handleNextModalOpen}
-                    className="border-b border-[#F3F4F6] hover:bg-gray-50 cursor-pointer"
+                    className="border-b border-[#F3F4F6] text-sm hover:bg-gray-50 cursor-pointer"
                   >
-                    <td className="px-6 py-4 text-sm text-[#6B7280]">
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
                       {item.truckId}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-[#6B7280]">
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
                       {item.driver}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-[#6B7280]">
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
                       {item.loadsRemaining}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-[#6B7280]">
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
                       {item.pickup}
                     </td>
 
-                    <td className="px-6 py-4 text-sm text-[#6B7280]">
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
                       {item.deliver}
                     </td>
                   </tr>

@@ -197,7 +197,7 @@ const EditDispatchModal = ({
                 </h3>
                 <div
                   // key={index}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3 md:gap-y-4 mt-6"
+                  className="sm:grid-cols-2 grid-cols-1 mt-6 flex sm:grid flex-col gap-4"
                 >
                   <CommonSelectInput
                     label="Customer"

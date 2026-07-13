@@ -115,14 +115,14 @@ const poCodeData = [
 const columns = [
   { label: "Code", key: "code" },
   { label: "Date", key: "date" },
-  { label: "Pickup", key: "pickup" },
-  { label: "Deliver", key: "deliver" },
+  { label: "Pickup", key: "pickup", width: "130px", },
+  { label: "Deliver", key: "deliver", width: "130px", },
   { label: "Material", key: "material" },
-  { label: "Customer", key: "customer" },
+  { label: "Customer", key: "customer", width: "120px", },
   {
     label: "Third Party Customer",
     key: "thirdPartyCustomer",
-    width: "200px", 
+    width: "200px",
   },
   {
     label: "Rate",
@@ -140,19 +140,19 @@ const POCode = () => {
   const [search, setSearch] = useState("");
 
   const filteredData = poCodeData.filter((item) => {
-  const value = search.toLowerCase();
+    const value = search.toLowerCase();
 
-  return (
-    item.code.toLowerCase().includes(value) ||
-    item.date.toLowerCase().includes(value) ||
-    item.pickup.toLowerCase().includes(value) ||
-    item.deliver.toLowerCase().includes(value) ||
-    item.material.toLowerCase().includes(value) ||
-    item.customer.toLowerCase().includes(value) ||
-    item.thirdPartyCustomer.toLowerCase().includes(value) ||
-    item.rate.toLowerCase().includes(value)
-  );
-});
+    return (
+      item.code.toLowerCase().includes(value) ||
+      item.date.toLowerCase().includes(value) ||
+      item.pickup.toLowerCase().includes(value) ||
+      item.deliver.toLowerCase().includes(value) ||
+      item.material.toLowerCase().includes(value) ||
+      item.customer.toLowerCase().includes(value) ||
+      item.thirdPartyCustomer.toLowerCase().includes(value) ||
+      item.rate.toLowerCase().includes(value)
+    );
+  });
 
   const handleOpenPickupModal = () => {
     setOpenModal(false);
@@ -179,18 +179,18 @@ const POCode = () => {
         {" "}
         <div className="flex flex-wrap items-center gap-[0.6vw] ml-auto">
           <div className="relative">
-  <Search
-    size={16}
-    className="absolute left-4 top-1/2 -translate-y-1/2 text-[#98A2B3]"
-  />
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#98A2B3]"
+            />
 
-  <input
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    placeholder="Search"
-    className="max-w-xs 2xl:max-w-none 2xl:w-[230px] h-[36px] border border-[#E4E7EC] rounded-[5px] bg-white pl-12 pr-4 outline-none text-xs 2xl:text-sm"
-  />
-</div>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search"
+              className="max-w-xs 2xl:max-w-none 2xl:w-[230px] h-[36px] border border-[#E4E7EC] rounded-[5px] bg-white pl-8 pr-4 outline-none text-xs 2xl:text-sm"
+            />
+          </div>
 
           {/* Create Button */}
           <CommonButton

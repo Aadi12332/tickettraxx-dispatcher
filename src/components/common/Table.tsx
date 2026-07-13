@@ -29,6 +29,7 @@ interface TableProps {
   onStatusToggle?: (item: any) => void;
   onRowClick?: (item: any) => void;
   isCheckbox?: boolean;
+  minWidth?: string;
 }
 
 const Table = ({
@@ -37,6 +38,7 @@ const Table = ({
   onDelete,
   columns,
   onStatusToggle,
+  minWidth = "1080px",
   onRowClick,
   isCheckbox = true,
 }: TableProps) => {
@@ -79,14 +81,14 @@ const Table = ({
   });
 
   return (
-    <div className="w-full bg-white p-1 xl:p-2">
+    <div className="w-full bg-white">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[900px] sm:min-w-full lg:table-fixed border-collapse border-spacing-0 font-archivo">
+        <table className={`w-full lg:table-fixed border-collapse border-spacing-0 font-archivo min-w-[${minWidth}]`}>
           <thead>
             <tr className="bg-[#F9FAFB] border border-[#E8E8E8]">
               {isCheckbox && (
-                <th className="xl:w-[45px] py-3 text-left">
-                  <Checkbox size="small" />
+                <th className="w-[45px] py-3 text-center">
+                  <Checkbox className="p-0" size="small" />
                 </th>
               )}
 
@@ -156,8 +158,8 @@ const Table = ({
                 }`}
               >
                 {isCheckbox && (
-                  <td className="xl:w-[45px] py-3 text-left border border-[#E5E7EB]">
-                    <Checkbox size="small" />
+                  <td className="w-[45px] py-3 text-center border border-[#E5E7EB]">
+                    <Checkbox className="!p-0" size="small" />
                   </td>
                 )}
 

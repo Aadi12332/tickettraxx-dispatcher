@@ -40,7 +40,7 @@ const CommonPagination = ({
   };
 
   return (
-    <div className={`flex flex-wrap gap-2 items-center justify-between px-6 py-6  ${!isLeftText &&"justify-center"} `}>
+    <div className={`flex sm:flex-row flex-col gap-2 items-center justify-between md:p-5 p-3 `}>
       {/* Left text */}{" "}
       {isLeftText && (
         <p className="text-[#6B7280] text-xs xl:text-sm font-normal">
@@ -48,11 +48,11 @@ const CommonPagination = ({
         </p>
       )}
       {/* Pagination */}
-      <div className="flex items-center gap-2 ml-auto">
+      <div className="flex items-center gap-2 sm:ml-auto">
         {/* Previous */}
         <button
           onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
-          className="w-9 h-9 flex items-center justify-center rounded-[5px] border border-gray-200 text-gray-500"
+          className="sm:w-9 w-7 sm:h-9 h-7 flex items-center justify-center rounded-[5px] border border-gray-200 text-gray-500"
         >
           <ChevronLeft size={16} />
         </button>
@@ -66,7 +66,7 @@ const CommonPagination = ({
             <button
               key={index}
               onClick={() => onPageChange(Number(page))}
-              className={`w-9 h-9 rounded-[5px] text-sm font-medium ${
+              className={`sm:w-9 w-7 sm:h-9 h-7 rounded-[5px] text-sm font-medium ${
                 currentPage === page
                   ? "bg-[#233B73] text-white"
                   : "border border-gray-200 text-[#6B7280]"
@@ -82,7 +82,7 @@ const CommonPagination = ({
           onClick={() =>
             currentPage < totalPages && onPageChange(currentPage + 1)
           }
-          className="w-8 h-8 flex items-center justify-center rounded-[5px] border border-gray-200 text-[#6B7280]"
+          className="sm:w-9 w-7 sm:h-9 h-7 flex items-center justify-center rounded-[5px] border border-gray-200 text-[#6B7280]"
         >
           <ChevronRight size={16} />
         </button>

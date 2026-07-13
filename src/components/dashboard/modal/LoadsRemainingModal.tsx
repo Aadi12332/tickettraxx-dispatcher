@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CircleX, Eye } from "lucide-react";
+import { X, Eye } from "lucide-react";
 import BaseModal from "../../common/modal/BaseModal";
 import CommonPagination from "../../common/CommonPagination";
 import eyesClosed from "../../../assets/icons/EyeClosed.svg"
@@ -85,7 +85,7 @@ const LoadsRemainingModal = ({ isOpen, onClose }: LoadsRemainingModalProps) => {
       className="max-w-[550px] max-h-[80dvh]"
       showCloseButton={false}
     >
-      <div className="bg-white rounded-xl border border-(--border-gray) overflow-hidden flex flex-col">
+      <div className="bg-white rounded-lg overflow-hidden flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-4">
           <h2 className="text-base font-semibold font-archivo text-black">
@@ -96,75 +96,109 @@ const LoadsRemainingModal = ({ isOpen, onClose }: LoadsRemainingModalProps) => {
             onClick={onClose}
             className="cursor-pointer text-black hover:opacity-70"
           >
-            <CircleX size={22} />
+            <X size={20} />
           </button>
         </div>
 
         <div className="h-px bg-[#E5E7EB]" />
 
-        {/* Table Header */}
-        <div className="grid grid-cols-[2fr_1.5fr_1.5fr] px-4 py-4 text-sm font-medium text-[#343434]">
-          <span>Customer</span>
-          <span>Remaining Loads</span>
-          <span>Completion %</span>
-        </div>
+<div className="overflow-hidden p-3">
+  <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+    <table className="w-full table-fixed border-collapse min-w-[500px]">
+      <thead>
+        <tr className="text-sm font-semibold text-[#343434] border-b border-[#E5E7EB]">
+          <th className="px-3 py-2 text-left border border-[#E5E7EB]">
+            Customer
+          </th>
+          <th className="px-3 py-2 text-left border border-[#E5E7EB]">
+            Remaining Loads
+          </th>
+          <th className="px-3 py-2 text-left border border-[#E5E7EB]">
+            Completion %
+          </th>
+        </tr>
+      </thead>
 
-        {/* Table Body */}
-        <div className="max-h-[400px] overflow-y-auto custom-scrollbar px-4 flex-1 space-y-2 mb-4">
-          {data.map((item) => {
-            const isExpanded = expandedId === item.id;
+      <tbody>
+        {data.map((item) => {
+          const isExpanded = expandedId === item.id;
 
-            return (
-              <div key={item.id} className="flex flex-col">
-                {/* Main Row */}
-                <div className="grid grid-cols-[2fr_1.5fr_1.5fr] py-3 text-sm items-center">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
+          return (
+            <>
+              {/* Main Row */}
+              <tr
+                key={item.id}
+                className="text-sm border-b border-[#E5E7EB] hover:bg-gray-50"
+              >
+                <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                  <div className="flex items-center gap-2">
                     <span>{item.customer}</span>
+
                     <button
                       onClick={() => toggleExpand(item.id)}
-                      className="cursor-pointer hover:text-black transition-colors"
+                      className="cursor-pointer"
                     >
-                      {isExpanded ? <Eye size={16} color="#666666" /> : <img className="size-4" src={eyesClosed}/>}
+                      {isExpanded ? (
+                        <Eye size={16} color="#666666" className="min-w-4" />
+                      ) : (
+                        <img className="size-4 min-w-4" src={eyesClosed} />
+                      )}
                     </button>
                   </div>
+                </td>
 
-                  <span className="text-[#6B7280]">{item.remainingLoads}</span>
+                <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                  {item.remainingLoads}
+                </td>
 
-                  <span className="font-semibold text-[#E2B93B]">
-                    {item.completion}
-                  </span>
-                </div>
+                <td className="px-3 py-2 border border-[#E5E7EB] font-semibold text-[#E2B93B]">
+                  {item.completion}
+                </td>
+              </tr>
 
-                {/* Expanded Details */}
-                {isExpanded && item.details && item.details.length > 0 && (
-                  <div className="bg-[#D3EAFF] rounded-[4px] p-4 mt-1 mb-2">
-                    <div className="grid grid-cols-[2fr_2fr_1fr_1fr_1fr] text-xs font-semibold text-black mb-3">
-                      <span>Pickup</span>
-                      <span>Deliver</span>
-                      <span>Material</span>
-                      <span>Tonage</span>
-                      <span>Rate</span>
-                    </div>
-                    <div className="space-y-3">
-                      {item.details.map((detail, idx) => (
-                        <div
-                          key={idx}
-                          className="grid grid-cols-[2fr_2fr_1fr_1fr_1fr] text-xs font-normal text-[#343434]"
-                        >
-                          <span>{detail.pickup}</span>
-                          <span>{detail.deliver}</span>
-                          <span>{detail.material}</span>
-                          <span>{detail.tonage}</span>
-                          <span>{detail.rate}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+              {/* Expanded Row */}
+              {isExpanded && item.details?.length > 0 && (
+                <tr>
+                  <td
+                    colSpan={3}
+                    className="border border-[#E5E7EB] bg-[#D3EAFF] p-4"
+                  >
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="text-sm font-semibold text-[#343434] border-b border-[#A8CDEE]">
+                          <th className="text-left py-2">Pickup</th>
+                          <th className="text-left py-2">Deliver</th>
+                          <th className="text-left py-2">Material</th>
+                          <th className="text-left py-2">Tonnage</th>
+                          <th className="text-left py-2">Rate</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        {item.details.map((detail, idx) => (
+                          <tr
+                            key={idx}
+                            className="text-sm text-[#6B7280] border-b border-[#BFD9F0]"
+                          >
+                            <td className="py-2">{detail.pickup}</td>
+                            <td className="py-2">{detail.deliver}</td>
+                            <td className="py-2">{detail.material}</td>
+                            <td className="py-2">{detail.tonage}</td>
+                            <td className="py-2">{detail.rate}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              )}
+            </>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>
 
         {/* Pagination */}
         <div className="mt-auto">

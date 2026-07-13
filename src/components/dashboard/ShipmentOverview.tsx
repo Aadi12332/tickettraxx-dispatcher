@@ -60,10 +60,10 @@ export default function ShipmentOverview() {
 
   return (
     <div className="bg-white rounded-[5px] border shadow-sm border-(--border-gray-2) pb-2">
-      <div className="flex flex-wrap lg:flex-nowrap gap-1 items-center justify-between border-b border-(--border-gray-2) px-2.5 py-4">
+      <div className="flex flex-wrap lg:flex-nowrap gap-3 items-center justify-between border-b border-(--border-gray-2) px-3 py-3">
         <SectionTitle title="Shipment Overview" />
 
-        <div className="flex items-center xl:gap-2 gap-[0.2vw] ml-auto">
+        <div className="flex items-center xl:gap-2 gap-3 sm:ml-auto">
           <CommonFilterDropdown
             value={selectedCustomer}
             onChange={setSelectedCustomer}

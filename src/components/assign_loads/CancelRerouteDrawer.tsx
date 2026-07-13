@@ -193,7 +193,7 @@ const handleActionClick = (title: string) => {
                       "You successfully sent the reminder to return to the pickup location."
                     )
                   }
-                className="mt-auto w-full h-10 rounded-lg bg-[#D99018] text-white text-sm font-semibold hover:opacity-90 cursor-pointer"
+                className="mt-5 lg:mt-auto w-full h-10 rounded-lg bg-[#D99018] text-white text-sm font-semibold hover:opacity-90 cursor-pointer"
               >
                 Confirm Return to Pickup
               </button>

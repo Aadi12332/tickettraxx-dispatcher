@@ -153,7 +153,7 @@ const ContractorModal = ({
 
           {/* Form */}
           <div className=" pb-4 mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6 max-h-[55dvh] overflow-y-auto px-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6 max-h-[55dvh] overflow-y-auto md:px-5 px-3">
               {/* Name */}
               <div className="md:col-span-2">
                 <CommonTextInput
@@ -475,7 +475,7 @@ const ContractorModal = ({
             </div>
 
             {/* Footer */}
-            <div className="border-t px-5 border-[#E5E7EB] mt-2 pt-3 flex justify-center flex-wrap gap-1 md:gap-2 xl:gap-4 mb-3">
+            <div className="border-t px-5 border-[#E5E7EB] mt-2 pt-3 flex justify-end flex-wrap gap-1 md:gap-2 xl:gap-4">
               <CommonButton
                 variant="primary"
                 size="md"

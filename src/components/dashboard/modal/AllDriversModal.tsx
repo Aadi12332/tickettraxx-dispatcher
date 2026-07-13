@@ -16,7 +16,7 @@ const AllDriversModal = ({ open, onClose, drivers }: Props) => {
 
   return (
     <div className="fixed inset-0 z-9999 bg-black/50 flex items-center justify-center p-6">
-      <div className="bg-white rounded-xl w-full max-w-[1100px] p-6">
+      <div className="bg-white rounded-lg w-full max-w-[1100px] md:p-6 p-3">
         {/* Header */}
 
         <div className="flex items-center justify-between mb-6">
@@ -30,7 +30,7 @@ const AllDriversModal = ({ open, onClose, drivers }: Props) => {
         {/* Content */}
 
         <div className="relative h-[400px]">
-            <ShipmentMap />
+          <ShipmentMap />
 
           {/* Driver markers */}
 
@@ -53,8 +53,8 @@ const AllDriversModal = ({ open, onClose, drivers }: Props) => {
                   src={driver.avatar}
                   alt=""
                   className="
-                    w-16
-                    h-16
+                    md:w-16 sm:w-10 w-7
+                    md:h-16 sm:h-10 h-7
                     rounded-full
                     border-2
                     border-orange-400

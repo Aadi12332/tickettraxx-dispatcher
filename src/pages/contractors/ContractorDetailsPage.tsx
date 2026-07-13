@@ -241,7 +241,7 @@ const filteredPastJobs = pastJobsData.filter((job) => {
               </button>
 
               {showConfirmTooltip && (
-                <div className="absolute top-[calc(100%+12px)] right-0 w-[400px] bg-white rounded-lg shadow-xl border border-gray-100 p-4 z-50">
+                <div className="absolute top-[calc(100%+12px)] right-0 md:w-[400px] w-[280px] bg-white rounded-lg shadow-xl border border-gray-100 p-4 z-50">
                   <h3 className="text-[15px] font-semibold text-center text-black mb-2">
                     Are you sure want to {isActive ? "deactivate" : "activate"}{" "}
                     the account
@@ -329,7 +329,7 @@ const filteredPastJobs = pastJobsData.filter((job) => {
             <span className="text-sm text-[#6B7280] w-14 flex-shrink-0">
               Phone
             </span>
-            <span className="text-sm text-[#374151] font-medium truncate ml-10">
+            <span className="text-sm text-[#374151] font-medium truncate sm:ml-10 ml-0">
               {contractor.phone}
             </span>
           </div>
@@ -339,7 +339,7 @@ const filteredPastJobs = pastJobsData.filter((job) => {
             <span className="text-sm text-[#6B7280] w-14 flex-shrink-0">
               Address
             </span>
-            <span className="text-sm text-[#374151] font-medium ml-10 leading-snug md:text-start flex-1">
+            <span className="text-sm text-[#374151] font-medium sm:ml-10 ml-0 leading-snug md:text-start flex-1">
               {contractor.address}
             </span>
           </div>
@@ -351,7 +351,7 @@ const filteredPastJobs = pastJobsData.filter((job) => {
             </span>
             <a
               href={`mailto:${contractor.email}`}
-              className="text-sm text-[#233B73] font-medium hover:underline truncate ml-10"
+              className="text-sm text-[#233B73] font-medium hover:underline truncate sm:ml-10 ml-0"
             >
               {contractor.email}
             </a>
@@ -418,6 +418,7 @@ const filteredPastJobs = pastJobsData.filter((job) => {
                 data={truckTableData}
                 columns={truckColumns}
                 isCheckbox={false}
+                minWidth="600px"
               />
             </div>
 

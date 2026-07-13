@@ -51,19 +51,23 @@ const data = [
   },
 ];
 
-const TrucksDispatchedModal = ({ isOpen, onClose,onRowClicked }: TrucksDispatchedModalProps) => {
+const TrucksDispatchedModal = ({
+  isOpen,
+  onClose,
+  onRowClicked,
+}: TrucksDispatchedModalProps) => {
   return (
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
       position="center"
-      className="max-w-[600px] lg:max-w-[800px] xl:max-w-[850px]"
+      className="max-w-[750px] lg:max-w-[800px] xl:max-w-[850px]"
       showCloseButton={false}
     >
-      <div className="bg-white rounded-xl border border-(--border-gray) overflow-hidden flex flex-col">
+      <div className="bg-white rounded-lg overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-3 xl:px-6 py-2 xl:py-5">
-          <div className="flex flex-wrap items-center gap-4">
+        <div className="flex sm:items-center items-start justify-between px-3 xl:px-6 py-2 xl:py-5">
+          <div className="flex sm:flex-row flex-col sm:items-center items-start gap-3">
             <h2 className="text-base xl:text-lg font-semibold font-archivo text-black whitespace-nowrap">
               Trucks Dispatched
             </h2>
@@ -83,38 +87,68 @@ const TrucksDispatchedModal = ({ isOpen, onClose,onRowClicked }: TrucksDispatche
             onClick={onClose}
             className="cursor-pointer text-black hover:opacity-70"
           >
-            <X size={22} />
+            <X size={20} />
           </button>
         </div>
 
         <div className="h-px bg-[#E5E7EB]" />
 
-        {/* Table Header */}
-        <div className="grid grid-cols-[1fr_2fr_1fr_1.5fr_2fr_2fr] px-3 xl:px-6 py-2 xl:py-5 text-xs xl:text-sm font-semibold text-[#343434]">
-          <span>Truck ID</span>
-          <span>Driver</span>
-          <span>Tonnage</span>
-          <span>Grand Total</span>
-          <span>Pickup</span>
-          <span>Deliver</span>
-        </div>
+        <div className="overflow-hidden p-3">
+          <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+            <table className="w-full table-fixed border-collapse min-w-[700px]">
+              <thead className="sticky top-0 bg-white z-10">
+                <tr className="text-left text-xs xl:text-sm font-semibold text-[#343434] border-b border-[#E5E7EB]">
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB]">
+                    Truck ID
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB]">
+                    Driver
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB]">
+                    Tonnage
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB]">
+                    Grand Total
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB]">
+                    Pickup
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB]">
+                    Deliver
+                  </th>
+                </tr>
+              </thead>
 
-        {/* Table Body */}
-        <div className="max-h-[400px] overflow-y-auto custom-scrollbar px-6 flex-1">
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-[1fr_2fr_1fr_1.5fr_2fr_2fr] py-2 overflow-hidden xl:py-4 text-xs xl:text-sm cursor-pointer"
-              onClick={onRowClicked}
-            >
-              <span className="text-[#6B7280]">{item.truckId}</span>
-              <span className="text-[#6B7280]">{item.driver}</span>
-              <span className="text-[#6B7280]">{item.tonnage}</span>
-              <span className="text-[#6B7280]">{item.total}</span>
-              <span className="text-[#6B7280]">{item.pickup}</span>
-              <span className="text-[#6B7280]">{item.deliver}</span>
-            </div>
-          ))}
+              <tbody>
+                {data.map((item, index) => (
+                  <tr
+                    key={index}
+                    onClick={onRowClicked}
+                    className="cursor-pointer border-b border-[#F3F4F6] hover:bg-[#F9FAFB]"
+                  >
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
+                      {item.truckId}
+                    </td>
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
+                      {item.driver}
+                    </td>
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
+                      {item.tonnage}
+                    </td>
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
+                      {item.total}
+                    </td>
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
+                      {item.pickup}
+                    </td>
+                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
+                      {item.deliver}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {/* Pagination */}

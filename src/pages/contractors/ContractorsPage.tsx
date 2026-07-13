@@ -350,7 +350,7 @@ const ContractorsPage = () => {
           />
           <button
             onClick={() => setOpenCalendarModal(true)}
-            className="bg-white border border-(--border-gray-2) rounded-[5px] px-2 xl:px-4 py-1 xl:py-2 flex items-center gap-3 cursor-pointer w-fit"
+            className="bg-white border border-(--border-gray-2) rounded-[5px] h-[36px] px-2 xl:px-4 py-1 xl:py-2 flex items-center gap-3 cursor-pointer w-fit"
           >
             <Calendar1 size={16} />
             <span className="text-sm font-normal">{formatDateRange()}</span>
@@ -396,7 +396,7 @@ const ContractorsPage = () => {
                 { label: "365 Days", value: "365" },
               ]}
             />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 xl:gap-4 mt-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 xl:gap-3 mt-4">
               {statsData.map((item, index) => (
                 <StatsCard
                   key={index}
