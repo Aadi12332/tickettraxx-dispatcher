@@ -642,7 +642,7 @@ useEffect(() => {
             suppressRowClickSelection={buttonStatus}
             pinnedBottomRowData={pinnedBottomRowData}
             stopEditingWhenCellsLoseFocus={false}
-            // singleClickEdit={true}
+            singleClickEdit={true}
           />
         </div>
       </div>
