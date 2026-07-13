@@ -46,10 +46,10 @@ const initialFormData = {
 
 const editFormData = {
   type: "Pickup",
-  location: "115 Ambrose Street Bells, TX 75414",
-  customer: "HEIDELBERG MATERIALS",
+  location: "321 Oakridge Blvd, Oakridge, OR 97463",
+  customer: "Kevin Mark",
   contractorRate: "10.00",
-  thirdPartyCustomer: "Third Party 1",
+  thirdPartyCustomer: "Gilco Civil",
 };
 
 const CreatePickupModal = ({

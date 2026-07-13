@@ -326,7 +326,7 @@ const AssignLoadsPage = () => {
         </div>
 
         <div className="pt-[170px] relative z-1 w-full overflow-auto">
-          <div className="min-h-[500px] min-w-[1400px]">
+          <div className="">
             <DispatchAssignmentGrid
               onOpenCancelDrawer={() => setOpenCancelDrawer(true)}
               onRowClicked={() => setIsLiveTrackingModalOpen(true)}
@@ -342,6 +342,7 @@ const AssignLoadsPage = () => {
                   setShowSuccessModal(false);
                 }, 3000);
               }}
+              customHeight="h-[calc(100vh-105px)]"
             />
           </div>
         </div>

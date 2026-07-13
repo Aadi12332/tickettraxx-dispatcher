@@ -48,11 +48,12 @@ const editFormData = {
   invoiceRate: "$10.00",
   contractorRate: "$10.00",
   pickup: "115 Ambrose Street Bells, TX 75414",
-  deliver: "Tom Harpool WTP Expansion PH...",
-  startTime: "10:00 AM",
-  endTime: "06:00 PM",
+  deliver: "789 Riverview Drive, Riverview, TX 75014",
+startTime: "10:00",
+endTime: "18:00",
   comment: "Existing dispatch note...",
 };
+
 const EditDispatchModal = ({
   open,
   onClose,
@@ -152,6 +153,7 @@ const EditDispatchModal = ({
     columns.length > 0;
 
   const disableActions = !isEdit && !isFormValid;
+
   return (
     <Modal open={open} onClose={handleClose}>
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-[9999]">

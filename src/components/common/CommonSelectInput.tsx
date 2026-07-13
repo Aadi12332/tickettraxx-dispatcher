@@ -51,7 +51,7 @@ const CommonSelectInput = ({
 
   return (
     <div className="w-full" ref={wrapperRef}>
-      <label className="block text-sm xl:text-base font-normal text-black mb-2.5">
+      <label className="block text-sm font-normal text-black mb-2.5">
         {label}
       </label>
 
@@ -88,7 +88,7 @@ const CommonSelectInput = ({
         <button
           type="button"
           onClick={() => setOpen((prev) => !prev)}
-          className="w-full h-[40px] border border-[#E5E7EB] rounded-[8px] bg-white px-4 flex items-center justify-between"
+          className="w-full h-[40px] border border-[#E5E7EB] rounded-[8px] bg-white px-4 text-sm flex items-center justify-between"
         >
           <span className={value ? "text-black truncate" : "text-[#6B7280]"}>
             {value ? selectedLabel : placeholder}

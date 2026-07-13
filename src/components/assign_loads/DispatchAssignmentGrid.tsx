@@ -165,6 +165,7 @@ const DispatchAssignmentGrid = ({
   setRowData,
   originalRowData,
   handleUpdate,
+  customHeight,
 }: any) => {
   const jobHeaders = useAppSelector(selectJobHeaders);
   const [driverPopup, setDriverPopup] = useState<any>(null);
@@ -546,10 +547,9 @@ const DispatchAssignmentGrid = ({
   return (
     <AgGridProvider modules={modules}>
       <div
-        className="ag-theme-alpine"
+        className={`ag-theme-alpine ${customHeight || "h-[calc(100vh-105px)]"}`}
         style={
           {
-            height: "calc(100vh - 65px)",
             width: "100%",
             minWidth: "1300px",
             "--ag-background-color": "#ffffff",

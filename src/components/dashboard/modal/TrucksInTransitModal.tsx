@@ -1,6 +1,7 @@
 import { Search, X } from "lucide-react";
 import BaseModal from "../../common/modal/BaseModal";
 import CommonPagination from "../../common/CommonPagination";
+import { useState, useMemo } from "react";
 
 interface TrucksInTransitModalProps {
   isOpen: boolean;
@@ -51,6 +52,22 @@ const TrucksInTransitModal = ({
   onClose,
   handleNextModalOpen,
 }: TrucksInTransitModalProps) => {
+  const [search, setSearch] = useState("");
+  const filteredData = useMemo(() => {
+  const keyword = search.toLowerCase().trim();
+
+  if (!keyword) return data;
+
+  return data.filter((item) =>
+    [
+      item.truckId,
+      item.driver,
+      item.loadsRemaining,
+      item.pickup,
+      item.deliver,
+    ].some((value) => value.toLowerCase().includes(keyword))
+  );
+}, [search]);
   return (
     <BaseModal
       isOpen={isOpen}
@@ -71,9 +88,11 @@ const TrucksInTransitModal = ({
                 <Search size={16} className="text-gray-400" />
               </div>
               <input
+                value={search}
+  onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 placeholder="Search"
-                className="pl-10 pr-4 py-1.5 border border-gray-200 rounded-md text-sm outline-none focus:border-blue-500 md:w-[300px]"
+                className="pl-10 pr-4 py-1.5 border border-gray-200 rounded-md text-sm outline-none md:w-[300px]"
               />
             </div>
           </div>
@@ -100,36 +119,46 @@ const TrucksInTransitModal = ({
                 </tr>
               </thead>
 
-              {/* Body */}
-              <tbody className="max-h-[400px] overflow-y-auto">
-                {data.map((item, index) => (
-                  <tr
-                    key={index}
-                    onClick={handleNextModalOpen}
-                    className="border-b border-[#F3F4F6] text-sm hover:bg-gray-50 cursor-pointer"
-                  >
-                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
-                      {item.truckId}
-                    </td>
+             <tbody>
+  {filteredData.length > 0 ? (
+    filteredData.map((item, index) => (
+      <tr
+        key={index}
+        onClick={handleNextModalOpen}
+        className="border-b border-[#F3F4F6] text-sm hover:bg-gray-50 cursor-pointer"
+      >
+        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+          {item.truckId}
+        </td>
 
-                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
-                      {item.driver}
-                    </td>
+        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+          {item.driver}
+        </td>
 
-                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
-                      {item.loadsRemaining}
-                    </td>
+        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+          {item.loadsRemaining}
+        </td>
 
-                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
-                      {item.pickup}
-                    </td>
+        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+          {item.pickup}
+        </td>
 
-                    <td className="px-3 text-sm py-2 border border-[#E5E7EB] text-[#6B7280]">
-                      {item.deliver}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+          {item.deliver}
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td
+        colSpan={5}
+        className="border border-[#E5E7EB] py-8 text-center text-[#6B7280] text-sm"
+      >
+        No search data found.
+      </td>
+    </tr>
+  )}
+</tbody>
             </table>
           </div>
         </div>

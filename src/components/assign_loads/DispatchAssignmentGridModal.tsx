@@ -47,7 +47,7 @@ const DispatchAssignmentGridModal = ({
 
           {/* Grid Section */}
           <div className="flex-1">
-            <div className="bg-white border border-gray-200 min-h-full p-2 overflow-y-auto">
+            <div className="bg-white p-2 overflow-y-auto">
               <DispatchAssignmentGrid
                 onOpenCancelDrawer={onOpenCancelDrawer}
                 onRowClicked={onRowClicked}
@@ -57,6 +57,7 @@ const DispatchAssignmentGridModal = ({
                 setRowData={setRowData}
                 originalRowData={originalRowData}
                 handleUpdate={handleUpdate}
+                customHeight="h-[calc(100vh-65px)]"
               />
             </div>
           </div>

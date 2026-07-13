@@ -84,7 +84,7 @@ const [successModal, setSuccessModal] = useState({
         <div className="fixed inset-0 bg-[#F4F5F8] flex items-start justify-center z-50">
           <div className="w-dvw h-dvh bg-[#F4F5F8] flex flex-col">
             {/* Header */}
-            <div className="md:h-[60px] shrink-0 border-b border-[#E5E7EB] px-3 py-3 flex gap-3 flex-wrap items-center justify-between">
+            <div className="md:h-[60px] shrink-0 border-b border-[#E5E7EB] px-3 py-3 flex gap-3 items-center justify-between">
               <div className="flex items-center gap-3">
                 <h2 className="md:text-xl text-base font-medium text-[#2F2F2F]">
                   Dispatch Details for 
@@ -92,7 +92,7 @@ const [successModal, setSuccessModal] = useState({
                 </h2>
               </div>
 
-              <div className="flex items-center gap-4 ml-auto">
+              <div className="flex items-center gap-2 ml-auto min-w-max">
                 {!isCanceled && (
                   <CommonButton
                     variant="secondary"
@@ -158,8 +158,8 @@ const [successModal, setSuccessModal] = useState({
               </div> */}
 
               {/* Grid */}
-              <div className="px-3 pb-6 mt-1 overflow-auto">
-                <div className="border border-[#E5E7EB] rounded-xl min-h-[600px] min-w-[100px]">
+              <div className="px-3 pb-3 mt-1 overflow-auto">
+                <div className="">
                   <DispatchAssignmentGrid
                     selectedDay={selectedDay}
                     buttonStatus={buttonStatus}
@@ -168,6 +168,7 @@ const [successModal, setSuccessModal] = useState({
                     originalRowData={originalRowData}
                     onOpenCancelDrawer={() => setOpenCancelDrawer(true)}
                     onRowClicked={() => {}}
+                    customHeight="h-[calc(100vh-95px)]"
                   />
                 </div>
               </div>

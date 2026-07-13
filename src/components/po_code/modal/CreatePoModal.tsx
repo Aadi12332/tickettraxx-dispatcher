@@ -61,13 +61,13 @@ const initialFormData = {
 
 const editFormData = {
   poCode: "5552389933",
-  material: "1' Rock",
-  customer: "HEIDELBERG MATERIALS",
-  thirdPartyCustomer: "Third Party 1",
+  material: "Crushed Granite",
+  customer: "Emerson Westervelt",
+  thirdPartyCustomer: "Desirae Geidt",
   invoiceRate: "10.00",
   contractorRate: "8.50",
   pickup: "115 Ambrose Street Bells, TX 75414",
-  deliver: "Tom Harpool WTP Expansion PH...",
+  deliver: "Tom Harpool WTP Expansion PH2",
 };
 
 const CreatePOCodeModal = ({
