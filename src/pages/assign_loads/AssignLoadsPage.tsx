@@ -241,7 +241,7 @@ const AssignLoadsPage = () => {
                 }}
                 className="
                   h-8
-                  w-[120px] sm:w-[110px] xl:w-[170px] 2xl:w-[190px]
+                  w-[120px]
                   px-2
                   text-sm
                   border border-(--border-gray-2)
