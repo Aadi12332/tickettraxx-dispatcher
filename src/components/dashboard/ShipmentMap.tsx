@@ -1,5 +1,5 @@
+import { useEffect, useId } from "react";
 import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
-
 import L, { type LatLngTuple } from "leaflet";
 
 const startIcon = L.divIcon({
@@ -51,21 +51,26 @@ interface ShipmentMapProps {
 const defaultData = {
   start: [34.0522, -118.2437] as LatLngTuple,
   end: [34.0528, -118.2851] as LatLngTuple,
-  // route: [
-  //   [34.0522, -118.2437],
-  //   [34.0489, -118.2568],
-  //   [34.0407, -118.2468],
-  //   [34.0347, -118.269],
-  //   [34.0528, -118.2851],
-  // ] as LatLngTuple[],
 };
 
 const ShipmentMap = ({ data = defaultData }: ShipmentMapProps) => {
   const { start, end, route } = data;
 
+  // stable, unique id per component instance
+  const mapId = useId().replace(/:/g, "");
+
+  useEffect(() => {
+    return () => {
+      const el = document.getElementById(mapId);
+      if (el && (el as any)._leaflet_id) {
+        (el as any)._leaflet_id = null;
+      }
+    };
+  }, [mapId]);
+
   return (
     <MapContainer
-      key={`${start[0]}-${start[1]}`}
+      id={mapId}
       center={start}
       zoom={15}
       className="h-full w-full z-[1]"

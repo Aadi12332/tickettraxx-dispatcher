@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { Calendar1, Map } from "lucide-react";
+import { Calendar1, GripVertical } from "lucide-react";
 import type { Dayjs } from "dayjs";
 import type { LatLngTuple } from "leaflet";
 import DashboardStatCard from "../../components/dashboard/DashboardStatCard";
 import DashboardQuickView from "../../components/dashboard/DashboardQuickView";
 import RevenueChart from "../../components/dashboard/RevenueChart";
 import ShipmentOverview from "../../components/dashboard/ShipmentOverview";
-import ShipmentMap from "../../components/dashboard/ShipmentMap";
-import DriverTrackingCard from "../../components/dashboard/DrivingTrackingCard";
+// import ShipmentMap from "../../components/dashboard/ShipmentMap";
+// import DriverTrackingCard from "../../components/dashboard/DrivingTrackingCard";
 import truck_fast_outline from "../../assets/icons/truck_fast_outline.svg";
 import truck from "../../assets/icons/heroicons_truck.svg";
 import box from "../../assets/icons/solar_box.svg";
 import box2 from "../../assets/icons/proicons_box.svg";
-import SectionTitle from "../../components/common/SectionTitle";
+// import SectionTitle from "../../components/common/SectionTitle";
 import CalendarModal from "../../components/common/modal/CalendorModal";
 import LoadsDetailsModal from "../../components/dashboard/modal/LoadsDetailsModal";
 import TrucksInTransitModal from "../../components/dashboard/modal/TrucksInTransitModal";
@@ -20,7 +20,9 @@ import TrucksDispatchedModal from "../../components/dashboard/modal/TrucksDispat
 import LoadsRemainingModal from "../../components/dashboard/modal/LoadsRemainingModal";
 import LiveShipmentTrackingModal from "../../components/dashboard/modal/LiveShipmentTrackingModal";
 import NextInQueueModal from "../../components/dashboard/modal/NextInQueueModal";
-import CommonFilterDropdown from "../../components/common/CommonFilterDropdown";
+// import CommonFilterDropdown from "../../components/common/CommonFilterDropdown";
+import { Reorder } from "framer-motion";
+import TrackingSection from "../../components/dashboard/TrackingSection";
 
 const dashboardStats = [
   {
@@ -140,6 +142,11 @@ const trackingData: TrackingItem[] = [
 
 const Dashboard = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [sections, setSections] = useState([
+    "quick-view",
+    "analytics",
+    "tracking",
+  ]);
   const [selectedDate, setSelectedDate] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
@@ -192,7 +199,6 @@ const Dashboard = () => {
         </button>
       </div>
 
-      {/* Stat Cards */}
       <div className=" grid gap-2 md:gap-3 grid-cols-2 lg:grid-cols-4">
         {dashboardStats.map((item) => (
           <DashboardStatCard
@@ -203,81 +209,47 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <DashboardQuickView selectedDate={selectedDate} />
+      <Reorder.Group
+        axis="y"
+        values={sections}
+        onReorder={setSections}
+        className="space-y-3"
+      >
+        {sections.map((section) => (
+          <Reorder.Item
+            key={section}
+            value={section}
+            className="relative"
+            whileDrag={{ scale: 1.02 }}
+          >
+            <div className="absolute top-1 left-0 z-20 cursor-grab">
+              <GripVertical size={18} />
+            </div>
+            {section === "quick-view" && (
+              <DashboardQuickView selectedDate={selectedDate} />
+            )}
 
-      <div className="grid grid-cols-1 xl:grid-cols-[3fr_2fr] gap-3">
-        <div className="">
-          <RevenueChart />
-        </div>
+            {section === "analytics" && (
+              <div className="grid grid-cols-1 xl:grid-cols-[3fr_2fr] gap-3">
+                <div className="">
+                  <RevenueChart />
+                </div>
 
-        <ShipmentOverview />
-      </div>
-      <div className=" bg-white border border-(--border-gray-2) rounded-[5px] shadow-sm p-3 lg:p-6">
-        {/* Header */}
+                <ShipmentOverview />
+              </div>
+            )}
 
-        <div className="flex gap-3 flex-row flex-wrap items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <SectionTitle
-              title="Live Shipment Tracking"
-              // className="text-sm md:text-[18px]"
-            />
-            {/* <button
-              onClick={() => setIsLiveTrackingModalOpen(true)}
-              className="p-1.5 text-gray-500 hover:text-black rounded-md hover:bg-gray-100 cursor-pointer"
-            >
-              <Expand size={18} />
-            </button> */}
-          </div>
-
-          <CommonFilterDropdown
-            value={selectedDriver}
-            onChange={setSelectedDriver}
-            options={trackingData.map((d) => ({
-              label: d.label,
-              value: d.value,
-            }))}
-            size="auto"
-          />
-        </div>
-
-        {/* Content */}
-        <div className="grid grid-cols-1 xl:grid-cols-[5fr_2fr] gap-3">
-          <div className="min-h-[250px] xl:h-full rounded-lg overflow-hidden">
-            <ShipmentMap data={currentDriver.map} />
-          </div>
-
-          <div>
-            <DriverTrackingCard data={currentDriver.card} />
-          </div>
-        </div>
-
-        {/* Footer Stats */}
-
-        <div className="mt-4 md:text-nowrap flex-wrap flex items-center gap-1 text-[10px] sm:text-[0.8vw]">
-          <span className="font-semibold text-text-gray">
-            <Map size={16} />
-          </span>
-          <span className="font-normal">Current Location :</span>
-
-          <span className="text-sky-blue font-normal">Riverbend Terminal</span>
-
-          <span className="text-gray-300">|</span>
-
-          <span>24 hours speed: 80km/h</span>
-
-          <span className="text-gray-300">|</span>
-
-          <span>12 hours speed: 84km/h</span>
-
-          <span className="text-gray-300">|</span>
-
-          <span>Max speed: 104km/h</span>
-
-          <span className="text-gray-300">|</span>
-
-          <span>Avg speed: 82km/h</span>
-        </div>
-      </div>
+            {section === "tracking" && (
+              <TrackingSection
+                trackingData={trackingData}
+                currentDriver={currentDriver}
+                selectedDriver={selectedDriver}
+                setSelectedDriver={setSelectedDriver}
+              />
+            )}
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
 
       <CalendarModal
         isOpen={isCalendarOpen}
@@ -292,24 +264,29 @@ const Dashboard = () => {
           dashboardStats.find((stat) => stat.type === "loads-dispatched")?.title
         }
       />
+
       <LoadsRemainingModal
         isOpen={selectedStat === "loads-remaining"}
         onClose={() => setSelectedStat(null)}
       />
+
       <TrucksInTransitModal
         isOpen={selectedStat === "trucks-transit"}
         onClose={() => setSelectedStat(null)}
         handleNextModalOpen={handleNextModalOpen}
       />
+
       <NextInQueueModal
         isOpen={isNextModalOpen}
         onClose={handleNextModalClose}
       />
+
       <TrucksDispatchedModal
         isOpen={selectedStat === "trucks-dispatched"}
         onClose={() => setSelectedStat(null)}
         onRowClicked={() => setIsLiveTrackingModalOpen(true)}
       />
+
       <LiveShipmentTrackingModal
         isOpen={isLiveTrackingModalOpen}
         onClose={() => setIsLiveTrackingModalOpen(false)}
