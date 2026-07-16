@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Modal, Box } from "@mui/material";
 
 interface CommonConfirmModalProps {
@@ -19,6 +20,19 @@ const CommonConfirmModal = ({
   confirmText = "Confirm",
   cancelText = "Cancel",
 }: CommonConfirmModalProps) => {
+  useEffect(() => {
+  if (
+    isOpen &&
+    confirmText === "" &&
+    cancelText === ""
+  ) {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }
+}, [isOpen, confirmText, cancelText, onClose]);
   return (
     <Modal
       open={isOpen}
@@ -44,49 +58,52 @@ const CommonConfirmModal = ({
         "
       >
         {/* Content */}
-        <div className="flex-1 px-6 pt-8 text-center">
+        <div className="flex-1 px-6 py-8 text-center flex flex-col items-center justify-center">
           <h2 className="text-sm md:text-2xl font-semibold leading-[1.4] text-[#161616]">
             {title}
           </h2>
 
-         {description && <p className="mt-3 text-xs md:text-lg font-normal text-[#444]">
-            {description}
-          </p>}
+          {description && (
+            <p className="mt-3 text-xs md:text-lg font-normal text-[#444]">
+              {description}
+            </p>
+          )}
         </div>
 
-        {/* Footer */}
-        <div className="h-[55px] flex border-t border-[#D9D9D9] mt-3">
-          <button
-            onClick={onClose}
-            className="
-              flex-1
-              text-base
-              font-medium
-              text-black
-              cursor-pointer
-              hover:bg-gray-50
-              border-r border-[#D9D9D9]
-              transition-colors
-            "
-          >
-            {cancelText}
-          </button>
+        {!(confirmText === "" && cancelText === "") && (
+          <div className="h-[55px] flex border-t border-[#D9D9D9] mt-3">
+            <button
+              onClick={onClose}
+              className="
+        flex-1
+        text-base
+        font-medium
+        text-black
+        cursor-pointer
+        hover:bg-gray-50
+        border-r border-[#D9D9D9]
+        transition-colors
+      "
+            >
+              {cancelText}
+            </button>
 
-          <button
-            onClick={onConfirm}
-            className="
-              flex-1
-              text-base
-              font-semibold
-              text-black
-              cursor-pointer
-              hover:bg-gray-50
-              transition-colors
-            "
-          >
-            {confirmText}
-          </button>
-        </div>
+            <button
+              onClick={onConfirm}
+              className="
+        flex-1
+        text-base
+        font-semibold
+        text-black
+        cursor-pointer
+        hover:bg-gray-50
+        transition-colors
+      "
+            >
+              {confirmText}
+            </button>
+          </div>
+        )}
       </Box>
     </Modal>
   );

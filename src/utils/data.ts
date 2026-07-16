@@ -328,16 +328,11 @@ export const customerOptions = [
 ];
 
 export const poCustomerOptions = [
-  { label: "Skylar Gouse", value: "Skylar Gouse" },
-  { label: "Emerson Westervelt", value: "Emerson Westervelt" },
-  { label: "Jordyn Torff", value: "Jordyn Torff" },
-  { label: "Kaiya Saris", value: "Kaiya Saris" },
-  {
-    label: "Chance Passaquindici Arcand",
-    value: "Chance Passaquindici Arcand",
-  },
-  { label: "Ann Aminoff", value: "Ann Aminoff" },
-  { label: "Emerson Donin", value: "Emerson Donin" },
+  { label: "Amrize", value: "Amrize" },
+  { label: "Heidelberg Materials", value: "Heidelberg Materials" },
+  { label: "Martin Marietta", value: "Martin Marietta" },
+  { label: "Resolve Aggregates", value: "Resolve Aggregates" },
+  { label: "RPM xConstruction", value: "RPM xConstruction" },
 ];
 
 export const thirdPartyCustomerOptions2 = [

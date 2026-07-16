@@ -62,7 +62,7 @@ const initialFormData = {
 const editFormData = {
   poCode: "5552389933",
   material: "Crushed Granite",
-  customer: "Emerson Westervelt",
+  customer: "Amrize",
   thirdPartyCustomer: "Desirae Geidt",
   invoiceRate: "10.00",
   contractorRate: "8.50",
@@ -111,7 +111,7 @@ useEffect(() => {
   return (
     <Modal open={open} onClose={onClose}>
       <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-[9999]">
-        <div className="w-full max-w-[570px] bg-white rounded-[8px] shadow-sm overflow-hidden">
+        <div className="w-full max-w-[600px] bg-white rounded-[8px] shadow-sm overflow-hidden">
           {/* Header */}
           <div className="px-4 pt-4 pb-4 flex items-start justify-between">
             <div>

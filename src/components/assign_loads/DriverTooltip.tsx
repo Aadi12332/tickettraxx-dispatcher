@@ -2,21 +2,23 @@ import { ArrowUpDown, X } from "lucide-react";
 
 interface DriverTooltipProps {
   onClose: () => void;
-  onRowClicked:()=>void;
+  onRowClicked: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
 }
 
-const DriverTooltip = ({ onClose, onRowClicked }: DriverTooltipProps) => {
+const DriverTooltip = ({ onClose, onRowClicked, onMouseEnter, onMouseLeave }: DriverTooltipProps) => {
   const drivers = [
     { name: "Joseph Martin", truckId: "TX4452" },
     { name: "David Hudson", truckId: "TX453" },
     { name: "Steve John", truckId: "TX454" },
     { name: "James Harry", truckId: "TX455" },
     { name: "Carter Donin", truckId: "TX456" },
-    { name: "Charlie John", truckId: "TX457" },
   ];
 
   return (
-    <div className="absolute top-1 left-0 z-99 w-[220px] bg-white rounded-lg shadow-lg border border-gray-100">
+    <div   onMouseEnter={onMouseEnter}
+  onMouseLeave={onMouseLeave} className="absolute -top-1 left-0 z-99 w-[160px] bg-white rounded-lg shadow-lg border border-gray-100">
       <div className="flex items-center justify-between py-3 px-2">
         <h3 className="font-normal text-xs">List of Drivers</h3>
 

@@ -55,12 +55,17 @@ const dispatchData: DispatchItem[] = [
 ];
 
 const Dispatch = () => {
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [dispatchModal, setDispatchModal] = useState<
+  "none" | "create" | "edit"
+>("none");
+
+const [openPickupModal, setOpenPickupModal] = useState(false);
+  // const [showEditModal, setShowEditModal] = useState(false);
   const [showDispatchDetails, setShowDispatchDetails] = useState(false);
   const [search, setSearch] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [openPickupModal, setOpenPickupModal] = useState(false);
-  const [_, setIsEditDispatch] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
+  // const [openPickupModal, setOpenPickupModal] = useState(false);
+  // const [_, setIsEditDispatch] = useState(false);
   const [openCalendarModal, setOpenCalendarModal] = useState(false);
   const [isCanceled, setIsCanceled] = useState(false);
   const [entries, setEntries] = useState(10);
@@ -71,20 +76,13 @@ const Dispatch = () => {
   >([null, null]);
 
   const handleOpenPickupModal = () => {
-    setShowEditModal(false);
-    setOpenModal(false);
+  setOpenPickupModal(true);
+};
 
-    setOpenPickupModal(true);
-  };
+const handleClosePickupModal = () => {
+  setOpenPickupModal(false);
+};
 
-  const handleClosePickupModal = () => {
-    setOpenPickupModal(false);
-    // if (isEditDispatch) {
-    //   setShowEditModal(true);
-    // } else {
-    //   setOpenModal(true);
-    // }
-  };
   const handleOnView = (item: DispatchItem) => {
     setIsCanceled(item.status !== "Active");
     setShowDispatchDetails(true);
@@ -162,10 +160,9 @@ const Dispatch = () => {
             variant="primary"
             size="md"
             onClick={() => {
-              setIsEditDispatch(false);
-              setShowDispatchDetails(false);
-              setOpenModal(true);
-            }}
+  setShowDispatchDetails(false);
+  setDispatchModal("create");
+}}
           >
             <Plus size={18} />
             Create Dispatch
@@ -192,9 +189,8 @@ const Dispatch = () => {
           onView={(item) => handleOnView(item)}
           // Edit
           onEdit={() => {
-            setIsEditDispatch(true);
-            setShowEditModal(true);
-          }}
+  setDispatchModal("edit");
+}}
           onCopy={() => {}}
           onDownload={() => {}}
         />
@@ -213,23 +209,23 @@ const Dispatch = () => {
           ))} */}
         </div>
       </div>
-      <EditDispatchModal
-        open={showEditModal}
-        onClose={() => setShowEditModal(false)}
-        isEdit
-        onOpenPickupModal={handleOpenPickupModal}
-      />
+ <EditDispatchModal
+  open={dispatchModal === "edit"}
+  onClose={() => setDispatchModal("none")}
+  isEdit
+  onOpenPickupModal={handleOpenPickupModal}
+/>
 
-      <EditDispatchModal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        title="Create Dispatch"
-        onOpenPickupModal={handleOpenPickupModal}
-      />
+    <EditDispatchModal
+  open={dispatchModal === "create"}
+  onClose={() => setDispatchModal("none")}
+  title="Create Dispatch"
+  onOpenPickupModal={handleOpenPickupModal}
+/>
       <CreatePickupModal
-        open={openPickupModal}
-        onClose={handleClosePickupModal}
-      />
+  open={openPickupModal}
+  onClose={handleClosePickupModal}
+/>
       <CalendarModal
         isOpen={openCalendarModal}
         onClose={() => setOpenCalendarModal(false)}

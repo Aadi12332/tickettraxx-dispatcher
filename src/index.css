@@ -223,3 +223,8 @@ border-color: transparent !important;
     white-space: pre-line !important;
     color :#364153;
 }
+
+.ag-header-cell {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}

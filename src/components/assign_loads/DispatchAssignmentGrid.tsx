@@ -1,45 +1,27 @@
-import { useMemo, useState, useRef, useEffect } from "react";
+import { useMemo, useState, useRef, useEffect, useCallback } from "react";
 import { AgGridProvider, AgGridReact } from "ag-grid-react";
 
 import type { ColDef, ICellRendererParams } from "ag-grid-community";
 import { AllCommunityModule, themeQuartz } from "ag-grid-community";
-
-import Cancel from "../../assets/icons/mdi_cancel.svg";
-
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
 const modules = [AllCommunityModule];
 
-import { RefreshCcw } from "lucide-react";
 import DriverTooltip from "./DriverTooltip";
 import { Tooltip } from "@mui/material";
 
 import { useAppSelector } from "../../store";
 import { selectJobHeaders } from "../../store/dispatchSlice";
 
-const UpdateCell = (params: ICellRendererParams) => {
-  // const isButtonEnabled = !params.context.buttonStatus;
-  const isSummaryRow =
-    params.data?.rowType === "total" || params.data?.rowType === "remaining";
-  const handleClick = () => {
-    params.context.handleUpdate();
-  };
-
-  return (
-    <div className="w-full h-full px-3 py-2 flex items-center justify-center">
-      {!isSummaryRow && (
-        <button
-          // disabled={!isButtonEnabled}
-          onClick={handleClick}
-          className="w-full h-full flex items-center justify-center cursor-pointer bg-white"
-        >
-          <RefreshCcw size={15} />
-        </button>
-      )}
-    </div>
-  );
+const LOAD_COLOR_MAP: Record<number, string> = {
+  1: "#FDE68A", // yellow
+  2: "#FBBF24", // halka dark yellow
+  3: "#D97706", // dark yellow (amber)
+  4: "#86EFAC", // light green
+  5: "#15803D", // dark green
 };
+
 const JobCell = (
   params: ICellRendererParams & { occurrencesBefore?: number; jobId?: string },
 ) => {
@@ -53,13 +35,16 @@ const JobCell = (
   const isSummaryRow =
     params.data?.rowType === "total" || params.data?.rowType === "remaining";
 
-  let isManual = false;
+  // Current job entry (jaisa pehle matchingJobs se nikala jata tha)
+  let currentJob: any = null;
   if (!isSummaryRow && params.data?.jobs && params.jobId) {
     const matchingJobs = params.data.jobs.filter(
       (j: any) => j.id === params.jobId,
     );
-    isManual = matchingJobs[params.occurrencesBefore || 0]?.isManual === true;
+    currentJob = matchingJobs[params.occurrencesBefore || 0];
   }
+
+  const isCancelled = currentJob?.iscancelled === true;
 
   let isChanged = false;
   if (!isSummaryRow && params.data?.driver && params.context?.originalRowData) {
@@ -78,24 +63,52 @@ const JobCell = (
     }
   }
 
+  // Poora cell tabhi clickable hoga jab job cancelled ho
+  const canClickToCancel = !isSummaryRow && isCancelled;
+
+  const handleCellClick = () => {
+    if (!canClickToCancel) return;
+    if (isButtonEnabled) return; // pehle wali gating (edit-mode) same rakhi
+    params.context.openCancelDrawer();
+  };
+
+  // Color priority: cancelled (red) > loadCompleted-based scale (only when
+  // loads > 1) > changed (blue) > default. Total `value`/`loads` count no
+  // longer drives color — only `loadCompleted` does, and only if loads > 1.
+  const numericValue = Number(value);
+  const loadCompleted = currentJob?.loadCompleted;
+
+  const completedColor =
+    !isSummaryRow && numericValue > 1 && loadCompleted !== undefined
+      ? LOAD_COLOR_MAP[Number(loadCompleted)]
+      : undefined;
+
+  let textColor = "#364153"; // default
+  let isBold = false;
+
+  if (isCancelled) {
+    textColor = "#FF0000";
+    isBold = true;
+  } else if (completedColor) {
+    textColor = completedColor;
+    isBold = true;
+  } else if (isChanged) {
+    textColor = "#2563EB";
+    isBold = true;
+  }
+
   return (
-    <div className="flex items-center justify-between w-full">
+    <div
+      onClick={handleCellClick}
+      className={`flex items-center justify-center w-full h-full ${
+        canClickToCancel ? "cursor-pointer" : ""
+      }`}
+    >
       <span
-        className={
-          isChanged ? "text-[#2563EB] font-semibold" : "text-[#364153]"
-        }
+        style={{ color: textColor, fontWeight: isBold ? 600 : undefined }}
       >
         {params.value}
       </span>
-
-      {!isSummaryRow && !isManual && (
-        <img
-          src={Cancel}
-          alt="Cancel"
-          className="cursor-pointer"
-          onClick={() => !isButtonEnabled && params.context.openCancelDrawer()}
-        />
-      )}
     </div>
   );
 };
@@ -132,16 +145,23 @@ const JobCell = (
 //   );
 // };
 const DriverRenderer = (props: any) => {
+  // const truckId = props.data?.truckId;
+  const canOpenTooltip = props.data.truckId.length > 1;
+
   return (
     <button
-      onMouseEnter={(e) =>
+      onMouseEnter={(e) => {
+        if (!canOpenTooltip) return;
+
         props.context.openDriverPopup(
           e.currentTarget.getBoundingClientRect(),
           props.value,
-        )
-      }
-      // onMouseLeave={() => props.context.closeDriverPopup()}
-      className="font-medium overflow-x-auto text-xs 2xl:text-sm"
+        );
+      }}
+      onMouseLeave={() => {
+        props.context.closeDriverPopup();
+      }}
+      className="w-full h-full flex items-center justify-start text-left font-medium overflow-hidden text-sm"
       style={{
         color:
           props.data.status === "RED"
@@ -166,6 +186,7 @@ const DispatchAssignmentGrid = ({
   originalRowData,
   handleUpdate,
   customHeight,
+  enableColumnResize = true,
 }: any) => {
   const jobHeaders = useAppSelector(selectJobHeaders);
   const [driverPopup, setDriverPopup] = useState<any>(null);
@@ -238,100 +259,104 @@ const DispatchAssignmentGrid = ({
 
     return [totalsRow, remainingRow];
   }, [rowData, selectedDay]);
+  const defaultColDef = useMemo(
+    () => ({
+      cellStyle: (params: any) => {
+        const isPinned = params.node?.rowPinned;
 
-  const defaultColDef = {
-    cellStyle: (params: any) => {
-      const isPinned = params.node?.rowPinned;
+        if (!isPinned) {
+          const field = params.colDef.field;
+          const driver = params.data?.driver;
+          const originalRowData = params.context?.originalRowData;
+          let isChanged = false;
 
-      if (!isPinned) {
-        const field = params.colDef.field;
-        const driver = params.data?.driver;
-        const originalRowData = params.context?.originalRowData;
-        let isChanged = false;
-
-        if (driver && originalRowData && field) {
-          const originalRow = originalRowData.find(
-            (r: any) => r.driver === driver,
-          );
-          if (originalRow) {
-            if (field.startsWith("jobs.")) {
-              const jobId = params.colDef.cellRendererParams?.jobId;
-              const occurrencesBefore =
-                params.colDef.cellRendererParams?.occurrencesBefore ?? 0;
-              const matchingJobs = (originalRow.jobs || []).filter(
-                (j: any) => j.id === jobId,
-              );
-              const origValue = matchingJobs[occurrencesBefore]?.loads ?? "";
-              if (String(params.value) !== String(origValue)) {
-                isChanged = true;
-              }
-            } else if (field === "tonnage" || field === "total") {
-              const currentValue = params.value;
-              const origValue = originalRow[field];
-              if (String(currentValue) !== String(origValue)) {
-                isChanged = true;
+          if (driver && originalRowData && field) {
+            const originalRow = originalRowData.find(
+              (r: any) => r.driver === driver,
+            );
+            if (originalRow) {
+              if (field.startsWith("jobs.")) {
+                const jobId = params.colDef.cellRendererParams?.jobId;
+                const occurrencesBefore =
+                  params.colDef.cellRendererParams?.occurrencesBefore ?? 0;
+                const matchingJobs = (originalRow.jobs || []).filter(
+                  (j: any) => j.id === jobId,
+                );
+                const origValue = matchingJobs[occurrencesBefore]?.loads ?? "";
+                if (String(params.value) !== String(origValue)) {
+                  isChanged = true;
+                }
+              } else if (field === "tonnage" || field === "total") {
+                const currentValue = params.value;
+                const origValue = originalRow[field];
+                if (String(currentValue) !== String(origValue)) {
+                  isChanged = true;
+                }
               }
             }
           }
+
+          return {
+            borderRight: "1px solid #C8C8C8",
+            color: isChanged ? "#2563EB" : "#364153",
+            fontWeight: isChanged ? 700 : undefined,
+            fontSize: "14px",
+          };
         }
 
-        return {
+        const field = params.colDef.field;
+
+        const yellowCols = [
+          "job6014",
+          "job1143B",
+          "job1143C",
+          "job1142A",
+          "job1142C",
+        ];
+
+        const orangeCols = ["job1143A", "job6543", "job1143D", "job1142B"];
+
+        const style: any = {
+          fontWeight: 700,
           borderRight: "1px solid #C8C8C8",
-          color: isChanged ? "#2563EB" : "#364153",
-          fontWeight: isChanged ? 700 : undefined,
+          fontSize: "14px",
         };
-      }
 
-      const field = params.colDef.field;
+        if (field?.startsWith("jobs.")) {
+          const index = Number(field.split(".")[1]);
 
-      const yellowCols = [
-        "job6014",
-        "job1143B",
-        "job1143C",
-        "job1142A",
-        "job1142C",
-      ];
+          if ([0, 2, 4, 6, 8].includes(index)) {
+            style.background = "#F4D35E";
+          }
 
-      const orangeCols = ["job1143A", "job6543", "job1143D", "job1142B"];
+          if ([1, 3, 5, 7].includes(index)) {
+            style.background = "#F4A65D";
+          }
+        }
+        if (field === "truckId") {
+          style.background = "#D9E6F2";
+        }
 
-      const style: any = {
-        fontWeight: 700,
-        borderRight: "1px solid #C8C8C8",
-      };
-
-      if (field?.startsWith("jobs.")) {
-        const index = Number(field.split(".")[1]);
-
-        if ([0, 2, 4, 6, 8].includes(index)) {
+        if (yellowCols.includes(field || "")) {
           style.background = "#F4D35E";
         }
 
-        if ([1, 3, 5, 7].includes(index)) {
+        if (orangeCols.includes(field || "")) {
           style.background = "#F4A65D";
         }
-      }
-      if (field === "truckId") {
-        style.background = "#D9E6F2";
-      }
 
-      if (yellowCols.includes(field || "")) {
-        style.background = "#F4D35E";
-      }
+        if (field === "tonnage" || field === "total") {
+          style.background =
+            params.data.rowType === "total" ? "#D9F0E3" : "#F8D7DA";
 
-      if (orangeCols.includes(field || "")) {
-        style.background = "#F4A65D";
-      }
+          style.color = params.data.rowType === "total" ? "#009245" : "#FF0000";
+        }
 
-      if (field === "tonnage" || field === "total") {
-        style.background =
-          params.data.rowType === "total" ? "#D9F0E3" : "#F8D7DA";
-
-        style.color = params.data.rowType === "total" ? "#009245" : "#FF0000";
-      }
-
-      return style;
-    },
-  };
+        return style;
+      },
+    }),
+    [],
+  );
   const columnDefs = useMemo<ColDef[]>(
     () => [
       {
@@ -339,6 +364,7 @@ const DispatchAssignmentGrid = ({
         headerName: "",
         headerCheckboxSelection: true,
         width: 40,
+        minWidth: 40,
         // pinned: "left",
         sortable: false,
         filter: false,
@@ -352,7 +378,7 @@ const DispatchAssignmentGrid = ({
         field: "driver",
         headerName: "Driver",
         // pinned: "left",
-        minWidth: 105,
+        minWidth: 150,
         width: 150,
         // flex: 2,
         cellRenderer: DriverRenderer,
@@ -362,9 +388,20 @@ const DispatchAssignmentGrid = ({
       {
         field: "truckId",
         headerName: "Truck ID",
-        minWidth: 70,
+        minWidth: 90,
         flex: 1,
         headerClass: "blue-header",
+
+        valueGetter: (params) => {
+          const truckIds = params.data?.truckId ?? [];
+
+          if (!Array.isArray(truckIds)) return truckIds;
+
+          return truckIds.length === 1
+            ? truckIds[0]
+            : `${truckIds[0]} to ${truckIds[truckIds.length - 1]}`;
+        },
+
         headerComponent: () => (
           <Tooltip
             title={`Truck ID`}
@@ -398,6 +435,12 @@ const DispatchAssignmentGrid = ({
           .slice(0, index)
           .filter((h) => h === job).length;
 
+        const getCurrentJobEntry = (data: any) => {
+          if (!data?.jobs) return null;
+          const matchingJobs = data.jobs.filter((j: any) => j.id === job);
+          return matchingJobs[occurrencesBefore] ?? null;
+        };
+
         return {
           headerName: `#${job}`,
           field: `jobs.${index}`,
@@ -411,7 +454,14 @@ const DispatchAssignmentGrid = ({
 
             return (
               <Tooltip
-                title={`Job ID #${job}`}
+                title={
+                  <div className="flex flex-col items-center">
+                    <span className="font-semibold text-[10px]">
+                      Job ID #{job}
+                    </span>
+                    <span className="text-[9px] font-normal">{location}</span>
+                  </div>
+                }
                 arrow
                 placement="top"
                 slotProps={{
@@ -435,14 +485,14 @@ const DispatchAssignmentGrid = ({
               >
                 <div className="flex flex-col items-center justify-center leading-tight py-1 w-full">
                   <span className="text-xs font-semibold">#{job}</span>
-                  <span className="text-[10px] text-[#666] font-normal w-full block text-center">
+                  <span className="text-[10px] text-[#666] font-normal block text-center truncate w-full max-w-full">
                     {location}
                   </span>
                 </div>
               </Tooltip>
             );
           },
-          // minWidth: 80,
+          minWidth: 40,
           wrapText: true,
           flex: 1,
           cellRenderer: JobCell,
@@ -450,7 +500,19 @@ const DispatchAssignmentGrid = ({
             occurrencesBefore,
             jobId: job,
           },
-          editable: true,
+          editable: (params: any) => {
+            if (!enableColumnResize) return false;
+            const isSummaryRow =
+              params.data?.rowType === "total" ||
+              params.data?.rowType === "remaining";
+            if (isSummaryRow) return false;
+
+            const currentJob = getCurrentJobEntry(params.data);
+            if (currentJob?.iscancelled === true) return false;
+
+            return true;
+          },
+
           valueGetter: (params: any) => {
             const matchingJobs = (params.data.jobs || []).filter(
               (j: any) => j.id === job,
@@ -472,58 +534,58 @@ const DispatchAssignmentGrid = ({
             });
 
             if (targetIndex !== -1) {
-           const jobs = [...(params.data.jobs || [])];
+              const jobs = [...(params.data.jobs || [])];
 
-jobs[targetIndex] = {
-  ...jobs[targetIndex],
-  loads: finalValue,
-};
+              jobs[targetIndex] = {
+                ...jobs[targetIndex],
+                loads: finalValue,
+              };
 
-const updatedRows = rowData.map((row: any) => {
-  if (row.driver !== params.data.driver) return row;
+              const updatedRows = rowData.map((row: any) => {
+                if (row.driver !== params.data.driver) return row;
 
-  return {
-    ...row,
-    jobs,
-  };
-});
+                return {
+                  ...row,
+                  jobs,
+                };
+              });
 
-setRowData(updatedRows);
+              setRowData(updatedRows);
 
-params.data.jobs = jobs;
+              params.data.jobs = jobs;
 
-return true;
+              return true;
             } else {
-           const jobs = [...(params.data.jobs || [])];
+              const jobs = [...(params.data.jobs || [])];
 
-let currentCount = jobs.filter((j: any) => j.id === job).length;
+              let currentCount = jobs.filter((j: any) => j.id === job).length;
 
-while (currentCount < occurrencesBefore) {
-  jobs.push({
-    id: job,
-    loads: 0,
-  });
-  currentCount++;
-}
+              while (currentCount < occurrencesBefore) {
+                jobs.push({
+                  id: job,
+                  loads: 0,
+                });
+                currentCount++;
+              }
 
-jobs.push({
-  id: job,
-  loads: finalValue,
-  isManual: true,
-});
+              jobs.push({
+                id: job,
+                loads: finalValue,
+                isManual: true,
+              });
 
-const updatedRows = rowData.map((row: any) => {
-  if (row.driver !== params.data.driver) return row;
+              const updatedRows = rowData.map((row: any) => {
+                if (row.driver !== params.data.driver) return row;
 
-  return {
-    ...row,
-    jobs,
-  };
-});
+                return {
+                  ...row,
+                  jobs,
+                };
+              });
 
-setRowData(updatedRows);
+              setRowData(updatedRows);
 
-return true;
+              return true;
             }
             return true;
           },
@@ -534,10 +596,10 @@ return true;
       {
         field: "tonnage",
         headerName: "Tonnage",
-        minWidth: 100,
+        minWidth: 85,
         flex: 1,
         // wrapText: true,
-        editable: true,
+        editable: enableColumnResize,
         resizable: true,
         // pinned:"right"
       },
@@ -548,7 +610,7 @@ return true;
         flex: 1,
         minWidth: 80,
         // wrapText: true,
-        editable: true,
+        editable: enableColumnResize,
         // pinned: "right",
         colSpan: (params) => {
           if (
@@ -569,29 +631,76 @@ return true;
       //   cellRenderer: WeCallCell,
       // },
 
-      {
-        headerName: "Update",
-        minWidth: 75,
-        maxWidth: 75,
-        flex: 1,
-        cellRenderer: UpdateCell,
-        // pinned: "right",
-      },
+      // {
+      //   headerName: "Update",
+      //   minWidth: 75,
+      //   maxWidth: 75,
+      //   flex: 1,
+      //   cellRenderer: UpdateCell,
+      //   // pinned: "right",
+      // },
     ],
-    [rowData],
+    [],
   );
 
   const gridRef = useRef<AgGridReact>(null);
 
-useEffect(() => {
-  const handleResize = () => {
-    gridRef.current?.api.sizeColumnsToFit();
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      gridRef.current?.api.sizeColumnsToFit();
+    };
 
-  window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const closeTimeoutRef = useRef<number | null>(null);
+
+  const openDriverPopup = useCallback((rect: DOMRect, driver: string) => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+
+    setDriverPopup({
+      driver,
+      left: rect.left,
+      top: rect.bottom,
+    });
+  }, []);
+
+  const closeDriverPopup = useCallback(() => {
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setDriverPopup(null);
+    }, 150);
+  }, []);
+
+  const keepDriverPopupOpen = useCallback(() => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+  }, []);
+
+  const gridContext = useMemo(
+    () => ({
+      handleUpdate,
+      openCancelDrawer: onOpenCancelDrawer,
+      openDriverPopup,
+      closeDriverPopup,
+      keepDriverPopupOpen,
+      buttonStatus,
+      originalRowData,
+    }),
+    [
+      handleUpdate,
+      onOpenCancelDrawer,
+      openDriverPopup,
+      closeDriverPopup,
+      keepDriverPopupOpen,
+      buttonStatus,
+      originalRowData,
+    ],
+  );
 
   return (
     <AgGridProvider modules={modules}>
@@ -600,7 +709,7 @@ useEffect(() => {
         style={
           {
             width: "100%",
-            minWidth: "1300px",
+            minWidth: "1100px",
             "--ag-background-color": "#ffffff",
             "--ag-header-background-color": "#ffffff",
             "--ag-row-border-color": "#D1D5DB",
@@ -611,30 +720,14 @@ useEffect(() => {
       >
         <div className="ag-theme-alpine w-full h-full">
           <AgGridReact
-          ref={gridRef}
+            ref={gridRef}
             theme={themeQuartz}
             rowData={rowData}
             // onCellValueChanged={() => {
             //   setRowData((prev: any) => [...prev]);
             // }}
             columnDefs={columnDefs}
-            context={{
-              handleUpdate,
-              openCancelDrawer: onOpenCancelDrawer,
-              openDriverPopup: (rect: DOMRect, driver: string) => {
-                setDriverPopup({
-                  driver,
-                  left: rect.left,
-                  top: rect.bottom,
-                });
-              },
-
-              closeDriverPopup: () => {
-                setDriverPopup(null);
-              },
-              buttonStatus,
-              originalRowData,
-            }}
+            context={gridContext}
             defaultColDef={defaultColDef}
             rowHeight={40}
             headerHeight={40}
@@ -661,6 +754,8 @@ useEffect(() => {
               setDriverPopup(null);
               onRowClicked();
             }}
+            onMouseEnter={keepDriverPopupOpen}
+            onMouseLeave={closeDriverPopup}
           />
         </div>
       )}

@@ -169,6 +169,7 @@ const [successModal, setSuccessModal] = useState({
                     onOpenCancelDrawer={() => setOpenCancelDrawer(true)}
                     onRowClicked={() => {}}
                     customHeight="h-[calc(100vh-95px)]"
+                    enableColumnResize={false}
                   />
                 </div>
               </div>

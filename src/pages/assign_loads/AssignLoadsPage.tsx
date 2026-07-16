@@ -153,6 +153,21 @@ const AssignLoadsPage = () => {
           <div className="flex items-stretch gap-1 w-full md:justify-end min-w-[710px] lg:min-w-[unset]">
           {/* Left Action */}
           <button
+              onClick={handleUpdate}
+              className="
+                h-10 px-3 gap-2 text-sm
+                rounded-lg
+                border border-(--border-gray-2)
+                bg-white
+                flex items-center justify-center
+                cursor-pointer
+              "
+            >
+              Update
+              <RefreshCcw size={16} />
+            </button>
+
+              <button
             // onClick={() => setOpenGridModal(true)}
             onClick={() => setOpenDispatchModal(true)}
             className="
@@ -254,20 +269,6 @@ const AssignLoadsPage = () => {
           {/* Right Actions */}
           <div className="flex items-center gap-1 shrink-0">
             <button
-              onClick={handleUpdate}
-              className="
-                h-10 w-10 min-w-10
-                rounded-lg
-                border border-(--border-gray-2)
-                bg-white
-                flex items-center justify-center
-                cursor-pointer
-              "
-            >
-              <RefreshCcw size={16} />
-            </button>
-
-            <button
               // onClick={() => setOpenDispatchModal(true)}
               onClick={() => setOpenGridModal(true)}
               className="
@@ -312,7 +313,7 @@ const AssignLoadsPage = () => {
               scrollbarColor: "#1D3461 #D9D9D9",
             }}
           >
-            <div className="flex gap-4 min-w-max items-center pb-2 pt-0 max-w-full">
+            <div className="flex gap-4 min-w-max items-center pb-3 pt-0 max-w-full">
               {currentLoadCards.map((card, index) => (
                 <AssignLoadCard
                   key={index}
@@ -396,10 +397,10 @@ const AssignLoadsPage = () => {
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={handleConfirmSave}
-        title="Are you sure you want to save the updated load assignments?"
+        title="You have successfully updated the assigned loads."
         description=""
-        confirmText="Save"
-        cancelText="Cancel"
+        confirmText=""
+        cancelText=""
       />
       <ToastModal
         open={showToast}

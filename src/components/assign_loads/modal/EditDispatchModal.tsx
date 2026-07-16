@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../store";
 import { addDispatch } from "../../../store/dispatchSlice";
 import {
-  customerOptions,
+  poCustomerOptions,
   deliveryOptions,
   pickupOptions,
   poCodeOptions,
@@ -39,19 +39,131 @@ const initialFormData = {
   comment: "",
 };
 
-const editFormData = {
-  dispatchDate: "2024-06-13",
-  customer: "HEIDELBERG MATERIALS",
-  poCode: "5552389933",
-  material: "1' Rock",
-  loads: "2",
-  invoiceRate: "$10.00",
-  contractorRate: "$10.00",
-  pickup: "115 Ambrose Street Bells, TX 75414",
-  deliver: "789 Riverview Drive, Riverview, TX 75014",
-startTime: "10:00",
-endTime: "18:00",
-  comment: "Existing dispatch note...",
+// ---------- PO-wise data map ----------
+// Har PO code ke liye uska apna customer, materials (1/2/3), pickup,
+// deliver, rates, time aur comment. Jab bhi PO select hoga,
+// yahi se poora data pull hoga.
+interface PODataEntry {
+  customer: string;
+  materials: string[];
+  loads: string;
+  pickup: string;
+  deliver: string;
+  invoiceRate: string;
+  contractorRate: string;
+  startTime: string;
+  endTime: string;
+  comment: string;
+}
+
+const PO_DATA_MAP: Record<string, PODataEntry> = {
+  "5552389933": {
+    customer: "Amrize",
+    loads: "2",
+    materials: ["1' Rock"],
+    pickup: "115 Ambrose Street Bells, TX 75414",
+    deliver: "789 Riverview Drive, Riverview, TX 75014",
+    invoiceRate: "$10.00",
+    contractorRate: "$10.00",
+    startTime: "10:00",
+    endTime: "18:00",
+    comment: "Existing dispatch note...",
+  },
+
+  "1234567890": {
+    customer: "Heidelberg Materials",
+    loads: "1",
+    materials: ["Sturdy Cedar Titan", "Bold Trailblazer X"],
+    pickup: "Lake Bridgeport, TX 76426",
+    deliver: "Tom Harpool WTP Expansion PH2",
+    invoiceRate: "$12.00",
+    contractorRate: "$11.00",
+    startTime: "08:00",
+    endTime: "16:00",
+    comment: "Two-material dispatch for this PO.",
+  },
+
+  "0987654321": {
+    customer: "Martin Marietta",
+    loads: "2",
+    materials: [
+      "Wilderness Warrior 4x4",
+      "Innovative Freightliner Explorer",
+      "789 Granite Way, Stonehaven",
+    ],
+    pickup: "Ravenna - Resolve Aggregates, TX 75476",
+    deliver: "365340 - Tiseo Paving CO JOB 27",
+    invoiceRate: "$15.00",
+    contractorRate: "$13.00",
+    startTime: "09:00",
+    endTime: "17:00",
+    comment: "Three-material dispatch for this PO.",
+  },
+
+  "1122334455": {
+    customer: "Resolve Aggregates",
+    loads: "3",
+    materials: ["1' Rock"],
+    pickup: "54501 North Bridgeport Quarry, TX 76426",
+    deliver: "321 Oakridge Blvd, Oakridge, TX 75015",
+    invoiceRate: "$9.50",
+    contractorRate: "$9.00",
+    startTime: "07:30",
+    endTime: "15:30",
+    comment: "",
+  },
+
+  "2233445566": {
+    customer: "RPM xConstruction",
+    loads: "2",
+    materials: ["Sturdy Cedar Titan", "Wilderness Warrior 4x4"],
+    pickup: "654 Pine Valley Rd, Pine Valley, TX 75001",
+    deliver: "654 Pine Valley Rd, Pine Valley, TX 75016",
+    invoiceRate: "$11.00",
+    contractorRate: "$10.50",
+    startTime: "11:00",
+    endTime: "19:00",
+    comment: "",
+  },
+
+  "3344556677": {
+    customer: "Amrize",
+    loads: "2",
+    materials: [
+      "Bold Trailblazer X",
+      "Innovative Freightliner Explorer",
+      "789 Granite Way, Stonehaven",
+    ],
+    pickup: "115 Ambrose Street Bells, TX 75414",
+    deliver: "789 Riverview Drive, Riverview, TX 75014",
+    invoiceRate: "$14.00",
+    contractorRate: "$12.50",
+    startTime: "06:00",
+    endTime: "14:00",
+    comment: "",
+  },
+};
+
+const defaultEditPoCode = "5552389933";
+
+// isEdit mount ke time PO_DATA_MAP se poora data resolve kar deta hai,
+// taaki edit mode khulte hi sab kuch (time, comment sab) fill ho.
+const buildEditFormData = () => {
+  const poData = PO_DATA_MAP[defaultEditPoCode];
+  return {
+    dispatchDate: "2024-06-13",
+    customer: poData.customer,
+    poCode: defaultEditPoCode,
+    material: poData.materials[0],
+    loads: poData.loads,
+    invoiceRate: poData.invoiceRate,
+    contractorRate: poData.contractorRate,
+    pickup: poData.pickup,
+    deliver: poData.deliver,
+    startTime: poData.startTime,
+    endTime: poData.endTime,
+    comment: poData.comment,
+  };
 };
 
 const EditDispatchModal = ({
@@ -64,7 +176,7 @@ const EditDispatchModal = ({
 }: EditDispatchModalProps) => {
   const [columns, setColumns] = useState<number[]>(isEdit ? [1] : []);
   const [formData, setFormData] = useState(
-    isEdit ? editFormData : initialFormData,
+    isEdit ? buildEditFormData() : initialFormData,
   );
   const [openPickupModal, setOpenPickupModal] = useState(false);
 
@@ -75,7 +187,7 @@ const EditDispatchModal = ({
     if (!open) return;
 
     if (isEdit) {
-      setFormData(editFormData);
+      setFormData(buildEditFormData());
       setColumns([1]);
     } else {
       setFormData(initialFormData);
@@ -100,17 +212,33 @@ const EditDispatchModal = ({
 
   const handleChange = (field: keyof typeof formData) => (value: string) => {
     if (field === "poCode") {
-      // Static mapping for now
-      setFormData((prev) => ({
-        ...prev,
-        poCode: value,
-        pickup: "115 Ambrose Street Bells, TX 75414",
-        deliver: "Tom Harpool WTP Expansion PH...",
-        material: "1' Rock",
-        customer: "HEIDELBERG MATERIALS",
-        invoiceRate: "$10.00",
-        contractorRate: "$10.00",
-      }));
+      const poData = PO_DATA_MAP[value];
+
+      if (poData) {
+        // PO select hua aur uska data mila -> sab kuch (customer, pickup,
+        // deliver, material, rates, time, comment) auto-fill karo.
+       setFormData((prev) => ({
+  ...prev,
+  poCode: value,
+  customer: poData.customer,
+  pickup: poData.pickup,
+  deliver: poData.deliver,
+  material: poData.materials[0] || "",
+  loads: poData.loads,
+  invoiceRate: poData.invoiceRate,
+  contractorRate: poData.contractorRate,
+  startTime: poData.startTime,
+  endTime: poData.endTime,
+  comment: poData.comment,
+}));
+      } else {
+        // PO code cleared ya unknown -> sirf poCode set karo,
+        // material list wapas full list dikhayegi (neeche computed value se)
+        setFormData((prev) => ({
+          ...prev,
+          poCode: value,
+        }));
+      }
 
       return;
     }
@@ -120,6 +248,14 @@ const EditDispatchModal = ({
       [field]: value,
     }));
   };
+
+  // PO select hai to sirf usi PO ke materials, warna poori list
+  const materialOptionsForSelectedPO = formData.poCode && PO_DATA_MAP[formData.poCode]
+    ? PO_DATA_MAP[formData.poCode].materials.map((m) => ({
+        label: m,
+        value: m,
+      }))
+    : materialOptions;
 
   const handleSubmit = () => {
     if (!isEdit) {
@@ -205,7 +341,7 @@ const EditDispatchModal = ({
                     label="Customer"
                     value={formData.customer}
                     onChange={handleChange("customer")}
-                    options={customerOptions}
+                    options={poCustomerOptions}
                   />
 
                   <CommonSelectInput
@@ -218,7 +354,7 @@ const EditDispatchModal = ({
                     label="Material"
                     value={formData.material}
                     onChange={handleChange("material")}
-                    options={materialOptions}
+                    options={materialOptionsForSelectedPO}
                   />
 
                   <CommonTextInput
@@ -249,6 +385,9 @@ const EditDispatchModal = ({
                     value={formData.pickup}
                     onChange={handleChange("pickup")}
                     options={pickupOptions}
+                     addNewLabel="Add New"
+                    onAddNew={onOpenPickupModal}
+                    addNewMode="modal"
                   />
 
                   <CommonSelectInput
