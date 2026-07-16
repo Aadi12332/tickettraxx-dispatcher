@@ -301,6 +301,7 @@ const DispatchAssignmentGrid = ({
             color: isChanged ? "#2563EB" : "#364153",
             fontWeight: isChanged ? 700 : undefined,
             fontSize: "14px",
+            justifyContent: field === "tonnage" ? "center" : undefined,
           };
         }
 
