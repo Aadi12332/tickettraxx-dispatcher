@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Calendar1, GripVertical } from "lucide-react";
 import type { Dayjs } from "dayjs";
 import type { LatLngTuple } from "leaflet";
@@ -140,13 +140,28 @@ const trackingData: TrackingItem[] = [
   },
 ];
 
+  const DEFAULT_SECTIONS = [
+  "quick-view",
+  "analytics",
+  "tracking",
+];
+
 const Dashboard = () => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [sections, setSections] = useState([
-    "quick-view",
-    "analytics",
-    "tracking",
-  ]);
+const [sections, setSections] = useState<string[]>(() => {
+  const saved = localStorage.getItem("dashboard-sections");
+
+  return saved ? JSON.parse(saved) : DEFAULT_SECTIONS;
+});
+
+useEffect(() => {
+  localStorage.setItem(
+    "dashboard-sections",
+    JSON.stringify(sections)
+  );
+}, [sections]);
+
+
   const [selectedDate, setSelectedDate] = useState<
     [Dayjs | null, Dayjs | null]
   >([null, null]);
