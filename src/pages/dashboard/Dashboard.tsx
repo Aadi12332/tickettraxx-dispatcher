@@ -222,7 +222,7 @@ const Dashboard = () => {
             className="relative"
             whileDrag={{ scale: 1.02 }}
           >
-            <div className="absolute top-1 left-0 z-20 cursor-grab">
+            <div className="absolute top-5 left-0 z-20 cursor-grab">
               <GripVertical size={18} />
             </div>
             {section === "quick-view" && (

@@ -10,6 +10,36 @@ import CreatePickupModal from "../../components/pickup/modal/CreatePickupModal";
 import ExportButton from "../../components/common/ExportButton";
 
 const poCodeData = [
+    {
+    code: "55121100025",
+    date: "22/04/2025",
+    pickup: "115 Ambrose Street",
+    deliver: "LMC-Plano-4950",
+    material: "Rock",
+    customer: "AMRIZE",
+    thirdPartyCustomer: "GILCO CIVIL",
+    rate: "$14.00",
+  },
+  {
+    code: "55121100025",
+    date: "22/04/2025",
+    pickup: "HBERG-Bridgeport",
+    deliver: "LMC-Plano-4951",
+    material: "Sand",
+    customer: "AMRIZE",
+    thirdPartyCustomer: "GILCO CIVIL",
+    rate: "$5.25",
+  },
+  {
+    code: "55121100025",
+    date: "22/04/2025",
+    pickup: "HBERG-LakeBP",
+    deliver: "LMC-Plano-4952",
+    material: "Concrete",
+    customer: "AMRIZE",
+    thirdPartyCustomer: "GILCO CIVIL",
+    rate: "$10.25",
+  },
   {
     code: "55121100031",
     date: "22/04/2025",
