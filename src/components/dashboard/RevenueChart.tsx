@@ -136,7 +136,7 @@ const chartData =
 
   return (
     <div className="bg-white rounded-[5px] border border-(--border-gray-2) shadow-sm">
-      <div className="flex items-center flex-wrap justify-between border-b border-(--border-gray-2) sm:p-4 p-3 gap-3">
+      <div className="flex items-center flex-wrap justify-between border-b border-(--border-gray-2) px-5 py-2 sm:py-3 gap-3">
         <SectionTitle title="Dispatch Dashboard Quick View" />
         <div className="flex items-center gap-2 sm:ml-auto">
           <ToggleButtonGroup
