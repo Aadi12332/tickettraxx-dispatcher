@@ -14,40 +14,80 @@ const data = [
     driver: "Jaydon Saris",
     tonnage: "26.00",
     total: "$1,245.50",
-    pickup: "Sunnyvale Park",
-    deliver: "Sunnyvale Delivery Hub",
+    pickup: "HBERG-Bridgeport",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Lincoln Korsgaard",
     tonnage: "24.00",
     total: "$3,890.00",
-    pickup: "Greenwood Station",
-    deliver: "Greenwood Dispatch Center",
+    pickup: "HBERG-LakeBP",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Erin Philips",
     tonnage: "19.00",
     total: "$567.25",
-    pickup: "Riverbend Terminal",
-    deliver: "Riverbend Shipping Terminal",
+    pickup: "AMRIZE-Melissa",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Emery Lipshutz",
     tonnage: "20.00",
     total: "$2,134.75",
-    pickup: "Maplewood Plaza",
-    deliver: "Maplewood Distribution Point",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Jaydon Saris",
     tonnage: "18.00",
     total: "$1,245.50",
-    pickup: "Sunnyvale Park",
-    deliver: "Sunnyvale Delivery Hub",
+    pickup: "AMRIZE-Rosser",
+    deliver: "4950 Plano",
+  },
+  {
+    truckId: "#280099",
+    driver: "Emery Lipshutz",
+    tonnage: "17.00",
+    total: "$2,134.75",
+    pickup: "HBERG-Bridgeport",
+    deliver: "4951 Denton",
+  },
+  {
+    truckId: "#280099",
+    driver: "Lincoln Korsgaard",
+    tonnage: "22.00",
+    total: "$3,890.00",
+    pickup: "HBERG-LakeBP",
+    deliver: "4951 Denton",
+  },
+  {
+    truckId: "#280099",
+    driver: "Erin Philips",
+    tonnage: "15.00",
+    total: "$567.25",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4951 Denton",
+  },
+  {
+    truckId: "#280099",
+    driver: "Lincoln Korsgaard",
+    tonnage: "16.00",
+    total: "$3,890.00",
+    pickup: "AMRIZE-Rosser",
+    deliver: "4956 Coppell",
+  },
+  {
+    truckId: "#280099",
+    driver: "Erin Philips",
+    tonnage: "18.00",
+    total: "$567.25",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4956 Coppell",
   },
 ];
 
@@ -148,27 +188,27 @@ const TrucksDispatchedModal = ({
         onClick={onRowClicked}
         className="cursor-pointer border-b border-[#F3F4F6] hover:bg-[#F9FAFB]"
       >
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+        <td className="px-3 py-2 text-xs xl:text-sm border border-[#E5E7EB] text-[#6B7280]">
           {item.truckId}
         </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+        <td className="px-3 py-2 text-xs xl:text-sm border border-[#E5E7EB] text-[#6B7280]">
           {item.driver}
         </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+        <td className="px-3 py-2 text-xs xl:text-sm border border-[#E5E7EB] text-[#6B7280]">
           {item.tonnage}
         </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+        <td className="px-3 py-2 text-xs xl:text-sm border border-[#E5E7EB] text-[#6B7280]">
           {item.total}
         </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+        <td className="px-3 py-2 text-xs xl:text-sm border border-[#E5E7EB] text-[#6B7280]">
           {item.pickup}
         </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+        <td className="px-3 py-2 text-xs xl:text-sm border border-[#E5E7EB] text-[#6B7280]">
           {item.deliver}
         </td>
       </tr>

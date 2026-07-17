@@ -10,33 +10,69 @@ interface LoadsDetailsModalProps {
 
 const data = [
   {
-    customer: "ABC Logistics",
+    customer: "Amrize",
     loads: 6,
     total: "$1,245.50",
     status: "Active",
   },
   {
-    customer: "Global Freight Co",
+    customer: "Heidelberg Materials",
     loads: 5,
     total: "$3,890.00",
     status: "Active",
   },
   {
-    customer: "Express Transport",
+    customer: "Martin Marietta",
     loads: 5,
     total: "$567.25",
     status: "Active",
   },
   {
-    customer: "Prime Carriers",
+    customer: "Resolve Aggregates",
     loads: 5,
     total: "$2,134.75",
     status: "Active",
   },
   {
-    customer: "ABC Logistics",
+    customer: "RPM xConstruction",
     loads: 10,
     total: "$1,245.50",
+    status: "Active",
+  },
+  {
+    customer: "Amrize",
+    loads: 8,
+    total: "$2,875.00",
+    status: "Active",
+  },
+  {
+    customer: "Heidelberg Materials",
+    loads: 4,
+    total: "$980.50",
+    status: "Active",
+  },
+  {
+    customer: "Martin Marietta",
+    loads: 7,
+    total: "$1,785.25",
+    status: "Active",
+  },
+  {
+    customer: "Resolve Aggregates",
+    loads: 9,
+    total: "$3,415.00",
+    status: "Active",
+  },
+  {
+    customer: "RPM xConstruction",
+    loads: 10,
+    total: "$1,245.50",
+    status: "Active",
+  },
+  {
+    customer: "Martin Marietta",
+    loads: 5,
+    total: "$567.25",
     status: "Active",
   },
 ];

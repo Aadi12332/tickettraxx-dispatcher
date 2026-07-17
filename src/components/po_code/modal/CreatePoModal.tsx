@@ -10,37 +10,8 @@ import {
   poCustomerOptions,
   thirdPartyCustomerOptions2,
 } from "../../../utils/data";
+import { materialOptions } from "../../contractor/AddJobModal";
 
-const materialOptions = [
-  {
-    label: "Silica Sand",
-    value: "Silica Sand",
-  },
-  {
-    label: "Crushed Granite",
-    value: "Crushed Granite",
-  },
-  {
-    label: "Quartz Sand",
-    value: "Quartz Sand",
-  },
-  {
-    label: "Limestone Gravel",
-    value: "Limestone Gravel",
-  },
-  {
-    label: "Pea Gravel",
-    value: "Pea Gravel",
-  },
-  {
-    label: "Crushed Stone",
-    value: "Crushed Stone",
-  },
-  {
-    label: "River Sand",
-    value: "River Sand",
-  },
-];
 interface CreatePOCodeModalProps {
   open: boolean;
   onClose: () => void;
@@ -61,13 +32,13 @@ const initialFormData = {
 
 const editFormData = {
   poCode: "5552389933",
-  material: "Crushed Granite",
+  material: "1' Rock",
   customer: "Amrize",
-  thirdPartyCustomer: "Desirae Geidt",
+  thirdPartyCustomer: "Marley George",
   invoiceRate: "10.00",
   contractorRate: "8.50",
-  pickup: "115 Ambrose Street Bells, TX 75414",
-  deliver: "Tom Harpool WTP Expansion PH2",
+  pickup: "AMRIZE-Ambrose",
+  deliver: "4950 Plano",
 };
 
 const CreatePOCodeModal = ({

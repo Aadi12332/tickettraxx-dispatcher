@@ -22,50 +22,62 @@ export const fscColumns = [
 
 export const data = [
   {
-    customer: "AMRIZE",
-    from: "01/01/2026",
-    to: "12/30/2026",
-    percentage: "15.00%",
-  },
-  {
-    customer: "HEIDELBERG MATERIALS",
-    from: "01/04/2026",
-    to: "02/07/2026",
+    customer: "Amrize",
+    from: "01/01/2024",
+    to: "12/30/2024",
     percentage: "5.00%",
   },
   {
-    customer: "RAVENNA-1",
-    from: "01/06/2026",
-    to: "01/12/2025",
-    percentage: "12.00%",
+    customer: "Heidelberg Materials",
+    from: "01/04/2024",
+    to: "02/07/2024",
+    percentage: "5.00%",
   },
   {
-    customer: "RAVENNA-2",
-    from: "01/08/2026",
-    to: "02/04/2026",
-    percentage: "25.00%",
-  },
-  {
-    customer: "MARTIN MARETTA",
-    from: "01/09/2026",
+    customer: "Ravenna-1",
+    from: "01/06/2024",
     to: "01/12/2025",
     percentage: "5.00%",
   },
   {
-    customer: "MARTIN MARETTA",
-    from: "01/13/2026",
+    customer: "Ravenna-2",
+    from: "01/08/2024",
+    to: "02/04/2024",
+    percentage: "5.00%",
+  },
+  {
+    customer: "Martin Marietta",
+    from: "01/09/2024",
     to: "01/12/2025",
     percentage: "5.00%",
   },
   {
-    customer: "RAVENNA-2",
-    from: "01/15/2026",
+    customer: "Martin Marietta",
+    from: "01/13/2024",
     to: "01/12/2025",
     percentage: "5.00%",
   },
   {
-    customer: "RAVENNA-1",
-    from: "01/20/2026",
+    customer: "Ravenna-2",
+    from: "01/15/2024",
+    to: "01/12/2025",
+    percentage: "5.00%",
+  },
+  {
+    customer: "Ravenna-1",
+    from: "01/20/2024",
+    to: "01/12/2025",
+    percentage: "5.00%",
+  },
+  {
+    customer: "Heidelberg Materials",
+    from: "01/22/2024",
+    to: "01/12/2025",
+    percentage: "5.00%",
+  },
+  {
+    customer: "Amrize",
+    from: "01/27/2024",
     to: "01/12/2025",
     percentage: "5.00%",
   },
@@ -234,6 +246,7 @@ const FscPage = () => {
         onClose={() => setOpenCalendarModal(false)}
         onApply={setSelectedDate}
       />
+
       <LoadUpdateSuccessModal
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}

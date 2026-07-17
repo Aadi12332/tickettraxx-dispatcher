@@ -1,21 +1,33 @@
 export const poCodeOptions = [
-  { label: "5552389933", value: "5552389933" },
-  { label: "1234567890", value: "1234567890" },
-  { label: "0987654321", value: "0987654321" },
-  { label: "1122334455", value: "1122334455" },
-  { label: "2233445566", value: "2233445566" },
-  { label: "3344556677", value: "3344556677" },
-  { label: "4455667788", value: "4455667788" },
-  { label: "5566778899", value: "5566778899" },
-  { label: "6677889900", value: "6677889900" },
-  { label: "7788990011", value: "7788990011" },
-  { label: "8899001122", value: "8899001122" },
-  { label: "9900112233", value: "9900112233" },
-  { label: "1011121314", value: "1011121314" },
-  { label: "1213141516", value: "1213141516" },
-  { label: "1314151617", value: "1314151617" },
-  { label: "1415161718", value: "1415161718" },
-  { label: "1516171819", value: "1516171819" },
+  { label: "5500016751", value: "5500016751" },
+  { label: "5500016752", value: "5500016752" },
+  { label: "5500016753", value: "5500016753" },
+  { label: "5500016754", value: "5500016754" },
+  { label: "5500016755", value: "5500016755" },
+  { label: "5500016756", value: "5500016756" },
+  { label: "5500016757", value: "5500016757" },
+  { label: "5500016758", value: "5500016758" },
+  { label: "5500016759", value: "5500016759" },
+  { label: "5500016760", value: "5500016760" },
+  { label: "5500016762", value: "5500016762" },
+  { label: "5500016763", value: "5500016763" },
+  { label: "5500016764", value: "5500016764" },
+  { label: "5500016765", value: "5500016765" },
+  { label: "5500016767", value: "5500016767" },
+  { label: "5500016771", value: "5500016771" },
+  { label: "5500016900", value: "5500016900" },
+  { label: "5500016783", value: "5500016783" },
+  { label: "5500016784", value: "5500016784" },
+  { label: "5500016785", value: "5500016785" },
+  { label: "5500016786", value: "5500016786" },
+  { label: "5500016787", value: "5500016787" },
+  { label: "5500016788", value: "5500016788" },
+  { label: "5500016790", value: "5500016790" },
+  { label: "004973.000.146", value: "004973.000.146" },
+  { label: "26021-040", value: "26021-040" },
+  { label: "352-2", value: "352-2" },
+  { label: "25032-043", value: "25032-043" },
+  { label: "4920P.008", value: "4920P.008" },
 ];
 
 export const pickupCustomerOptions = [
@@ -39,145 +51,33 @@ export const truckOptions = [
 ];
 
 export const pickupOptions = [
-  {
-    label: "115 Ambrose Street Bells, TX 75414",
-    value: "115 Ambrose Street Bells, TX 75414",
-  },
-  {
-    label: "Lake Bridgeport, TX 76426",
-    value: "Lake Bridgeport, TX 76426",
-  },
-  {
-    label: "Ravenna - Resolve Aggregates, TX 75476",
-    value: "Ravenna - Resolve Aggregates, TX 75476",
-  },
-  {
-    label: "54501 North Bridgeport Quarry, TX 76426",
-    value: "54501 North Bridgeport Quarry, TX 76426",
-  },
-  {
-    label: "654 Pine Valley Rd, Pine Valley, TX 75001",
-    value: "654 Pine Valley Rd, Pine Valley, TX 75001",
-  },
-  {
-    label: "987 Cedar Grove Ave, Cedar Grove, TX 75002",
-    value: "987 Cedar Grove Ave, Cedar Grove, TX 75002",
-  },
-  {
-    label: "135 Willow Creek Way, Willow Creek, TX 75003",
-    value: "135 Willow Creek Way, Willow Creek, TX 75003",
-  },
-  {
-    label: "246 Lakewood Circle, Lakewood, TX 75004",
-    value: "246 Lakewood Circle, Lakewood, TX 75004",
-  },
-  {
-    label: "369 Brookfield Lane, Brookfield, TX 75005",
-    value: "369 Brookfield Lane, Brookfield, TX 75005",
-  },
-  {
-    label: "852 Silver Springs Rd, Silver Springs, TX 75006",
-    value: "852 Silver Springs Rd, Silver Springs, TX 75006",
-  },
-  {
-    label: "147 Greenfield Ave, Greenfield, TX 75007",
-    value: "147 Greenfield Ave, Greenfield, TX 75007",
-  },
-  {
-    label: "258 Fairview St, Fairview, TX 75008",
-    value: "258 Fairview St, Fairview, TX 75008",
-  },
-  {
-    label: "369 Crestwood Dr, Crestwood, TX 75009",
-    value: "369 Crestwood Dr, Crestwood, TX 75009",
-  },
-  {
-    label: "741 Springdale Blvd, Springdale, TX 75010",
-    value: "741 Springdale Blvd, Springdale, TX 75010",
-  },
-  {
-    label: "852 Meadowbrook Ln, Meadowbrook, TX 75011",
-    value: "852 Meadowbrook Ln, Meadowbrook, TX 75011",
-  },
-  {
-    label: "963 Hilltop Rd, Hilltop, TX 75012",
-    value: "963 Hilltop Rd, Hilltop, TX 75012",
-  },
-  {
-    label: "159 Eastwood Ave, Eastwood, TX 75013",
-    value: "159 Eastwood Ave, Eastwood, TX 75013",
-  },
+  { label: "HBERG-Bridgeport", value: "HBERG-Bridgeport" },
+  { label: "HBERG-LakeBP", value: "HBERG-LakeBP" },
+  { label: "AMRIZE-Melissa", value: "AMRIZE-Melissa" },
+  { label: "AMRIZE-Ambrose", value: "AMRIZE-Ambrose" },
+  { label: "AMRIZE-Rosser", value: "AMRIZE-Rosser" },
+  { label: "HBERG-Bridgeport", value: "HBERG-Bridgeport-2" },
+  { label: "HBERG-LakeBP", value: "HBERG-LakeBP-2" },
+  { label: "HBERG-Midlothian", value: "HBERG-Midlothian" },
+  { label: "HBERG-Whitney", value: "HBERG-Whitney" },
+  { label: "Resolve Ravenna2", value: "Resolve Ravenna2" },
 ];
 
 export const deliveryOptions = [
-  {
-    label: "Tom Harpool WTP Expansion PH2",
-    value: "Tom Harpool WTP Expansion PH2",
-  },
-  {
-    label: "365340 - Tiseo Paving CO JOB 27",
-    value: "365340 - Tiseo Paving CO JOB 27",
-  },
-  {
-    label: "789 Riverview Drive, Riverview, TX 75014",
-    value: "789 Riverview Drive, Riverview, TX 75014",
-  },
-  {
-    label: "321 Oakridge Blvd, Oakridge, TX 75015",
-    value: "321 Oakridge Blvd, Oakridge, TX 75015",
-  },
-  {
-    label: "654 Pine Valley Rd, Pine Valley, TX 75016",
-    value: "654 Pine Valley Rd, Pine Valley, TX 75016",
-  },
-  {
-    label: "987 Cedar Grove Ave, Cedar Grove, TX 75017",
-    value: "987 Cedar Grove Ave, Cedar Grove, TX 75017",
-  },
-  {
-    label: "135 Willow Creek Way, Willow Creek, TX 75018",
-    value: "135 Willow Creek Way, Willow Creek, TX 75018",
-  },
-  {
-    label: "246 Lakewood Circle, Lakewood, TX 75019",
-    value: "246 Lakewood Circle, Lakewood, TX 75019",
-  },
-  {
-    label: "369 Brookfield Lane, Brookfield, TX 75020",
-    value: "369 Brookfield Lane, Brookfield, TX 75020",
-  },
-  {
-    label: "852 Silver Springs Rd, Silver Springs, TX 75021",
-    value: "852 Silver Springs Rd, Silver Springs, TX 75021",
-  },
-  {
-    label: "147 Greenfield Ave, Greenfield, TX 75022",
-    value: "147 Greenfield Ave, Greenfield, TX 75022",
-  },
-  {
-    label: "258 Fairview St, Fairview, TX 75023",
-    value: "258 Fairview St, Fairview, TX 75023",
-  },
-  {
-    label: "369 Crestwood Dr, Crestwood, TX 75024",
-    value: "369 Crestwood Dr, Crestwood, TX 75024",
-  },
-  {
-    label: "741 Springdale Blvd, Springdale, TX 75025",
-    value: "741 Springdale Blvd, Springdale, TX 75025",
-  },
-  {
-    label: "852 Meadowbrook Ln, Meadowbrook, TX 75026",
-    value: "852 Meadowbrook Ln, Meadowbrook, TX 75026",
-  },
-  {
-    label: "963 Hilltop Rd, Hilltop, TX 75027",
-    value: "963 Hilltop Rd, Hilltop, TX 75027",
-  },
-  {
-    label: "159 Eastwood Ave, Eastwood, TX 75028",
-    value: "159 Eastwood Ave, Eastwood, TX 75028",
-  },
+  { label: "4950 Plano", value: "4950 Plano" },
+  { label: "4951 Denton", value: "4951 Denton" },
+  { label: "4952 Lewisville", value: "4952 Lewisville" },
+  { label: "4954 Blue Mound", value: "4954 Blue Mound" },
+  { label: "4955 Dallas Bickham", value: "4955 Dallas Bickham" },
+  { label: "4956 Coppell", value: "4956 Coppell" },
+  { label: "4957 Prosper", value: "4957 Prosper" },
+  { label: "4958 McKinney", value: "4958 McKinney" },
+  { label: "4959 Rockwall", value: "4959 Rockwall" },
+  { label: "4961 Roanoke", value: "4961 Roanoke" },
+  { label: "4966 Melissa", value: "4966 Melissa" },
+  { label: "4955 Dallas Bickham", value: "4955 Dallas Bickham-2" },
+  { label: "4252 Hemphill", value: "4252 Hemphill" },
+  { label: "McCarthy Vaughn", value: "McCarthy Vaughn" },
 ];
 
 export const pickupCreateOptions = [

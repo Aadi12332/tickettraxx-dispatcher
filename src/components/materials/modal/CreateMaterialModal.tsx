@@ -4,33 +4,40 @@ import { useEffect, useState } from "react";
 import CommonTextInput from "../../common/CommonTextInput";
 import CommonButton from "../../common/CommonButton";
 
+interface MaterialData {
+  id: number;
+  material: string;
+}
+
 interface CreateMaterialModalProps {
   open: boolean;
   onClose: () => void;
   isEdit?: boolean;
+  editData?: MaterialData | null;
 }
-
 const initialMaterial = "";
-
-const editMaterial = "Fine Sand";
-
 const CreateMaterialModal = ({
   open,
   onClose,
   isEdit = false,
+  editData,
 }: CreateMaterialModalProps) => {
   const [materialName, setMaterialName] = useState("");
 
-  useEffect(() => {
-    if (!open) return;
+useEffect(() => {
+  if (!open) return;
 
-    setMaterialName(isEdit ? editMaterial : initialMaterial);
-  }, [open, isEdit]);
+  if (isEdit && editData) {
+    setMaterialName(editData.material);
+  } else {
+    setMaterialName(initialMaterial);
+  }
+}, [open, isEdit, editData]);
 
-  const handleClose = () => {
-    setMaterialName(isEdit ? editMaterial : initialMaterial);
-    onClose();
-  };
+const handleClose = () => {
+  setMaterialName(initialMaterial);
+  onClose();
+};
 
   const handleSubmit = () => {
     console.log({

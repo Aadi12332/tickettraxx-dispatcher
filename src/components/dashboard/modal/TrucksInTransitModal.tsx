@@ -14,36 +14,71 @@ const data = [
     truckId: "#280099",
     driver: "Jaydon Saris",
     loadsRemaining: "7 of 10",
-    pickup: "Sunnyvale Park",
-    deliver: "Sunnyvale Delivery Hub",
+    pickup: "HBERG-Bridgeport",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Lincoln Korsgaard",
     loadsRemaining: "7 of 14",
-    pickup: "Greenwood Station",
-    deliver: "Greenwood Dispatch Center",
+    pickup: "HBERG-LakeBP",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Erin Philips",
     loadsRemaining: "7 of 18",
-    pickup: "Riverbend Terminal",
-    deliver: "Riverbend Shipping Terminal",
+    pickup: "AMRIZE-Melissa",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Emery Lipshutz",
     loadsRemaining: "7 of 20",
-    pickup: "Maplewood Plaza",
-    deliver: "Maplewood Distribution Point",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4950 Plano",
   },
   {
     truckId: "#280099",
     driver: "Jaydon Saris",
     loadsRemaining: "7 of 10",
-    pickup: "Sunnyvale Park",
-    deliver: "Sunnyvale Delivery Hub",
+    pickup: "AMRIZE-Rosser",
+    deliver: "4950 Plano",
+  },
+  {
+    truckId: "#280099",
+    driver: "Erin Philips",
+    loadsRemaining: "7 of 18",
+    pickup: "HBERG-Bridgeport",
+    deliver: "4951 Denton",
+  },
+  {
+    truckId: "#280099",
+    driver: "Lincoln Korsgaard",
+    loadsRemaining: "7 of 14",
+    pickup: "HBERG-LakeBP",
+    deliver: "4951 Denton",
+  },
+  {
+    truckId: "#280099",
+    driver: "Emery Lipshutz",
+    loadsRemaining: "7 of 20",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4951 Denton",
+  },
+  {
+    truckId: "#280099",
+    driver: "Lincoln Korsgaard",
+    loadsRemaining: "7 of 14",
+    pickup: "AMRIZE-Rosser",
+    deliver: "4956 Coppell",
+  },
+  {
+    truckId: "#280099",
+    driver: "Emery Lipshutz",
+    loadsRemaining: "7 of 20",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4956 Coppell",
   },
 ];
 
@@ -54,20 +89,20 @@ const TrucksInTransitModal = ({
 }: TrucksInTransitModalProps) => {
   const [search, setSearch] = useState("");
   const filteredData = useMemo(() => {
-  const keyword = search.toLowerCase().trim();
+    const keyword = search.toLowerCase().trim();
 
-  if (!keyword) return data;
+    if (!keyword) return data;
 
-  return data.filter((item) =>
-    [
-      item.truckId,
-      item.driver,
-      item.loadsRemaining,
-      item.pickup,
-      item.deliver,
-    ].some((value) => value.toLowerCase().includes(keyword))
-  );
-}, [search]);
+    return data.filter((item) =>
+      [
+        item.truckId,
+        item.driver,
+        item.loadsRemaining,
+        item.pickup,
+        item.deliver,
+      ].some((value) => value.toLowerCase().includes(keyword)),
+    );
+  }, [search]);
   return (
     <BaseModal
       isOpen={isOpen}
@@ -89,14 +124,14 @@ const TrucksInTransitModal = ({
               </div>
               <input
                 value={search}
-  onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 placeholder="Search"
                 className="pl-10 pr-4 py-1.5 border border-gray-200 rounded-md text-sm outline-none md:w-[300px]"
               />
             </div>
           </div>
-           <button
+          <button
             onClick={onClose}
             className="cursor-pointer text-black hover:opacity-70"
           >
@@ -111,54 +146,64 @@ const TrucksInTransitModal = ({
             <table className="w-full table-fixed border-collapse min-w-[700px]">
               <thead>
                 <tr className="text-sm font-semibold text-[#343434] border-b border-[#E5E7EB]">
-                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Truck ID</th>
-                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Driver</th>
-                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Loads Remaining</th>
-                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Pickup</th>
-                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">Deliver</th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">
+                    Truck ID
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">
+                    Driver
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">
+                    Loads Remaining
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">
+                    Pickup
+                  </th>
+                  <th className="px-3 text-sm py-2 border border-[#E5E7EB] text-left">
+                    Deliver
+                  </th>
                 </tr>
               </thead>
 
-             <tbody>
-  {filteredData.length > 0 ? (
-    filteredData.map((item, index) => (
-      <tr
-        key={index}
-        onClick={handleNextModalOpen}
-        className="border-b border-[#F3F4F6] text-sm hover:bg-gray-50 cursor-pointer"
-      >
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
-          {item.truckId}
-        </td>
+              <tbody>
+                {filteredData.length > 0 ? (
+                  filteredData.map((item, index) => (
+                    <tr
+                      key={index}
+                      onClick={handleNextModalOpen}
+                      className="border-b border-[#F3F4F6] text-sm hover:bg-gray-50 cursor-pointer"
+                    >
+                      <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                        {item.truckId}
+                      </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
-          {item.driver}
-        </td>
+                      <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                        {item.driver}
+                      </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
-          {item.loadsRemaining}
-        </td>
+                      <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                        {item.loadsRemaining}
+                      </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
-          {item.pickup}
-        </td>
+                      <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                        {item.pickup}
+                      </td>
 
-        <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
-          {item.deliver}
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td
-        colSpan={5}
-        className="border border-[#E5E7EB] py-8 text-center text-[#6B7280] text-sm"
-      >
-        No search data found.
-      </td>
-    </tr>
-  )}
-</tbody>
+                      <td className="px-3 py-2 border border-[#E5E7EB] text-[#6B7280]">
+                        {item.deliver}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="border border-[#E5E7EB] py-8 text-center text-[#6B7280] text-sm"
+                    >
+                      No search data found.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
             </table>
           </div>
         </div>

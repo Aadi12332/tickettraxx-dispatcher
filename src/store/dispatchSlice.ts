@@ -594,10 +594,10 @@ const dispatchSlice = createSlice({
         id: `${po}_${Date.now()}`, // unique key even if poCode repeats
         poCode: po,
         driverName: customer || "NEW CUSTOMER",
-        delivery: `${customer || "Customer"} - Job#${po} - ${deliver || "Tom Harpool WTP Expansion PH..."}`,
+        delivery: `${customer || "Customer"} - Job#${po} - ${deliver || "4955 Dallas Bickham"}`,
         loads: cardLoads,
         rate: rateVal,
-        pickup: pickup || "115 Ambrose Street Bells, TX 75414",
+        pickup: pickup || "AMRIZE-Ambrose",
         location: location,
         material: material || "Material",
         time: `${startT} - ${endT}`,

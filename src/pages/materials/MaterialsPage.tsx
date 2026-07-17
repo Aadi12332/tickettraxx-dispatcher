@@ -14,22 +14,27 @@ const materialColumns = [
 ];
 
 const materialData = [
-  { id: 1, material: "Non Blend Sand" },
-  { id: 2, material: '1" Rock' },
+  { id: 1, material: "1' Rock" },
+  { id: 2, material: "Manufactured Sand (Man Sand)" },
   { id: 3, material: "Concrete Sand" },
-  { id: 4, material: '3/4" Rock' },
-  { id: 5, material: '1 - 1/2" Rock' },
-  { id: 6, material: "ManSand" },
-  { id: 7, material: "P-Gravel" },
-  { id: 8, material: "TX-180" },
-  { id: 9, material: "C-33" },
+  { id: 4, material: "TX126 – 1” to #4 Crushed Stone" },
+  { id: 5, material: "TX197 – TXDOT Type A Grade 1-2" },
+  { id: 6, material: "TX157 – ¾” to #4 Crushed Stone" },
+  { id: 7, material: "TX373-Washed Concrete Sand" },
+  { id: 8, material: "Flex Base" },
+  { id: 9, material: "TX121 – 1-1/2” Crushed Stone" },
+  { id: 10, material: "TX180 – Crushed Stone" },
 ];
+
 const MaterialsPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openEditMaterial, setOpenEditMaterial] = useState(false);
   const [search, setSearch] = useState("");
   const [entries, setEntries] = useState(10);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+const [selectedMaterial, setSelectedMaterial] = useState<
+  (typeof materialData)[0] | null
+>(null);
 
   const handleUpdate = () => {
     setShowSuccessModal(true);
@@ -88,23 +93,31 @@ const MaterialsPage = () => {
           onEntriesChange={setEntries}
         />
         <Table
-          columns={materialColumns}
-          data={filteredMaterials}
-          onEdit={() => setOpenEditMaterial(true)}
-          onDelete={(item) => console.log("Delete Material:", item)}
-          minWidth="min-w-[500px]"
-        />
+  columns={materialColumns}
+  data={filteredMaterials}
+  onEdit={(item) => {
+    setSelectedMaterial(item);
+    setOpenEditMaterial(true);
+  }}
+  onDelete={(item) => console.log("Delete Material:", item)}
+  minWidth="min-w-[500px]"
+/>
       </div>
 
       <CreateMaterialModal
         open={openModal}
         onClose={() => setOpenModal(false)}
       />
-      <CreateMaterialModal
-        open={openEditMaterial}
-        onClose={() => setOpenEditMaterial(false)}
-        isEdit
-      />
+
+   <CreateMaterialModal
+  open={openEditMaterial}
+  onClose={() => {
+    setOpenEditMaterial(false);
+    setSelectedMaterial(null);
+  }}
+  isEdit
+  editData={selectedMaterial}
+/>
       <LoadUpdateSuccessModal
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}

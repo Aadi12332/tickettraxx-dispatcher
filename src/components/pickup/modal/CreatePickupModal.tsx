@@ -4,7 +4,7 @@ import CommonSelectInput from "../../common/CommonSelectInput";
 import CommonButton from "../../common/CommonButton";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
-import { thirdPartyCustomerOptions, pickupCustomerOptions, pickupCreateOptions } from "../../../utils/data";
+import { thirdPartyCustomerOptions, pickupCustomerOptions, pickupOptions, deliveryOptions } from "../../../utils/data";
 
 function MapClickHandler({ onMapClick }: { onMapClick: (e: any) => void }) {
   useMapEvents({
@@ -46,7 +46,7 @@ const initialFormData = {
 
 const editFormData = {
   type: "Pickup",
-  location: "321 Oakridge Blvd, Oakridge, OR 97463",
+  location: "AMRIZE-Ambrose",
   customer: "Kevin Mark",
   contractorRate: "10.00",
   thirdPartyCustomer: "Gilco Civil",
@@ -230,7 +230,11 @@ const isFormValid = useMemo(() => {
   value={formData.location}
   placeholder="Select one..."
   onChange={handleChange("location")}
-  options={pickupCreateOptions}
+  options={
+    formData.type?.toLowerCase() === "pickup"
+      ? pickupOptions
+      : deliveryOptions
+  }
   addNewLabel="Add New"
   onAddNew={() => {}}
 />

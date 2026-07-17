@@ -5,8 +5,14 @@ import SectionTitle from "../common/SectionTitle";
 import CalendarModal from "../common/modal/CalendorModal";
 import CommonFilterDropdown from "../common/CommonFilterDropdown";
 import CommonButton from "../common/CommonButton";
-import { customerOptions } from "../fsc/modal/CreateFscModal";
-
+export const poCustomerOptions = [
+  { label: "All", value: "All" },
+  { label: "Amrize", value: "Amrize" },
+  { label: "Heidelberg Materials", value: "Heidelberg Materials" },
+  { label: "Martin Marietta", value: "Martin Marietta" },
+  { label: "Resolve Aggregates", value: "Resolve Aggregates" },
+  { label: "RPM xConstruction", value: "RPM xConstruction" },
+];
 const shipmentDataByDate: Record<
   string,
   { day: string; value: number; active?: boolean }[]
@@ -45,18 +51,17 @@ const emptyShipmentData = [
 export default function ShipmentOverview() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(
-    customerOptions[0].value
+    poCustomerOptions[0].value,
   );
 
   const [selectedDate, setSelectedDate] = useState("2026-07-10");
 
-  const shipmentData =
-    shipmentDataByDate[selectedDate] ?? emptyShipmentData;
+  const shipmentData = shipmentDataByDate[selectedDate] ?? emptyShipmentData;
 
-    const top2Values = [...shipmentData]
-  .sort((a, b) => b.value - a.value)
-  .slice(0, 2)
-  .map((item) => item.value);
+  const top2Values = [...shipmentData]
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 2)
+    .map((item) => item.value);
 
   return (
     <div className="bg-white rounded-[5px] border shadow-sm border-(--border-gray-2) pb-2">
@@ -67,7 +72,7 @@ export default function ShipmentOverview() {
           <CommonFilterDropdown
             value={selectedCustomer}
             onChange={setSelectedCustomer}
-            options={customerOptions}
+            options={poCustomerOptions}
             size="140px"
           />
 
@@ -85,33 +90,31 @@ export default function ShipmentOverview() {
       </div>
 
       <div className="flex items-end justify-between xl:h-[290px] h-[200px] mt-10 px-4">
- {shipmentData.map((item, index) => (
-  <div
-    key={index}
-    className="group flex flex-col items-center gap-2 relative"
-  >
-    {/* Count - Hover par */}
-    <div className="absolute -top-7 hidden group-hover:block bg-primary text-white text-[10px] px-1.5 py-0.5 rounded">
-      {item.value}
-    </div>
+        {shipmentData.map((item, index) => (
+          <div
+            key={index}
+            className="group flex flex-col items-center gap-2 relative"
+          >
+            {/* Count - Hover par */}
+            <div className="absolute -top-7 hidden group-hover:block bg-primary text-white text-[10px] px-1.5 py-0.5 rounded">
+              {item.value}
+            </div>
 
-    {/* Top 2 bars par star */}
-    {top2Values.includes(item.value) && (
-      <div className="absolute -top-0 text-white text-[10px]">
-        ★
-      </div>
-    )}
+            {/* Top 2 bars par star */}
+            {top2Values.includes(item.value) && (
+              <div className="absolute -top-0 text-white text-[10px]">★</div>
+            )}
 
-    <div
-      className="w-3.5 rounded-full bg-text-gray"
-      style={{
-        height: `${Math.max(item.value * 1.2, 4)}px`,
-      }}
-    />
+            <div
+              className="w-3.5 rounded-full bg-text-gray"
+              style={{
+                height: `${Math.max(item.value * 1.2, 4)}px`,
+              }}
+            />
 
-    <span className="text-gray-500 text-xs">{item.day}</span>
-  </div>
-))}
+            <span className="text-gray-500 text-xs">{item.day}</span>
+          </div>
+        ))}
       </div>
 
       <div className="flex items-center gap-3 mt-4 px-4 font-archivo">
@@ -124,19 +127,19 @@ export default function ShipmentOverview() {
         </span>
       </div>
 
-     <CalendarModal
-  isOpen={isCalendarOpen}
-  onClose={() => setIsCalendarOpen(false)}
-  onApply={(range) => {
-    const [startDate] = range;
+      <CalendarModal
+        isOpen={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+        onApply={(range) => {
+          const [startDate] = range;
 
-    if (startDate) {
-      setSelectedDate(startDate.format("YYYY-MM-DD"));
-    }
+          if (startDate) {
+            setSelectedDate(startDate.format("YYYY-MM-DD"));
+          }
 
-    setIsCalendarOpen(false);
-  }}
-/>
+          setIsCalendarOpen(false);
+        }}
+      />
     </div>
   );
 }

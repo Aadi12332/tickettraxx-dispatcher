@@ -9,33 +9,33 @@ interface NextInQueueModalProps {
 const remainingData = [
   {
     loadId: "#64657",
-    pickup: "Sunnyvale Park",
-    delivery: "Greenwood Station",
+    pickup: "HBERG-Bridgeport",
+    delivery: "4950 Plano",
   },
   {
     loadId: "#87631",
-    pickup: "Sunnyvale Park",
-    delivery: "Greenwood Station",
+    pickup: "HBERG-LakeBP",
+    delivery: "4950 Plano",
   },
   {
     loadId: "#34674",
-    pickup: "Sunnyvale Park",
-    delivery: "Maplewood Plaza",
+    pickup: "AMRIZE-Melissa",
+    delivery: "4950 Plano",
   },
   {
-    loadId: "#64657",
-    pickup: "Sunnyvale Park",
-    delivery: "Greenwood Station",
+    loadId: "#55218",
+    pickup: "AMRIZE-Ambrose",
+    delivery: "4950 Plano",
   },
   {
-    loadId: "#64657",
-    pickup: "Sunnyvale Park",
-    delivery: "Maplewood Plaza",
+    loadId: "#91463",
+    pickup: "AMRIZE-Rosser",
+    delivery: "4950 Plano",
   },
   {
-    loadId: "#64657",
-    pickup: "Sunnyvale Park",
-    delivery: "Greenwood Station",
+    loadId: "#73125",
+    pickup: "HBERG-Bridgeport",
+    delivery: "4951 Denton",
   },
 ];
 

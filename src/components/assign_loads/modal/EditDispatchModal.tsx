@@ -57,12 +57,12 @@ interface PODataEntry {
 }
 
 const PO_DATA_MAP: Record<string, PODataEntry> = {
-  "5552389933": {
+  "5500016751": {
     customer: "Amrize",
     loads: "2",
     materials: ["1' Rock"],
-    pickup: "115 Ambrose Street Bells, TX 75414",
-    deliver: "789 Riverview Drive, Riverview, TX 75014",
+    pickup: "AMRIZE-Ambrose",
+    deliver: "4950 Plano",
     invoiceRate: "$10.00",
     contractorRate: "$10.00",
     startTime: "10:00",
@@ -70,12 +70,15 @@ const PO_DATA_MAP: Record<string, PODataEntry> = {
     comment: "Existing dispatch note...",
   },
 
-  "1234567890": {
+  "5500016752": {
     customer: "Heidelberg Materials",
     loads: "1",
-    materials: ["Sturdy Cedar Titan", "Bold Trailblazer X"],
-    pickup: "Lake Bridgeport, TX 76426",
-    deliver: "Tom Harpool WTP Expansion PH2",
+    materials: [
+      "Manufactured Sand (Man Sand)",
+      "Concrete Sand",
+    ],
+    pickup: "HBERG-LakeBP",
+    deliver: "4951 Denton",
     invoiceRate: "$12.00",
     contractorRate: "$11.00",
     startTime: "08:00",
@@ -83,16 +86,16 @@ const PO_DATA_MAP: Record<string, PODataEntry> = {
     comment: "Two-material dispatch for this PO.",
   },
 
-  "0987654321": {
+  "5500016753": {
     customer: "Martin Marietta",
     loads: "2",
     materials: [
-      "Wilderness Warrior 4x4",
-      "Innovative Freightliner Explorer",
-      "789 Granite Way, Stonehaven",
+      "TX126 – 1” to #4 Crushed Stone",
+      "TX197 – TXDOT Type A Grade 1-2",
+      "TX157 – ¾” to #4 Crushed Stone",
     ],
-    pickup: "Ravenna - Resolve Aggregates, TX 75476",
-    deliver: "365340 - Tiseo Paving CO JOB 27",
+    pickup: "Resolve Ravenna2",
+    deliver: "4952 Lewisville",
     invoiceRate: "$15.00",
     contractorRate: "$13.00",
     startTime: "09:00",
@@ -100,12 +103,12 @@ const PO_DATA_MAP: Record<string, PODataEntry> = {
     comment: "Three-material dispatch for this PO.",
   },
 
-  "1122334455": {
+  "5500016754": {
     customer: "Resolve Aggregates",
     loads: "3",
-    materials: ["1' Rock"],
-    pickup: "54501 North Bridgeport Quarry, TX 76426",
-    deliver: "321 Oakridge Blvd, Oakridge, TX 75015",
+    materials: ["TX373-Washed Concrete Sand"],
+    pickup: "HBERG-Bridgeport",
+    deliver: "4954 Blue Mound",
     invoiceRate: "$9.50",
     contractorRate: "$9.00",
     startTime: "07:30",
@@ -113,12 +116,15 @@ const PO_DATA_MAP: Record<string, PODataEntry> = {
     comment: "",
   },
 
-  "2233445566": {
+  "5500016755": {
     customer: "RPM xConstruction",
     loads: "2",
-    materials: ["Sturdy Cedar Titan", "Wilderness Warrior 4x4"],
-    pickup: "654 Pine Valley Rd, Pine Valley, TX 75001",
-    deliver: "654 Pine Valley Rd, Pine Valley, TX 75016",
+    materials: [
+      "Flex Base",
+      "TX121 – 1-1/2” Crushed Stone",
+    ],
+    pickup: "AMRIZE-Rosser",
+    deliver: "4956 Coppell",
     invoiceRate: "$11.00",
     contractorRate: "$10.50",
     startTime: "11:00",
@@ -126,16 +132,16 @@ const PO_DATA_MAP: Record<string, PODataEntry> = {
     comment: "",
   },
 
-  "3344556677": {
+  "5500016756": {
     customer: "Amrize",
     loads: "2",
     materials: [
-      "Bold Trailblazer X",
-      "Innovative Freightliner Explorer",
-      "789 Granite Way, Stonehaven",
+      "Manufactured Sand (Man Sand)",
+      "TX373-Washed Concrete Sand",
+      "Flex Base",
     ],
-    pickup: "115 Ambrose Street Bells, TX 75414",
-    deliver: "789 Riverview Drive, Riverview, TX 75014",
+    pickup: "AMRIZE-Melissa",
+    deliver: "4966 Melissa",
     invoiceRate: "$14.00",
     contractorRate: "$12.50",
     startTime: "06:00",
@@ -144,7 +150,7 @@ const PO_DATA_MAP: Record<string, PODataEntry> = {
   },
 };
 
-const defaultEditPoCode = "5552389933";
+const defaultEditPoCode = "5500016751";
 
 // isEdit mount ke time PO_DATA_MAP se poora data resolve kar deta hai,
 // taaki edit mode khulte hi sab kuch (time, comment sab) fill ho.

@@ -12,21 +12,21 @@ interface LoadsRemainingModalProps {
 const data = [
   {
     id: 1,
-    customer: "ABC Logistics",
+    customer: "Amrize",
     remainingLoads: "2 of 15",
     completion: "98%",
     details: [
       {
-        pickup: "Central Park, New York",
-        deliver: "Downtown Express",
-        material: "Sand",
+        pickup: "AMRIZE-Ambrose",
+        deliver: "4950 Plano",
+        material: "1' Rock",
         tonage: "29.00",
         rate: "$13.00",
       },
       {
-        pickup: "Central Park, New York",
-        deliver: "Downtown Express",
-        material: "Sand",
+        pickup: "HBERG-Bridgeport",
+        deliver: "4951 Denton",
+        material: "Manufactured Sand (Man Sand)",
         tonage: "29.00",
         rate: "$13.00",
       },
@@ -34,14 +34,14 @@ const data = [
   },
   {
     id: 2,
-    customer: "Global Freight Co",
+    customer: "Heidelberg Materials",
     remainingLoads: "3 of 20",
     completion: "97.5%",
     details: [
       {
-        pickup: "Central Park, New York",
-        deliver: "Downtown Express",
-        material: "Gravel",
+        pickup: "HBERG-LakeBP",
+        deliver: "4952 Lewisville",
+        material: "Concrete Sand",
         tonage: "20.00",
         rate: "$15.00",
       },
@@ -49,23 +49,89 @@ const data = [
   },
   {
     id: 3,
-    customer: "Express Transport",
+    customer: "Martin Marietta",
     remainingLoads: "8 of 21",
     completion: "96%",
     details: [],
   },
   {
     id: 4,
-    customer: "Prime Carriers",
+    customer: "Resolve Aggregates",
     remainingLoads: "10 of 27",
     completion: "95%",
     details: [],
   },
   {
     id: 5,
-    customer: "ABC Logistics",
+    customer: "RPM xConstruction",
     remainingLoads: "2 of 15",
     completion: "98%",
+    details: [],
+  },
+  {
+    id: 6,
+    customer: "Amrize",
+    remainingLoads: "5 of 18",
+    completion: "92%",
+    details: [
+      {
+        pickup: "AMRIZE-Melissa",
+        deliver: "4956 Coppell",
+        material: "TX373-Washed Concrete Sand",
+        tonage: "26.00",
+        rate: "$14.00",
+      },
+    ],
+  },
+  {
+    id: 7,
+    customer: "Heidelberg Materials",
+    remainingLoads: "4 of 16",
+    completion: "94%",
+    details: [],
+  },
+  {
+    id: 8,
+    customer: "Martin Marietta",
+    remainingLoads: "6 of 19",
+    completion: "91%",
+    details: [
+      {
+        pickup: "Resolve Ravenna2",
+        deliver: "4958 McKinney",
+        material: "TX126 – 1” to #4 Crushed Stone",
+        tonage: "24.50",
+        rate: "$14.50",
+      },
+    ],
+  },
+  {
+    id: 9,
+    customer: "Resolve Aggregates",
+    remainingLoads: "7 of 22",
+    completion: "89%",
+    details: [],
+  },
+  {
+    id: 10,
+    customer: "RPM xConstruction",
+    remainingLoads: "1 of 12",
+    completion: "99%",
+    details: [
+      {
+        pickup: "AMRIZE-Rosser",
+        deliver: "4966 Melissa",
+        material: "Flex Base",
+        tonage: "30.00",
+        rate: "$16.00",
+      },
+    ],
+  },
+  {
+    id: 11,
+    customer: "Martin Marietta",
+    remainingLoads: "3 of 14",
+    completion: "97%",
     details: [],
   },
 ];
@@ -166,11 +232,11 @@ const LoadsRemainingModal = ({ isOpen, onClose }: LoadsRemainingModalProps) => {
                     <table className="w-full border-collapse">
                       <thead>
                         <tr className="text-sm font-semibold text-[#343434] border-b border-[#A8CDEE]">
-                          <th className="text-left py-2">Pickup</th>
-                          <th className="text-left py-2">Deliver</th>
-                          <th className="text-left py-2">Material</th>
-                          <th className="text-left py-2">Tonnage</th>
-                          <th className="text-left py-2">Rate</th>
+                          <th className="text-left p-2">Pickup</th>
+                          <th className="text-left p-2">Deliver</th>
+                          <th className="text-left p-2">Material</th>
+                          <th className="text-left p-2">Tonnage</th>
+                          <th className="text-left p-2">Rate</th>
                         </tr>
                       </thead>
 
@@ -180,11 +246,11 @@ const LoadsRemainingModal = ({ isOpen, onClose }: LoadsRemainingModalProps) => {
                             key={idx}
                             className="text-sm text-[#6B7280] border-b border-[#BFD9F0]"
                           >
-                            <td className="py-2">{detail.pickup}</td>
-                            <td className="py-2">{detail.deliver}</td>
-                            <td className="py-2">{detail.material}</td>
-                            <td className="py-2">{detail.tonage}</td>
-                            <td className="py-2">{detail.rate}</td>
+                            <td className="p-2">{detail.pickup}</td>
+                            <td className="p-2">{detail.deliver}</td>
+                            <td className="p-2">{detail.material}</td>
+                            <td className="p-2">{detail.tonage}</td>
+                            <td className="p-2">{detail.rate}</td>
                           </tr>
                         ))}
                       </tbody>

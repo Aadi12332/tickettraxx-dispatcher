@@ -5,6 +5,7 @@ import CommonTextInput from "../../common/CommonTextInput";
 import CommonSelectInput from "../../common/CommonSelectInput";
 import CommonButton from "../../common/CommonButton";
 import dayjs from "dayjs";
+import { poCustomerOptions } from "../../../utils/data";
 
 interface FscData {
   customer: string;
@@ -19,35 +20,6 @@ interface CreateFscModalProps {
   isEdit?: boolean;
   editData?: FscData | null;
 }
-
-export const customerOptions = [
-  { label: "All Customers", value: "All" },
-  { label: "MM-Martini Marietta", value: "MM-Martini Marietta" },
-  { label: "MM-Maplewood Mart", value: "MM-Maplewood Mart" },
-  { label: "RR-Riverview Retailers", value: "RR-Riverview Retailers" },
-  { label: "OO-Oakridge Outfitters", value: "OO-Oakridge Outfitters" },
-  { label: "PVP-Pine Valley Provisions", value: "PVP-Pine Valley Provisions" },
-  { label: "CGG-Cedar Grove Goods", value: "CGG-Cedar Grove Goods" },
-  { label: "WCW-Willow Creek Warehouse", value: "WCW-Willow Creek Warehouse" },
-  { label: "LL-Lakewood Logistics", value: "LL-Lakewood Logistics" },
-  { label: "BB-Brookfield Bazaar", value: "BB-Brookfield Bazaar" },
-  {
-    label: "SSS-Silver Springs Supplies",
-    value: "SSS-Silver Springs Supplies",
-  },
-  { label: "GG-Greenfield Grocers", value: "GG-Greenfield Grocers" },
-  { label: "FP-Fairview Finds", value: "FP-Fairview Finds" },
-  { label: "CC-Crestwood Creations", value: "CC-Crestwood Creations" },
-  { label: "SS-Springdale Solutions", value: "SS-Springdale Solutions" },
-  { label: "MM-Meadowbrook Market", value: "MM-Meadowbrook Market" },
-  { label: "HH-Hilltop Hub", value: "HH-Hilltop Hub" },
-  { label: "EE-Eastwood Essentials", value: "EE-Eastwood Essentials" },
-  { label: "AMRIZE", value: "AMRIZE" },
-  { label: "HEIDELBERG MATERIALS", value: "HEIDELBERG MATERIALS" },
-  { label: "RAVENNA-1", value: "RAVENNA-1" },
-  { label: "RAVENNA-2", value: "RAVENNA-2" },
-  { label: "MARTIN MARETTA", value: "MARTIN MARETTA" },
-];
 
 const initialState = {
   customer: "",
@@ -118,7 +90,7 @@ const CreateFscModal = ({
               <CommonSelectInput
                 label="Customer"
                 value={form.customer}
-                options={customerOptions}
+                options={poCustomerOptions}
                 onChange={(value) =>
                   setForm((prev) => ({
                     ...prev,

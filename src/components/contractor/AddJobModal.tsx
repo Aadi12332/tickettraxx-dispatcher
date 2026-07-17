@@ -11,69 +11,31 @@ interface AddJobModalProps {
 
 export const materialOptions = [
   { label: "1' Rock", value: "1' Rock" },
-  { label: "Sturdy Cedar Titan", value: "Sturdy Cedar Titan" },
-  { label: "Bold Trailblazer X", value: "Bold Trailblazer X" },
-  { label: "Wilderness Warrior 4x4", value: "Wilderness Warrior 4x4" },
   {
-    label: "Innovative Freightliner Explorer",
-    value: "Innovative Freightliner Explorer",
+    label: "Manufactured Sand (Man Sand)",
+    value: "Manufactured Sand (Man Sand)",
+  },
+  { label: "Concrete Sand", value: "Concrete Sand" },
+  {
+    label: "TX126 – 1” to #4 Crushed Stone",
+    value: "TX126 – 1” to #4 Crushed Stone",
   },
   {
-    label: "789 Granite Way, Stonehaven",
-    value: "789 Granite Way, Stonehaven",
+    label: "TX197 – TXDOT Type A Grade 1-2",
+    value: "TX197 – TXDOT Type A Grade 1-2",
   },
   {
-    label: "246 Riverbend Rd, Summit City",
-    value: "246 Riverbend Rd, Summit City",
+    label: "TX157 – ¾” to #4 Crushed Stone",
+    value: "TX157 – ¾” to #4 Crushed Stone",
   },
   {
-    label: "512 Mountain View Dr, Timber Falls",
-    value: "512 Mountain View Dr, Timber Falls",
+    label: "TX373-Washed Concrete Sand",
+    value: "TX373-Washed Concrete Sand",
   },
+  { label: "Flex Base", value: "Flex Base" },
   {
-    label: "478 Pebble Path, Brookstone",
-    value: "478 Pebble Path, Brookstone",
-  },
-  {
-    label: "963 Crystal Lake Rd, Jewel Valley",
-    value: "963 Crystal Lake Rd, Jewel Valley",
-  },
-  {
-    label: "321 Hillcrest Blvd, Boulder Heights",
-    value: "321 Hillcrest Blvd, Boulder Heights",
-  },
-  {
-    label: "654 Cliffside St, Vista Point",
-    value: "654 Cliffside St, Vista Point",
-  },
-  {
-    label: "789 Flint Ridge Dr, Crestwood",
-    value: "789 Flint Ridge Dr, Crestwood",
-  },
-  {
-    label: "852 Granite Way, Spring Valley",
-    value: "852 Granite Way, Spring Valley",
-  },
-  {
-    label: "963 Brookstone Ln, Meadowview",
-    value: "963 Brookstone Ln, Meadowview",
-  },
-  { label: "147 Summit Rd, Hilltop", value: "147 Summit Rd, Hilltop" },
-  {
-    label: "258 Stonebridge Ave, Eastwood",
-    value: "258 Stonebridge Ave, Eastwood",
-  },
-  {
-    label: "741 Canyon Ridge Rd, Pine Grove",
-    value: "741 Canyon Ridge Rd, Pine Grove",
-  },
-  {
-    label: "884 Oak Valley Blvd, Maple Creek",
-    value: "884 Oak Valley Blvd, Maple Creek",
-  },
-  {
-    label: "519 Riverstone Dr, Cedar Hills",
-    value: "519 Riverstone Dr, Cedar Hills",
+    label: "TX121 – 1-1/2” Crushed Stone",
+    value: "TX121 – 1-1/2” Crushed Stone",
   },
 ];
 

@@ -153,13 +153,13 @@ const LiveShipmentTrackingCard = ({ data }: LiveShipmentTrackingCardProps) => {
                 <div className="text-gray-400 text-xs mb-1 font-normal">
                   Pickup:
                 </div>
-                <div className="font-semibold text-xs xl:text-sm">Sunnyvale Park</div>
+                <div className="font-semibold text-xs xl:text-sm">HBERG-LakeBP</div>
               </div>
               <div>
                 <div className="text-gray-400 text-xs mb-1 font-normal">
                   Delivery:
                 </div>
-                <div className="font-semibold text-xs xl:text-sm">Greenwood Station</div>
+                <div className="font-semibold text-xs xl:text-sm">4950 Plano</div>
               </div>
             </div>
 
